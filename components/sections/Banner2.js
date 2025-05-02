@@ -23,7 +23,7 @@ export default function Banner2() {
                 <div className="container">
                     <div className="row align-items-center justify-content-center">
                         <div className="col-lg-6 col-md-10 order-0 order-lg-2">
-                            {/* <div className="banner-img-wrap">
+                            <div className="banner-img-wrap">
                                 <div className="lazy-video-target">
                                     <img
                                         src="/assets/img/banner/banner_bg.jpg"
@@ -38,7 +38,7 @@ export default function Banner2() {
                                 <div className="overly-text">
                                     <h2 className="title">Kletz Contracting</h2>
                                 </div>
-                            </div> */}
+                            </div>
                         </div>
                         <div className="col-lg-6">
                             <div className="banner-content-two">
