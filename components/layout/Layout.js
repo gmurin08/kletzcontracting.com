@@ -22,7 +22,7 @@ export default function Layout({ headerCls, headerTop, headTitle, breadcrumbTitl
             }
         };
 
-        initWOW();
+        //initWOW();
     }, []);
 
     return (
