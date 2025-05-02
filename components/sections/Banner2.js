@@ -5,7 +5,6 @@ export default function Banner2() {
         <section
             className="banner-area-two"
             style={{
-                backgroundImage: "url('/assets/img/banner/banner_bg.jpg')",
                 backgroundSize: "cover",
                 backgroundPosition: "center",
                 padding: "80px 0",
