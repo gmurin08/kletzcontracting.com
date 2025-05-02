@@ -1,5 +1,6 @@
 import { useState } from "react";
-import { isValidEmail,isValidPhone} from '../../util/validation'
+import { isValidEmail, isValidPhone } from "../../util/validation";
+
 export default function AppointmentVert() {
   const [form, setForm] = useState({
     name: "",
@@ -40,7 +41,6 @@ export default function AppointmentVert() {
 
     const params = new URLSearchParams(form).toString();
     const ghlFormURL = `https://your-ghl-form.com/?${params}`;
-
     window.location.href = ghlFormURL;
   };
 
@@ -48,21 +48,45 @@ export default function AppointmentVert() {
     <section className="appointment-area-two pb-120">
       <div className="container">
         <div className="row">
-          <div className="col-lg-12">
-            <div
-              className="appointment-inner-two tg-heading-subheading animation-style3"
-              data-background="/assets/img/bg/appointment_bg.jpg">
-              <div style={{display:'flex', flexDirection:'row', alignItems:'baseline'}}>
-              <img src="./assets/img/logo/kletz.png" style={{width:'120px', height:'50px'}} alt="" />
-              <h2 className="title tg-element-title">Schedule Your Free Estimate</h2>
+          <div className="col-lg-12 position-relative">
+            {/* Inline background image replacement */}
+            <img
+              src="/assets/img/bg/appointment_bg.jpg"
+              alt="Appointment background"
+              width="1920"
+              height="800"
+              style={{
+                position: "absolute",
+                inset: 0,
+                zIndex: -1,
+                width: "100%",
+                height: "100%",
+                objectFit: "cover",
+              }}
+              loading="eager"
+              fetchPriority="high"
+            />
+
+            <div className="appointment-inner-two tg-heading-subheading">
+              <div style={{ display: "flex", flexDirection: "row", alignItems: "center", gap: "1rem" }}>
+                <img
+                  src="/assets/img/logo/kletz.png"
+                  alt="Kletz Contracting logo"
+                  width="120"
+                  height="50"
+                  loading="eager"
+                />
+                <h2 className="title">Schedule Your Free Estimate</h2>
               </div>
-              <form onSubmit={handleSubmit}>
+
+              <form onSubmit={handleSubmit} noValidate>
                 <div className="row">
                   {error && (
                     <div className="col-12">
                       <p style={{ color: "red", fontWeight: "bold" }}>{error}</p>
                     </div>
                   )}
+
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <input
@@ -71,9 +95,11 @@ export default function AppointmentVert() {
                         placeholder="Your Name"
                         value={form.name}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
+
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <input
@@ -82,20 +108,24 @@ export default function AppointmentVert() {
                         placeholder="Phone"
                         value={form.phone}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
+
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <input
                         name="zip"
-                        type="number"
+                        type="text"
                         placeholder="Service Zip Code"
                         value={form.zip}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
+
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <input
@@ -104,9 +134,11 @@ export default function AppointmentVert() {
                         placeholder="Email"
                         value={form.email}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
+
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <textarea
@@ -117,11 +149,13 @@ export default function AppointmentVert() {
                       />
                     </div>
                   </div>
+
                   <div className="col-lg-4">
                     <button type="submit" className="btn">Submit</button>
                   </div>
                 </div>
               </form>
+
             </div>
           </div>
         </div>
