@@ -1,17 +1,9 @@
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
-import { useRouter } from "next/router"
-import { useEffect, useState } from "react"
-import data from "@util/blog.json"
+import data from "../../util/blog.json"
 
-export default function BlogDetails() {
-    let Router = useRouter()
-    const [blogPost, setBlogPost] = useState(null)
-    const { id } = Router.query
-
-    useEffect(() => {
-        setBlogPost(data.find((data) => data.id == id))
-    }, [id])
+export default function BlogDetails({blogPost}) {
+    
 
     return (
         <>
@@ -327,6 +319,8 @@ export default function BlogDetails() {
     )
 }
 
+import blogData from "@/util/blog.json";
+
 export async function getStaticPaths() {
     const paths = blogData.map((post) => ({
         params: { id: post.id.toString() },
@@ -334,7 +328,7 @@ export async function getStaticPaths() {
 
     return {
         paths,
-        fallback: false, // or true/‘blocking’ if you want to allow more IDs later
+        fallback: false,
     };
 }
 
