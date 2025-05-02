@@ -58,7 +58,7 @@ export default function Banner2() {
                         </div>
                     </div>
                 </div>
-                <div className="banner-shape-wrap">
+                {/* <div className="banner-shape-wrap">
                     <ul className="list-wrap">
                         <li><img src="/assets/img/banner/h3_banner_shape01.png" alt="" className="layer" data-depth="0.3" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape02.png" alt="" className="layer" data-depth="0.3" /></li>
@@ -68,7 +68,7 @@ export default function Banner2() {
                         <li><img src="/assets/img/banner/h3_banner_shape06.png" alt="" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape07.png" alt="" className="rotateme" /></li>
                     </ul>
-                </div>
+                </div> */}
             </section>
         </>
     );
