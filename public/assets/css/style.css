@@ -1467,9 +1467,10 @@ label {
 	justify-content: center;
 }
 .brand-item img {
+	width:100px;
 	cursor: pointer;
 	transition: .3s ease-in-out;
-	max-height: 47px;
+	max-height: 100pxpx;
 	filter: grayscale(100%);
 }
 .brand-item img:hover {

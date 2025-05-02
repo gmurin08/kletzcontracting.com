@@ -33,7 +33,7 @@ export default function CountUp({ end, duration }) {
                     clearInterval(interval)
                     return end
                 } else {
-                    return newCount
+                    return newCount 
                 }
             })
         }, 1000 / duration)

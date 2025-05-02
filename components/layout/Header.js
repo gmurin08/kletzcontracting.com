@@ -73,22 +73,23 @@ export default function Header({ headerCls, headerTop }) {
                                 <div className="menu-wrap">
                                     <nav className="menu-nav">
                                         <div className="logo different-logo">
-                                            <Link href="/"><img src="/assets/img/logo/kletz.png" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/KletzLogo.png" alt="Logo" /></Link>
                                         </div>
                                         <div className="logo d-none">
-                                            <Link href="/"><img src="/assets/img/logo/kletz.png" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/KletzLogo.png" alt="Logo" /></Link>
                                         </div>
                                         <div className="navbar-wrap main-menu d-none d-lg-flex">
                                             <ul className="navigation">
-                                                <li><Link href="/index-3">Home</Link></li>
+                                                <li><Link href="/">Home</Link></li>
                                                 <li><Link href="/about">About us</Link></li>
-                                                <li className="menu-item-has-children"><Link href="/#">Services</Link>
+                                                <li><Link href={"/services"}>Services</Link></li>
+                                                {/* <li className="menu-item-has-children"><Link href="/services">Services</Link>
                                                     <ul className="sub-menu">
                                                         <li><Link href="/services">Services Page</Link></li>
                                                         <li><Link href="/services-details">Services Details</Link></li>
                                                     </ul>
-                                                </li>
-                                                <li className="menu-item-has-children"><Link href="/#">Pages</Link>
+                                                </li> */}
+                                                {/* <li className="menu-item-has-children"><Link href="/#">Pages</Link>
                                                     <ul className="sub-menu">
                                                         <li><Link href="/project">Project Page</Link></li>
                                                         <li><Link href="/project-details">Project Details</Link></li>
@@ -96,8 +97,8 @@ export default function Header({ headerCls, headerTop }) {
                                                         <li><Link href="/team-details">Team Details</Link></li>
                                                         <li><Link href="/error">404 Error</Link></li>
                                                     </ul>
-                                                </li>
-                                                <li><Link href='#'>Serice Areas</Link></li>
+                                                </li> */}
+                                                <li><Link href='/service-areas'>Serice Areas</Link></li>
                                                 <li><Link href="/blog">Blog</Link></li>
                                                 <li><Link href="/contact">Contact</Link></li>
                                             </ul>

@@ -22,15 +22,16 @@ export default function Sidebar() {
     return (
         <>
             <ul className="navigation">
-                <li><Link href="/index-3">Home</Link></li>
+                <li><Link href="/">Home</Link></li>
                 <li><Link href="/about">About us</Link></li>
-                <li className="menu-item-has-children"><Link href="#">Services</Link>
+                <li><Link href="/services">Services</Link></li>
+                {/* <li className="menu-item-has-children"><Link href="/services">Services</Link>
                     <ul className="sub-menu" style={{ display: `${isActive.key == 2 ? "block" : "none"}` }}>
                         <li><Link href="/services">Services Page</Link></li>
                         <li><Link href="/services-details">Services Details</Link></li>
                     </ul>
                     <div className="dropdown-btn" onClick={() => handleToggle(2)}><span className="fas fa-angle-down" /></div></li>
-
+                    <li><Link href='/service-areas'>Serice Areas</Link></li> */}
                 <li><Link href="/project">Projects</Link></li>
                 <li><Link href="/blog">Blog</Link></li>
                 <li><Link href="/contact">Contact</Link></li>

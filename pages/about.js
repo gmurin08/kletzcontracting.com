@@ -37,14 +37,14 @@ export default function About() {
                                 <div className="history-img-wrap">
                                     <ul className="list-wrap">
                                         <li>
-                                            <img src="/assets/img/images/history_img01.jpg" alt="" />
+                                            <img src="/assets/img/images/kletz_crew.jpg" alt="" />
                                         </li>
                                         <li>
-                                            <img src="/assets/img/images/history_img02.jpg" alt="" />
-                                            <VideoPopup />
+                                            <img src="/assets/img/images/john.jpg" alt="" />
+                                            {/* <VideoPopup /> */}
                                         </li>
                                         <li>
-                                            <img src="/assets/img/images/history_img03.jpg" alt="" />
+                                            <img src="/assets/img/images/kletz_roof.png" alt="" />
                                         </li>
                                     </ul>
                                 </div>
@@ -52,16 +52,18 @@ export default function About() {
                             <div className="col-lg-6">
                                 <div className="history-content">
                                     <div className="section-title mb-20">
-                                        <span className="sub-title">Our Roofing History</span>
-                                        <h2 className="title">Roofing when an unknown printer took to make type book</h2>
+                                        <span className="sub-title">Our Story</span>
+                                        <h2 className="title">Pittsburgh Roofing Expertise Built on Trust & Hard Work</h2>
                                     </div>
-                                    <p>There are many variations of passages of Lorem Ipsum available, but the majori our as have suffered alteration in some form, by injected humour, or randomised word which don't look even slightly believable.</p>
+                                    <p>
+                                        Kletz Contracting was founded on the belief that every homeowner deserves reliable, high-quality roofing and exterior services delivered with honesty and professionalism. From our first project to today, we've built our reputation by showing up on time, standing behind our work, and treating our clients like neighbors—because they are.
+                                    </p>
                                     <div className="history-list">
                                         <ul className="list-wrap">
-                                            <li><i className="fas fa-check-circle" />Technology management</li>
-                                            <li><i className="fas fa-check-circle" />Roofing Solutions</li>
-                                            <li><i className="fas fa-check-circle" />Modern Worker Working here</li>
-                                            <li><i className="fas fa-check-circle" />Quick Response</li>
+                                            <li><i className="fas fa-check-circle" />Locally owned and operated with deep community ties</li>
+                                            <li><i className="fas fa-check-circle" />Responsive service and clear communication</li>
+                                            <li><i className="fas fa-check-circle" />Hands-on leadership and skilled crews</li>
+                                            <li><i className="fas fa-check-circle" />Modern materials with time-tested craftsmanship</li>
                                         </ul>
                                     </div>
                                 </div>

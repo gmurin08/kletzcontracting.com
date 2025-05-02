@@ -12,8 +12,8 @@ export default function Footer1() {
                                     <div className="footer-widget">
                                         <h2 className="fw-title">About Us</h2>
                                         <div className="footer-content">
-                                            <p>There are many variations of passages of Lore Ipsum available, but the majori have alteration in some form, by injected humour, ondomised word which don't look</p>
-                                            <div className="footer-newsletter">
+                                            <p>Kletz Contracting is a trusted name in Pittsburgh for high-quality roofing and exterior solutions. From small repairs to full-scale roof replacements, our team delivers precision, durability, and craftsmanship on every project.</p>
+                                        <div className="footer-newsletter">
                                                 <h4 className="title">Subscribe to Our Newsletter</h4>
                                                 <form action="#">
                                                     <input type="text" placeholder="Enter your email" />
@@ -28,12 +28,12 @@ export default function Footer1() {
                                         <h2 className="fw-title">Our Services</h2>
                                         <div className="footer-link">
                                             <ul className="list-wrap">
-                                                <li><Link href="/project"><i className="fas fa-angle-double-right" />Single Ply Roofing</Link></li>
-                                                <li><Link href="/project"><i className="fas fa-angle-double-right" />Modified Roofing</Link></li>
-                                                <li><Link href="/project"><i className="fas fa-angle-double-right" />Built-Up Roofing</Link></li>
-                                                <li><Link href="/project"><i className="fas fa-angle-double-right" />Metal Roofing</Link></li>
-                                                <li><Link href="/project"><i className="fas fa-angle-double-right" />Vegetative Roofing</Link></li>
-                                                <li><Link href="/project"><i className="fas fa-angle-double-right" />Specialty Metal</Link></li>
+                                                <li><Link href="/services/roofing/roof-replacement"><i className="fas fa-angle-double-right" />Roof Replacement</Link></li>
+                                                <li><Link href="/services/roofing/roof-repair"><i className="fas fa-angle-double-right" />Roof Repair</Link></li>
+                                                <li><Link href="/services/siding-installation"><i className="fas fa-angle-double-right" />Siding Installation</Link></li>
+                                                <li><Link href="/services/roofing/gutter-installation"><i className="fas fa-angle-double-right" />Gutter Installation</Link></li>
+                                                <li><Link href="/services/roofing/roof-inspection"><i className="fas fa-angle-double-right" />Roof Inspections</Link></li>
+                                                <li><Link href="/services/roofing/storm-damage-repair"><i className="fas fa-angle-double-right" />Storm Damage Repair</Link></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -43,11 +43,11 @@ export default function Footer1() {
                                         <h2 className="fw-title">Quick Links</h2>
                                         <div className="footer-link">
                                             <ul className="list-wrap">
-                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Terms  Conditions</Link></li>
-                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Tax  Vat</Link></li>
-                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Refund Policy</Link></li>
-                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Typically Solutions</Link></li>
-                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Our Process</Link></li>
+                                                <li><Link href="/about"><i className="fas fa-angle-double-right" />About Us</Link></li>
+                                                <li><Link href="/services"><i className="fas fa-angle-double-right" />Our Services</Link></li>
+                                                <li><Link href="/projects"><i className="fas fa-angle-double-right" />Past Projects</Link></li>
+                                                <li><Link href="/reviews"><i className="fas fa-angle-double-right" />Customer Reviews</Link></li>
+                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Get a Quote</Link></li>
                                                 <li><Link href="/contact"><i className="fas fa-angle-double-right" />Contact Us</Link></li>
                                             </ul>
                                         </div>
@@ -124,8 +124,8 @@ export default function Footer1() {
                                 <div className="col-md-6">
                                     <div className="footer-bootom-menu">
                                         <ul className="list-wrap">
-                                            <li><Link href="/contact">Privacy Policy</Link></li>
-                                            <li><Link href="/contact">Terms  Conditions</Link></li>
+                                            <li><Link href="/privacy-policy">Privacy Policy</Link></li>
+                                            <li><Link href="/terms-and-conditions">Terms & Conditions</Link></li>
                                         </ul>
                                     </div>
                                 </div>

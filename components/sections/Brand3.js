@@ -1,6 +1,6 @@
 import Slider from "react-slick"
 const brandSlider = {
-    dots: false,
+    dots: true,
     infinite: true,
     speed: 1000,
     autoplay: true,
@@ -41,47 +41,52 @@ const brandSlider = {
         },
     ]
 }
+
+const images = [
+    {
+        url: '/assets/img/brand/ahn.png',
+        description: 'Allegheny Health Network logo – regional healthcare partner',
+    },
+    {
+        url: '/assets/img/brand/jude.png',
+        description: 'St. Jude Children’s Research Hospital logo – pediatric cancer charity',
+    },
+    {
+        url: '/assets/img/brand/salvation.webp',
+        description: 'The Salvation Army logo – nonprofit community support organization',
+    },
+    {
+        url: '/assets/img/brand/tebow.png',
+        description: 'Tim Tebow Foundation logo – faith-based charitable partner',
+    },
+    {
+        url: '/assets/img/brand/jks.png',
+        description: 'JKS Financial Services logo – financial planning firm partner',
+    },
+    {
+        url: '/assets/img/brand/feeding.png',
+        description: 'Feeding America logo – national hunger relief charity',
+    },
+    {
+        url: '/assets/img/brand/tdi.png',
+        description: 'TDI Financial logo – investment and wealth management partner',
+    },
+];
+
 export default function Brand3() {
     return (
         <>
             <div className="inner-brand-area pt-120 pb-120">
                 <div className="container">
+
                     <Slider {...brandSlider} className="row brand-active-three">
-                        <div className="col-12">
+                        {images.map((image, index) => (
+                        <div className="col-12" key={index}>
                             <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img01.png" alt="" />
+                            <img src={image.url} alt={image.description} />
                             </div>
                         </div>
-                        <div className="col-12">
-                            <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img02.png" alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img03.png" alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img04.png" alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img05.png" alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img06.png" alt="" />
-                            </div>
-                        </div>
-                        <div className="col-12">
-                            <div className="brand-item">
-                                <img src="/assets/img/brand/brand_img03.png" alt="" />
-                            </div>
-                        </div>
+                        ))}
                     </Slider>
                 </div>
             </div>
