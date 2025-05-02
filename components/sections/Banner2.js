@@ -8,9 +8,18 @@ export default function Banner2() {
                     <div className="row align-items-center justify-content-center">
                         <div className="col-lg-6 col-md-10 order-0 order-lg-2">
                             <div className="banner-img-wrap">
-                                <img src="/assets/img/banner/h3_banner_img.jpg" alt="" />
+                            <video
+                                src="/assets/vid/Roof-Rise.mp4"
+                                width="400"
+                                height="303"
+                                style={{ objectFit: "cover", display: "block" }}
+                                autoPlay
+                                muted
+                                loop
+                                playsInline
+                                />
                                 <div className="overly-text">
-                                    <h2 className="title">Roofing Services</h2>
+                                    <h2 className="title">Kletz Contracting</h2>
                                 </div>
                             </div>
                         </div>

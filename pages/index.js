@@ -1,30 +1,35 @@
 import Layout from "@/components/layout/Layout"
 
-import Banner1 from "@/components/sections/Banner1"
-import Brand1 from "@/components/sections/Brand1"
-import Features1 from "@/components/sections/Features1"
-import About1 from "@/components/sections/About1"
-import Services1 from "@/components/sections/Services1"
-import Project1 from "@/components/sections/Project1"
-import Team1 from "@/components/sections/Team1"
-import Counter1 from "@/components/sections/Counter1"
-import Testimonial1 from "@/components/sections/Testimonial1"
+import AboutBanner from "@/components/sections/AboutBanner"
+import Appointment2 from "@/components/sections/Appointment2"
+import Banner2 from "@/components/sections/Banner2"
 import Blog1 from "@/components/sections/Blog1"
+import Counter3 from "@/components/sections/Counter3"
+import Engineer1 from "@/components/sections/Engineer1"
+import Faq1 from "@/components/sections/Faq1"
 import Newsletter1 from "@/components/sections/Newsletter1"
+import Project3 from "@/components/sections/Project3"
+import Services2 from "@/components/sections/Services2"
+import Work1 from "@/components/sections/Work1"
+import Work2 from "@/components/sections/Work2"
 
-export default function Home() {
+export default function Home3() {
 
     return (
         <>
-            <Layout headerCls="transparent-header">
-                <Banner1 />
-                <Features1 />
-                <About1 />
-                <Services1 />
-                <Project1 />
-                <Team1 />
-                <Counter1 />
-                <Testimonial1 />
+            <Layout headerCls="menu-area-three" headerTop>
+                <Banner2 />
+                <Appointment2 />
+                <AboutBanner />
+                <Work1 />
+                <div className="area-bg-three" data-background="/assets/img/bg/area_bg03.jpg" >
+                    <Services2 />
+                    <Counter3 />
+                </div>
+                <Engineer1 />
+                <Work2 />
+                <Project3 />
+                <Faq1 />
                 <Blog1 />
                 <Newsletter1 />
             </Layout>
