@@ -25,10 +25,14 @@ export default function Banner2() {
                         </div>
                         <div className="col-lg-6">
     <div className="banner-content-two">
-        <span className="sub-title wow fadeInUp" data-wow-delay=".2s">Pittsburgh's Premier Roofers</span>
+        {/* <span className="sub-title wow fadeInUp" data-wow-delay=".2s">Pittsburgh's Premier Roofers</span>
         <h2 className="title wow fadeInUp" data-wow-delay=".4s">Expert Roofing Solutions For Steel City Homes</h2>
         <p className="wow fadeInUp" data-wow-delay=".6s">Protecting Pittsburgh homes from harsh winters, summer storms, and everything in between with quality materials and craftsmanship.</p>
-        <Link href="/projects" className="btn wow fadeInUp" data-wow-delay=".8s">Explore Our Work</Link>
+        <Link href="/projects" className="btn wow fadeInUp" data-wow-delay=".8s">Explore Our Work</Link> */}
+        <span className="sub-title wow fadeInUp" >Pittsburgh's Premier Roofers</span>
+        <h2 className="title wow fadeInUp" >Expert Roofing Solutions For Steel City Homes</h2>
+        <p className="wow fadeInUp" >Protecting Pittsburgh homes from harsh winters, summer storms, and everything in between with quality materials and craftsmanship.</p>
+        <Link href="/projects" className="btn wow fadeInUp" >Explore Our Work</Link>
     </div>
 </div>
                     </div>
@@ -39,7 +43,7 @@ export default function Banner2() {
                         <li><img src="/assets/img/banner/h3_banner_shape02.png" alt="" className="layer" data-depth="0.3" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape03.png" alt="" className="layer" data-depth="0.1" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape04.png" alt="" className="layer" data-depth="0.2" /></li>
-                        <li><img src="/assets/img/banner/h3_banner_shape05.png" alt="" className="wow fadeInLeft" data-wow-delay=".4s" /></li>
+                        <li><img src="/assets/img/banner/h3_banner_shape05.png" alt="" className="wow fadeInLeft" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape06.png" alt="" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape07.png" alt="" className="rotateme" /></li>
                     </ul>
