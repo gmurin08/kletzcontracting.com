@@ -43,13 +43,13 @@ export default function Banner2() {
                         </div>
                         <div className="col-lg-6">
                             <div className="banner-content-two">
-                                <span className="sub-title wow fadeInUp">Pittsburgh's Premier Roofers</span>
-                                <h2 className="title wow fadeInUp">Expert Roofing Solutions For Steel City Homes</h2>
-                                <p className="wow fadeInUp">
+                                <span className="sub-title ">Pittsburgh's Premier Roofers</span>
+                                <h2 className="title ">Expert Roofing Solutions For Steel City Homes</h2>
+                                <p className="">
                                     Protecting Pittsburgh homes from harsh winters, summer storms, and everything in
                                     between with quality materials and craftsmanship.
                                 </p>
-                                <Link href="/projects" className="btn wow fadeInUp">
+                                <Link href="/projects" className="btn ">
                                     Explore Our Work
                                 </Link>
                             </div>
