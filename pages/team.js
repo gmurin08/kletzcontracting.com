@@ -176,3 +176,11 @@ export default function Team() {
         </>
     )
 }
+
+
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  

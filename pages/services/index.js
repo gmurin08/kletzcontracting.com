@@ -79,3 +79,9 @@ export default function Service() {
         </>
     )
 }
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  

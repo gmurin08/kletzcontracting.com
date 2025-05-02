@@ -145,3 +145,10 @@ export default function ServiceDetails() {
         </>
     )
 }
+
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  

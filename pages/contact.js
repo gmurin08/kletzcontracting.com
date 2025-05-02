@@ -17,7 +17,7 @@ export default function Contact() {
                                         </div>
                                         <h2 className="title">Let’s Talk About Your Project</h2>
                                         <p>Whether it’s a roof replacement, emergency repair, or exterior upgrade — tell us what you need. We’ll respond within one business day.</p>
-                                    <form action="#" className="contact-form">
+                                    {/* <form action="#" className="contact-form">
                                         <div className="row">
                                             <div className="col-md-6">
                                                 <div className="form-grp">
@@ -47,7 +47,25 @@ export default function Contact() {
                                             <textarea id="message" placeholder="Your Message here" />
                                         </div>
                                         <button className="btn" type="submit">Send Message</button>
-                                    </form>
+                                    </form> */}
+                                    <iframe
+                                        src="https://api.leadconnectorhq.com/widget/form/54Quvx8AZl6lfePNAsrR"
+                                        style={{ width: "100%", height: "750px", border: "none", borderRadius: "3px" }}
+                                        id="inline-54Quvx8AZl6lfePNAsrR"
+                                        data-layout='{"id":"INLINE"}'
+                                        data-trigger-type="alwaysShow"
+                                        data-trigger-value=""
+                                        data-activation-type="alwaysActivated"
+                                        data-activation-value=""
+                                        data-deactivation-type="neverDeactivate"
+                                        data-deactivation-value=""
+                                        data-form-name="Main Contact Form"
+                                        data-layout-iframe-id="inline-54Quvx8AZl6lfePNAsrR"
+                                        data-form-id="54Quvx8AZl6lfePNAsrR"
+                                        title="Main Contact Form"
+                                        />
+                                        <script src="https://link.msgsndr.com/js/form_embed.js" async></script>
+
                                 </div>
                             </div>
 
@@ -61,7 +79,6 @@ export default function Contact() {
                                                 <div className="icon"><i className="fas fa-phone-alt" /></div>
                                                 <div className="content">
                                                 <Link href="tel:4122002475">(412) 200-2475</Link>
-
                                                 </div>
                                             </div>
     
@@ -80,35 +97,7 @@ export default function Contact() {
 
                                                 </div>
                                             </div>
-                                    
-                                    {/* <ul className="list-wrap">
-                                        <li>
-                                            <div className="contact-info-item">
-                                                <div className="icon"><i className="fas fa-phone-alt" /></div>
-                                                <div className="content">
-                                                <Link href="tel:4122002475">(412) 200-2475</Link>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="contact-info-item">
-                                                <div className="icon"><i className="fas fa-envelope" /></div>
-                                                <div className="content">
-                                                <Link href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</Link>
-                                                </div>
-                                            </div>
-                                        </li>
-                                        <li>
-                                            <div className="contact-info-item">
-                                                <div className="icon"><i className="fas fa-map-marker-alt" /></div>
-                                                <div className="content">
-                                                <p>1468 Old Steubenville Pike, Suite D<br />Pittsburgh, PA 15205</p>
-
-                                                </div>
-                                            </div>
-                                        </li>
-                                    </ul> */}
+                            
                                 </div>
 
                                 {/* Google Map */}
@@ -131,3 +120,11 @@ export default function Contact() {
         </>
     )
 }
+
+
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  

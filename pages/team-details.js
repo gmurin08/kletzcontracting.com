@@ -113,3 +113,11 @@ export default function TeamDetails() {
         </>
     )
 }
+
+
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  

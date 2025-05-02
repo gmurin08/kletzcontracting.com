@@ -311,3 +311,11 @@ export default function BlogDetails() {
         </>
     )
 }
+
+
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  

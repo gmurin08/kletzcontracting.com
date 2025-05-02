@@ -96,3 +96,11 @@ export default function Project() {
         </>
     )
 }
+
+
+export async function getStaticProps() {
+    return {
+      props: {}, // you can pass props here if needed
+    };
+  }
+  
