@@ -1,23 +1,6 @@
 import Link from "next/link"
-import { isValidEmail } from "@/util/validation"
-import { useState } from "react"
 
 export default function Footer1() {
-    const [email,setEmail] = useState("")
-    const [error,setError] = useState("")
-    const handleChange = (e) =>{
-        setEmail(e.target.value)
-    }
-
-    const handleSubmit = async (e) =>{
-        e.preventDefault()
-    
-    if(!email) setError("Enter an email address")
-    if(!isValidEmail(email)) setError("Enter a valid email address")
-
-    
-    
-    }
     return (
         <>
             <footer>
@@ -32,8 +15,8 @@ export default function Footer1() {
                                             <p>Kletz Contracting is a trusted name in Pittsburgh for high-quality roofing and exterior solutions. From small repairs to full-scale roof replacements, our team delivers precision, durability, and craftsmanship on every project.</p>
                                         <div className="footer-newsletter">
                                                 <h4 className="title">Subscribe to Our Newsletter</h4>
-                                                <form onSubmit={handleSubmit}>
-                                                    <input type="text" onChange={handleChange} placeholder="Enter your email" />
+                                                <form action="#">
+                                                    <input type="text" placeholder="Enter your email" />
                                                     <button type="submit" className="btn btn-two">Subscribe</button>
                                                 </form>
                                             </div>
@@ -70,7 +53,7 @@ export default function Footer1() {
                                         </div>
                                     </div>
                                 </div>
-                                <div className="col-xl-4 col-lg-5 col-md-6">
+                                {/* <div className="col-xl-4 col-lg-5 col-md-6">
                                     <div className="footer-widget">
                                         <h2 className="fw-title">Instagram Posts</h2>
                                         <div className="footer-instagram">
@@ -96,7 +79,7 @@ export default function Footer1() {
                                             </ul>
                                         </div>
                                     </div>
-                                </div>
+                                </div> */}
                             </div>
                             <div className="footer-logo-area">
                                 <div className="row align-items-center">
@@ -108,10 +91,12 @@ export default function Footer1() {
                                     <div className="col-xl-4 col-lg-4 col-md-6">
                                         <div className="footer-contact">
                                             <div className="icon">
-                                                <i className="fas fa-phone-alt" />
+                                                <Link href="tel:4122002475">
+                                                    <i className="fas fa-phone-alt" />
+                                                </Link>
                                             </div>
                                             <div className="content">
-                                                <Link href="/tel:4122002475">(412) 200-2475</Link>
+                                                <Link href="tel:4122002475">(412) 200-2475</Link>
                                             </div>
                                         </div>
                                     </div>

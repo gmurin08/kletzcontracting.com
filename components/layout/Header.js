@@ -118,7 +118,7 @@ export default function Header({ headerCls, headerTop }) {
                                             <Link href="/"><img src="/assets/img/logo/kletz.png" alt="Logo" /></Link>
                                         </div>
                                         <div className="menu-outer">
-                                            <Sidebar />
+                                            <Sidebar closeMenu={handleToggled} />
                                         </div>
                                         <div className="social-links">
                                             <ul className="clearfix list-wrap">
