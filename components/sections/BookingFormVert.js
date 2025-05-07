@@ -1,6 +1,7 @@
 import { useState } from "react";
 import { isValidEmail, isValidPhone } from "../../util/validation";
-
+import { useRouter } from "next/navigation";
+import { ClientPageRoot } from "next/dist/client/components/client-page";
 export default function AppointmentVert() {
   const [form, setForm] = useState({
     name: "",
@@ -9,6 +10,7 @@ export default function AppointmentVert() {
     email: "",
     message: ""
   });
+  const router = useRouter()
 
   const [error, setError] = useState("");
 
@@ -19,7 +21,7 @@ export default function AppointmentVert() {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     if (!form.name || !form.phone || !form.zip || !form.email) {
@@ -39,9 +41,33 @@ export default function AppointmentVert() {
 
     setError(""); // Clear error on valid submit
 
-    const params = new URLSearchParams(form).toString();
-    const ghlFormURL = `https://your-ghl-form.com/?${params}`;
-    window.location.href = ghlFormURL;
+    const url = window.location.href
+
+    try {
+      const response = await fetch(`/api/ghl-submit`,
+        {
+          method:'POST',
+          headers:{
+            'Content-Type':'application/json'
+          },
+          body:JSON.stringify({
+            name:form.name,
+            phone:form.phone,
+            url:url,
+            zip:form.zip,
+            email:form.email,
+            notes:form.note
+          })
+        }
+      )
+
+      if (response.status === 200){
+          router.push('/thank-you')
+      }
+    } catch (error) {
+      console.log(error)
+    }
+    
   };
 
   return (
