@@ -20,12 +20,23 @@ export default async function handler(req, res) {
     }
 
       // Create Stripe customer if needed
-    const customer = await stripe.customers.create({
-      email: booking.email,
-      name: booking.name,
-      phone: booking.phone,
-      metadata: { booking_id: booking.id }
-    });
+      let customer;
+    if (booking.stripe_customer_id) {
+      customer = await stripe.customers.retrieve(booking.stripe_customer_id);
+    } else {
+      const existingCustomers = await stripe.customers.list({ email: booking.email, limit: 1 });
+      if (existingCustomers.data.length > 0) {
+        customer = existingCustomers.data[0];
+      } else {
+        customer = await stripe.customers.create({
+          email: booking.email,
+          name: booking.name,
+          phone: booking.phone,
+          metadata: { booking_id: booking.id }
+        });
+      }
+      await supabase.from('bookings').update({ stripe_customer_id: customer.id }).eq('id', id);
+    }
   
     const session = await stripe.checkout.sessions.create({
       payment_method_types: ['card'],
