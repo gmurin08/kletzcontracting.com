@@ -11,6 +11,8 @@
         "sass": "sass --watch public/assets/scss/main.scss:public/assets/css/main.css"
     },
     "dependencies": {
+        "@react-email/components": "^0.0.38",
+        "@react-email/render": "^1.1.0",
         "@supabase/supabase-js": "^2.49.4",
         "@vercel/speed-insights": "^1.2.0",
         "eslint": "8.41.0",
