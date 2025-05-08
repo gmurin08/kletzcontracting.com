@@ -1,8 +1,84 @@
 import Layout from "@/components/layout/Layout"
 import Brand3 from "@/components/sections/Brand3"
+import { useState } from "react"
 import Link from "next/link"
+const finderStyle = {
+    outline:'solid red'
+}
+
+const processSideImg = {
+        width: "100%",
+        height: "100%",
+        objectFit: "cover",
+        objectPosition: "center",
+        borderRadius: '15px'
+};
 
 export default function ServiceDetails() {
+
+        // State for form data and submission status
+        const [formData, setFormData] = useState({
+            name: '',
+            email: '',
+            phone: '',
+            dumpster_size: '',
+            address: '',
+            service_date: ''
+        });
+        const [isSubmitting, setIsSubmitting] = useState(false);
+        const [submitStatus, setSubmitStatus] = useState({
+            success: false,
+            error: null
+        });
+    
+        // Handle input changes
+        const handleChange = (e) => {
+            const { name, value } = e.target;
+            setFormData(prevData => ({
+                ...prevData,
+                [name]: value
+            }));
+        };
+    
+        // Handle form submission
+        const handleSubmit = async (e) => {
+            e.preventDefault();
+            setIsSubmitting(true);
+            setSubmitStatus({ success: false, error: null });
+            
+            try {
+                const response = await fetch('/api/dumpster-service/book', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json',
+                    },
+                    body: JSON.stringify(formData),
+                });
+                
+                const data = await response.json();
+                
+                if (!response.ok) {
+                    throw new Error(data.error || 'Failed to submit booking');
+                }
+                
+                // Success
+                setSubmitStatus({ success: true, error: null });
+                // Reset form
+                setFormData({
+                    name: '',
+                    email: '',
+                    phone: '',
+                    dumpster_size: '',
+                    address: '',
+                    service_date: ''
+                });
+            } catch (error) {
+                setSubmitStatus({ success: false, error: error.message });
+            } finally {
+                setIsSubmitting(false);
+            }
+        };
+    
     return (
         <>
             <Layout breadcrumbTitle="Dumpster Rentals">
@@ -11,7 +87,7 @@ export default function ServiceDetails() {
                         <div className="container">
                             <div className="row justify-content-center">
                                 <div className="col-xl-8">
-                                    <div className="services-details-wrap">
+                                    <div className="services-details-wrap" >
                                         <div className="services-details-thumb">
                                             <img src="/assets/img/services/dumpster.jpg" alt="Dumpster Rental" />
                                         </div>
@@ -21,11 +97,10 @@ export default function ServiceDetails() {
 
                                             <div className="services-process-wrap">
                                                 <div className="row justify-content-center">
-                                                    <div className="col-lg-6 col-md-8">
-                                                        <div className="services-process-img">
-                                                            <img src="/assets/img/services/dumpster_process1.jpg" alt="" />
-                                                            <img src="/assets/img/services/dumpster_process2.jpg" alt="" />
-                                                        </div>
+                                                    <div className="col-lg-6 col-md-8" style={{paddingBottom:'40px', display:'flex', alignItems:'center', justifyContent:'center'}}>
+                                                            <div>
+                                                            <img style={processSideImg} src="/assets/img/services/dumpster-process1.jpg" alt="" />
+                                                            </div>
                                                     </div>
                                                     <div className="col-lg-6">
                                                         <div className="services-process-content">
@@ -99,39 +174,90 @@ export default function ServiceDetails() {
                                                 <h2 className="title">Ready to Book Your Dumpster?</h2>
                                                 <p>Fill out the form below to begin your rental. We’ll confirm availability and follow up with next steps.</p>
 
-                                                <form action="/api/booking" method="POST" className="booking-form mt-4">
-                                                    <div className="form-row">
-                                                        <div className="col-md-6 mb-3">
-                                                            <input type="text" name="name" className="form-control" placeholder="Full Name" required />
-                                                        </div>
-                                                        <div className="col-md-6 mb-3">
-                                                            <input type="email" name="email" className="form-control" placeholder="Email Address" required />
-                                                        </div>
+                                                <form onSubmit={handleSubmit} className="booking-form mt-4">
+                                                <div className="form-row">
+                                                    <div className="col-md-6 mb-3">
+                                                        <input 
+                                                            type="text" 
+                                                            name="name" 
+                                                            value={formData.name}
+                                                            onChange={handleChange}
+                                                            className="form-control" 
+                                                            placeholder="Full Name" 
+                                                            required 
+                                                        />
                                                     </div>
-                                                    <div className="form-row">
-                                                        <div className="col-md-6 mb-3">
-                                                            <input type="tel" name="phone" className="form-control" placeholder="Phone Number" required />
-                                                        </div>
-                                                        <div className="col-md-6 mb-3">
-                                                            <select name="dumpster_size" className="form-control" required>
-                                                                <option value="">Select Dumpster Size</option>
-                                                                <option value="10">10 Yard</option>
-                                                                <option value="15">15 Yard</option>
-                                                                <option value="20">20 Yard</option>
-                                                                <option value="30">30 Yard</option>
-                                                            </select>
-                                                        </div>
+                                                    <div className="col-md-6 mb-3">
+                                                        <input 
+                                                            type="email" 
+                                                            name="email" 
+                                                            value={formData.email}
+                                                            onChange={handleChange}
+                                                            className="form-control" 
+                                                            placeholder="Email Address" 
+                                                            required 
+                                                        />
                                                     </div>
-                                                    <div className="form-row">
-                                                        <div className="col-md-12 mb-3">
-                                                            <input type="text" name="address" className="form-control" placeholder="Drop-Off Address" required />
-                                                        </div>
-                                                        <div className="col-md-12 mb-3">
-                                                            <input type="date" name="delivery_date" className="form-control" required />
-                                                        </div>
+                                                </div>
+                                                <div className="form-row">
+                                                    <div className="col-md-6 mb-3">
+                                                        <input 
+                                                            type="tel" 
+                                                            name="phone" 
+                                                            value={formData.phone}
+                                                            onChange={handleChange}
+                                                            className="form-control" 
+                                                            placeholder="Phone Number" 
+                                                            required 
+                                                        />
                                                     </div>
-                                                    <button type="submit" className="btn btn-primary btn-lg">Reserve My Dumpster</button>
-                                                </form>
+                                                    <div className="col-md-6 mb-3">
+                                                        <select 
+                                                            name="dumpster_size" 
+                                                            value={formData.dumpster_size}
+                                                            onChange={handleChange}
+                                                            className="form-control" 
+                                                            required
+                                                        >
+                                                            <option value="">Select Dumpster Size</option>
+                                                            <option value="10">10 Yard</option>
+                                                            <option value="15">15 Yard</option>
+                                                            <option value="20">20 Yard</option>
+                                                            <option value="30">30 Yard</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                                <div className="form-row">
+                                                    <div className="col-md-12 mb-3">
+                                                        <input 
+                                                            type="text" 
+                                                            name="address" 
+                                                            value={formData.address}
+                                                            onChange={handleChange}
+                                                            className="form-control" 
+                                                            placeholder="Drop-Off Address" 
+                                                            required 
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-12 mb-3">
+                                                        <input 
+                                                            type="date" 
+                                                            name="service_date" 
+                                                            value={formData.service_date}
+                                                            onChange={handleChange}
+                                                            className="form-control" 
+                                                            required 
+                                                        />
+                                                    </div>
+                                                </div>
+                                                <button 
+                                                    type="submit" 
+                                                    className="btn btn-primary btn-lg"
+                                                    disabled={isSubmitting}
+                                                >
+                                                    {isSubmitting ? 'Processing...' : 'Reserve My Dumpster'}
+                                                </button>
+                                            </form>
                                             </div>
 
                                         </div>

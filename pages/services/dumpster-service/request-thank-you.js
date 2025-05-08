@@ -18,7 +18,7 @@ export default function ThankYou() {
                                             style={{ width: '150px', paddingBottom: '30px' }}
                                         />
                                     </div>
-                                    <h2 className="title">Thanks for Booking Your Dumpster!</h2>
+                                    <h2 className="title">Thanks for Booking Your Dumpster with Kletz!</h2>
                                     <p style={{ fontSize: '16px', marginBottom: '24px' }}>
                                         We've received your request and our team is currently reviewing the details.
                                     </p>
