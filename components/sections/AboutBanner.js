@@ -1,9 +1,12 @@
 import Link from "next/link"
 
+const containerStyle ={
+    paddingTop:'20px'
+}
 export default function AboutBanner() {
     return (
         <>
-            <section className="about-area inner-about-area pt-120 pb-120">
+            <section className="about-area inner-about-area pt-120 pb-120" style={containerStyle}>
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-xl-7 col-lg-6 order-0 order-lg-2">

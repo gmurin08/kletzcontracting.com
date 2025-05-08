@@ -1,62 +1,33 @@
-// import Link from "next/link"
-
-
-// export default function Services2() {
-//     return (
-//         <>
-//             <section className="services-area-two pb-90">
-//                 <div className="container">
-//                     <div className="row justify-content-center">
-//                         <div className="col-lg-12">
-//                             <div className="section-title white-title text-center mb-60 tg-heading-subheading animation-style3">
-//                                 <span className="sub-title tg-element-title">Discover Our Company</span>
-//                                 <h2 className="title tg-element-title">See Our Roofing Services Details</h2>
-//                             </div>
-//                         </div>
-//                     </div>
-//                     <div className="row">
-//                         <div className="col-lg-6">
-//                             <div className="services-item-two">
-//                                 <div className="services-thumb-two">
-//                                     <Link href="/services-details"><img src="/assets/img/services/h3_services_img01.jpg" alt="" /></Link>
-//                                 </div>
-//                                 <div className="services-content-two">
-//                                     <div className="icon">
-//                                         <img src="/assets/img/icon/services_icon01.svg" alt="" />
-//                                     </div>
-//                                     <div className="content">
-//                                         <h2 className="title"><Link href="/services-details">Quality Materials</Link></h2>
-//                                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                         <div className="col-lg-6">
-//                             <div className="services-item-two">
-//                                 <div className="services-thumb-two">
-//                                     <Link href="/services-details"><img src="/assets/img/services/h3_services_img02.jpg" alt="" /></Link>
-//                                 </div>
-//                                 <div className="services-content-two">
-//                                     <div className="icon">
-//                                         <img src="/assets/img/icon/services_icon02.svg" alt="" />
-//                                     </div>
-//                                     <div className="content">
-//                                         <h2 className="title"><Link href="/services-details">Install Metal Roofing</Link></h2>
-//                                         <p>There are many variations of passages of Lorem Ipsum available, but the majority have suffered.</p>
-//                                     </div>
-//                                 </div>
-//                             </div>
-//                         </div>
-//                     </div>
-//                 </div>
-//             </section>
-
-//         </>
-//     )
-// }
 import Link from "next/link";
 
 export default function Services2() {
+  // Define consistent sizing styles
+  const cardStyle = {
+    height: "100%",
+    display: "flex",
+    flexDirection: "column",
+    marginBottom: "30px"
+  };
+  
+  const thumbStyle = {
+    height: "300px", // Fixed height for all image containers
+    overflow: "hidden",
+    position: "relative"
+  };
+  
+  const imageStyle = {
+    width: "100%",
+    height: "100%",
+    objectFit: "cover", // This ensures images maintain aspect ratio while filling container
+    objectPosition: "center"
+  };
+  
+  const contentStyle = {
+    flex: "1",
+    padding: "25px",
+    display: "flex"
+  };
+
   return (
     <section className="services-area-two pb-90">
       <div className="container">
@@ -70,14 +41,18 @@ export default function Services2() {
         </div>
         <div className="row">
           {/* Roofing Replacement */}
-          <div className="col-lg-6">
-            <div className="services-item-two">
-              <div className="services-thumb-two">
+          <div className="col-lg-6" style={{ marginBottom: "30px" }}>
+            <div className="services-item-two" style={cardStyle}>
+              <div className="services-thumb-two" style={thumbStyle}>
                 <Link href="/services/roofing-replacement">
-                  <img src="/assets/img/services/roofing.jpg" alt="Roofing Replacement" />
+                  <img 
+                    src="/assets/img/services/roofing.jpg" 
+                    alt="Roofing Replacement" 
+                    style={imageStyle}
+                  />
                 </Link>
               </div>
-              <div className="services-content-two">
+              <div className="services-content-two" style={contentStyle}>
                 <div className="icon">
                   RR
                 </div>
@@ -91,14 +66,18 @@ export default function Services2() {
             </div>
           </div>
           {/* Kitchen Renovations */}
-          <div className="col-lg-6">
-            <div className="services-item-two">
-              <div className="services-thumb-two">
+          <div className="col-lg-6" style={{ marginBottom: "30px" }}>
+            <div className="services-item-two" style={cardStyle}>
+              <div className="services-thumb-two" style={thumbStyle}>
                 <Link href="/services/kitchen-renovations">
-                  <img src="/assets/img/services/kitchen.jpg" alt="Kitchen Renovations" />
+                  <img 
+                    src="/assets/img/services/kitchen.jpg" 
+                    alt="Kitchen Renovations" 
+                    style={imageStyle}
+                  />
                 </Link>
               </div>
-              <div className="services-content-two">
+              <div className="services-content-two" style={contentStyle}>
                 <div className="icon">
                   KR
                 </div>
@@ -106,20 +85,24 @@ export default function Services2() {
                   <h2 className="title">
                     <Link href="/services/kitchen-renovations">Kitchen Renovations</Link>
                   </h2>
-                  <p>Transform your kitchen into a host’s haven, prioritizing functionality and style for memorable gatherings.</p>
+                  <p>Transform your kitchen into a host's haven, prioritizing functionality and style for memorable gatherings.</p>
                 </div>
               </div>
             </div>
           </div>
           {/* Flooring Replacement */}
-          <div className="col-lg-6">
-            <div className="services-item-two">
-              <div className="services-thumb-two">
+          <div className="col-lg-6" style={{ marginBottom: "30px" }}>
+            <div className="services-item-two" style={cardStyle}>
+              <div className="services-thumb-two" style={thumbStyle}>
                 <Link href="/services/flooring-replacement">
-                  <img src="/assets/img/services/flooring.jpg" alt="Flooring Replacement" />
+                  <img 
+                    src="/assets/img/services/flooring.jpg" 
+                    alt="Flooring Replacement" 
+                    style={imageStyle}
+                  />
                 </Link>
               </div>
-              <div className="services-content-two">
+              <div className="services-content-two" style={contentStyle}>
                 <div className="icon">
                   FR
                 </div>
@@ -133,14 +116,18 @@ export default function Services2() {
             </div>
           </div>
           {/* Commercial Build-outs */}
-          <div className="col-lg-6">
-            <div className="services-item-two">
-              <div className="services-thumb-two">
+          <div className="col-lg-6" style={{ marginBottom: "30px" }}>
+            <div className="services-item-two" style={cardStyle}>
+              <div className="services-thumb-two" style={thumbStyle}>
                 <Link href="/services/commercial-build-outs">
-                  <img src="/assets/img/services/commercial_build_outs.jpg" alt="Commercial Build-outs" />
+                  <img 
+                    src="/assets/img/services/commercial_build_outs.jpg" 
+                    alt="Commercial Build-outs" 
+                    style={imageStyle}
+                  />
                 </Link>
               </div>
-              <div className="services-content-two">
+              <div className="services-content-two" style={contentStyle}>
                 <div className="icon">
                   CB
                 </div>
