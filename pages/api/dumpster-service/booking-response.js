@@ -114,7 +114,7 @@ async function sendEmail(to, subject, html) {
   });
   
   await transporter.sendMail({
-    from: `"KLCTZ Contracting" <${process.env.SMTP_USER}>`,
+    from: `"Kletz Contracting" <${process.env.SMTP_USER}>`,
     to,
     subject,
     html,
@@ -254,7 +254,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
         .action-button {
           display: inline-block;
           padding: 14px 36px;
-          background-color: #990000;
+          background-color:rgb(40, 100, 190);
           color: #ffffff;
           text-decoration: none;
           border-radius: 6px;
@@ -264,7 +264,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           border: none;
         }
         .action-button:hover {
-          background-color: #7a0000;
+          background-color:rgb(80, 200, 94);
         }
         .divider {
           height: 1px;
@@ -281,7 +281,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           border-top: 1px solid #eeeeee;
         }
         .footer a {
-          color: #990000;
+          color:rgb(40, 100, 190);
           text-decoration: none;
         }
         .steps {
@@ -301,7 +301,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           position: absolute;
           left: 0;
           top: 0;
-          background-color: #990000;
+          background-color:rgb(40, 100, 190);
           color: #ffffff;
           width: 30px;
           height: 30px;
@@ -343,7 +343,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
     <body>
       <div class="container">
         <div class="header">
-          <img src="${logoUrl}" alt="KLCTZ Contracting" class="logo">
+          <img src="${logoUrl}" alt="Kletz Contracting" class="logo">
         </div>
         
         <div class="content">
@@ -409,7 +409,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
             <a href="${baseUrl}privacy">Privacy Policy</a> | 
             <a href="${baseUrl}terms">Terms of Service</a>
           </p>
-          <p>123 Main Street, City, State 12345</p>
+          <p>1468 Old Steubenville Pike - Suite D, Pittsburgh, PA 15205</p>
         </div>
       </div>
     </body>
@@ -591,7 +591,7 @@ function generateDeniedEmail({ name, logoUrl, baseUrl }) {
     <body>
       <div class="container">
         <div class="header">
-          <img src="${logoUrl}" alt="KLCTZ Contracting" class="logo">
+          <img src="${logoUrl}" alt="Kletz Contracting" class="logo">
         </div>
         
         <div class="content">
@@ -599,7 +599,7 @@ function generateDeniedEmail({ name, logoUrl, baseUrl }) {
           
           <p>Hi ${name},</p>
           
-          <p>Thank you for choosing KLCTZ Contracting for your dumpster rental needs. We've reviewed your request and unfortunately, we're unable to accommodate your booking for the requested date and location.</p>
+          <p>Thank you for choosing Kletz Contracting for your dumpster rental needs. We've reviewed your request and unfortunately, we're unable to accommodate your booking for the requested date and location.</p>
           
           <div class="message-box">
             <p>This could be due to several reasons including high demand in your area, limited availability of the requested dumpster size, or delivery constraints.</p>
@@ -635,10 +635,10 @@ function generateDeniedEmail({ name, logoUrl, baseUrl }) {
         <div class="footer">
           <p>© ${new Date().getFullYear()} Kletz Contracting Inc. All rights reserved.</p>
           <p>
-            <a href="${baseUrl}privacy">Privacy Policy</a> | 
-            <a href="${baseUrl}terms">Terms of Service</a>
+            <a href="${baseUrl}privacy-policy">Privacy Policy</a> | 
+            <a href="${baseUrl}terms-and-conditions">Terms of Service</a>
           </p>
-          <p>123 Main Street, City, State 12345</p>
+          <p>1468 Old Steubenville Pike - Suite D, Pittsburgh, PA 15205</p>
         </div>
       </div>
     </body>
