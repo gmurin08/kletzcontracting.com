@@ -5,7 +5,7 @@ export default function Document() {
         <Html lang="en" id="top">
             <Head>
                 {/* Basic SEO */}
-                <meta name="viewport" content="width=device-width, initial-scale=1" />
+                {/* <meta name="viewport" content="width=device-width, initial-scale=1" /> */}
                 <meta name="theme-color" content="#ffffff" />
                 <meta name="robots" content="index, follow" />
                 <link rel="canonical" href="https://kletzcontracting.com" />

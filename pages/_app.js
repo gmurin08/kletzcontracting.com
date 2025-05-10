@@ -1,6 +1,6 @@
 import Preloader from "@/components/elements/Preloader"
 import { useState, useEffect } from "react"
-import { SpeedInsights } from "@vercel/speed-insights/next"
+import Head from "next/head"
 import "slick-carousel/slick/slick.css"
 import "slick-carousel/slick/slick-theme.css"
 import "../public/assets/css/bootstrap.min.css"
@@ -17,8 +17,11 @@ import "../public/assets/css/responsive.css"
 function MyApp({ Component, pageProps }) {
   return (
     <>
+      <Head>
+        <meta name="viewport" content="width=device-width, initial-scale=1" />
+      </Head>
       <Component {...pageProps} />
-      <SpeedInsights />
+
     </>
   )
 }
