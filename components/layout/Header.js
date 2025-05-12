@@ -73,10 +73,10 @@ export default function Header({ headerCls, headerTop }) {
                                 <div className="menu-wrap">
                                     <nav className="menu-nav">
                                         <div className="logo different-logo">
-                                            <Link href="/"><img src="/assets/img/logo/KletzLogo.png" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/Kletz-Logo-rs.svg" alt="Logo" /></Link>
                                         </div>
                                         <div className="logo d-none">
-                                            <Link href="/"><img src="/assets/img/logo/KletzLogo.png" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/Kletz-Logo-rs.svg" alt="Logo" /></Link>
                                         </div>
                                         <div className="navbar-wrap main-menu d-none d-lg-flex">
                                             <ul className="navigation">
@@ -115,7 +115,7 @@ export default function Header({ headerCls, headerTop }) {
                                     <nav className="menu-box">
                                         <div className="close-btn" onClick={handleToggled}><i className="fas fa-times" /></div>
                                         <div className="nav-logo">
-                                            <Link href="/"><img src="/assets/img/logo/kletz.png" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/kletz-logo-rs.svg" alt="Logo" /></Link>
                                         </div>
                                         <div className="menu-outer">
                                             <Sidebar closeMenu={handleToggled} />

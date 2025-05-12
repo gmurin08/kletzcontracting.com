@@ -85,7 +85,7 @@ export default function Footer1() {
                                 <div className="row align-items-center">
                                     <div className="col-xl-3 col-lg-3 col-md-12">
                                         <div className="logo">
-                                            <Link href="/index"><img src="/assets/img/logo/kletz.png" alt="" /></Link>
+                                            <Link href="/index"><img src="/assets/img/logo/kletz-logo-rs.svg" alt="" style={{width:'300px'}}/></Link>
                                         </div>
                                     </div>
                                     <div className="col-xl-4 col-lg-4 col-md-6">
