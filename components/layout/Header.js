@@ -102,10 +102,10 @@ export default function Header({ headerCls, headerTop }) {
                                 <div className="menu-wrap">
                                     <nav className="menu-nav">
                                         <div className="logo different-logo">
-                                            <Link href="/"><img src="/assets/img/logo/Kletz-Logo-rs.svg" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/kletz-kogo-rs.svg" alt="Logo" /></Link>
                                         </div>
                                         <div className="logo d-none">
-                                            <Link href="/"><img src="/assets/img/logo/Kletz-Logo-rs.svg" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/kletz-logo-rs.svg" alt="Logo" /></Link>
                                         </div>
                                         <div className="navbar-wrap main-menu d-none d-lg-flex">
                                             <ul className="navigation">
