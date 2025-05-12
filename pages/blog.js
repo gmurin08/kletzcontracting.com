@@ -86,13 +86,14 @@ export default function Blog() {
                                         </div>
                                     </div>
                                     <div className="blog-widget widget-bg" data-background="/assets/img/blog/widget_bg.jpg">
-                                        <h4 className="widget-title">Need Help</h4>
-                                        <div className="sidebar-content">
-                                            <h4 className="title">Beautiful red brick house with decorative lights</h4>
-                                            <p>Sit amet consectetur adipiscing elseds do eius mod tempor incididunt</p>
-                                            <Link href="/contact" className="btn btn-two">Contact Us</Link>
-                                        </div>
-                                    </div>
+  <h4 className="widget-title">Need Roofing Help?</h4>
+  <div className="sidebar-content">
+    <h4 className="title">Trusted Pittsburgh Roofing & Exterior Experts</h4>
+    <p>Have questions about your roof, gutters, or siding? Kletz Contracting is here to help with honest answers and reliable solutions.</p>
+    <Link href="/contact" className="btn btn-two">Get in Touch</Link>
+  </div>
+</div>
+
                                 </aside>
                             </div>
                         </div>

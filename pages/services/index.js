@@ -8,11 +8,12 @@ import SupportingFacts from "@/components/sections/SupportingFacts"
 const services = [
     { id: 1, title: "Roofing", image: "/assets/img/services/roofing.jpg", icon: "/assets/img/icon/services_icon02.svg", slug: "roofing" },
     { id: 2, title: "Siding", image: "/assets/img/services/siding.jpg", icon: "/assets/img/icon/services_icon01.svg", slug: "siding" },
-    { id: 3, title: "Residential Remodeling", image: "/assets/img/services/residential.jpg", icon: "/assets/img/icon/services_icon04.svg", slug: "residential-remodeling" },
+    { id: 3, title: "Residential Remodeling", image: "/assets/img/services/residential.jpg", icon: "/assets/img/icon/services_icon04.svg", slug: "remodeling" },
     { id: 4, title: "Commercial Remodeling", image: "/assets/img/services/commercial.jpg", icon: "/assets/img/icon/commercial.svg", slug: "commercial-remodeling" },
     { id: 5, title: "Home Additions", image: "/assets/img/services/additions.jpg", icon: "/assets/img/icon/addition.svg", slug: "home-additions" },
     { id: 6, title: "Deck Construction", image: "/assets/img/services/decks.jpg", icon: "/assets/img/icon/deck.svg", slug: "deck-construction" },
     { id: 7, title: "Dumpster Services", image: "/assets/img/services/dumpster.jpg", icon: "/assets/img/icon/dumpster.svg", slug: "dumpster-service" },
+    { id: 8, title: "Flooring", image: "/assets/img/services/flooring.jpg", icon: "/assets/img/icons/flooring.svg", slug: "flooring"}
 ]
 export default function Service() {
     const [isActive, setIsActive] = useState({

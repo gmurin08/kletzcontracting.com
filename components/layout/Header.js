@@ -4,13 +4,41 @@ import Sidebar from "./Sidebar"
 
 export default function Header({ headerCls, headerTop }) {
     const [scroll, setScroll] = useState(0)
-
     const [isToggled, setToggled] = useState(false)
+    const [isPopupOpen, setPopupOpen] = useState(false)
+    const [isMobile, setIsMobile] = useState(false)
+    
+    // Check if we're on mobile
+    useEffect(() => {
+        const handleResize = () => {
+            setIsMobile(window.innerWidth < 768)
+        }
+        
+        // Set initial value
+        handleResize()
+        
+        // Add event listener
+        window.addEventListener('resize', handleResize)
+        
+        // Cleanup
+        return () => window.removeEventListener('resize', handleResize)
+    }, [])
+
     const handleToggled = () => {
         setToggled(!isToggled)
         !isToggled ? document.body.classList.add("mobile-menu-visible") : document.body.classList.remove("mobile-menu-visible")
     }
 
+    const openPopup = (e) => {
+        e.preventDefault()
+        setPopupOpen(true)
+        document.body.style.overflow = 'hidden' // Prevent scrolling while popup is open
+    }
+
+    const closePopup = () => {
+        setPopupOpen(false)
+        document.body.style.overflow = 'auto' // Re-enable scrolling
+    }
 
     useEffect(() => {
         document.addEventListener("scroll", () => {
@@ -20,6 +48,7 @@ export default function Header({ headerCls, headerTop }) {
             }
         })
     })
+    
     return (
         <>
 
@@ -98,14 +127,16 @@ export default function Header({ headerCls, headerTop }) {
                                                         <li><Link href="/error">404 Error</Link></li>
                                                     </ul>
                                                 </li> */}
-                                                <li><Link href='/service-areas'>Serice Areas</Link></li>
+                                                <li><Link href='/financing'>Financing</Link></li>
                                                 <li><Link href="/blog">Blog</Link></li>
                                                 <li><Link href="/contact">Contact</Link></li>
                                             </ul>
                                         </div>
                                         <div className="header-action d-none d-md-block">
                                             <ul className="list-wrap">
-                                                <li className="header-btn"><Link href="/contact" className="btn">Get a Quoute</Link></li>
+                                                <li className="header-btn">
+                                                <a onClick={openPopup} className="btn">Get a Quote</a>
+                                                </li>
                                             </ul>
                                         </div>
                                     </nav>
@@ -143,7 +174,83 @@ export default function Header({ headerCls, headerTop }) {
                     </div>
                 </div>
             </header>
-
+            {isPopupOpen && (
+                <div className="ghl-form-popup" 
+                     style={{
+                         position: 'fixed',
+                         top: 0,
+                         left: 0,
+                         width: '100%',
+                         height: '100%',
+                         backgroundColor: 'rgba(0, 0, 0, 0.75)',
+                         zIndex: 9999,
+                         display: 'flex',
+                         justifyContent: 'center',
+                         alignItems: 'center',
+                         padding: '20px'
+                     }}>
+                    <div className="popup-content" 
+                         style={{
+                             backgroundColor: 'white',
+                             borderRadius: '8px',
+                             maxWidth: '800px',
+                             width: '100%',
+                             maxHeight: '90vh',
+                             position: 'relative',
+                             overflow: 'hidden'
+                         }}>
+                        <button 
+                            onClick={closePopup}
+                            style={{
+                                position: 'absolute',
+                                top: '10px',
+                                right: '10px',
+                                background: 'none',
+                                border: 'none',
+                                fontSize: '24px',
+                                cursor: 'pointer',
+                                zIndex: 10000,
+                                color: '#333'
+                            }}>
+                            ×
+                        </button>
+                        <div style={{
+                            padding: '20px',
+                            paddingTop: '40px',
+                            textAlign: 'center',
+                            borderBottom: '1px solid #eee'
+                        }}>
+                            <h3>Request a Quote</h3>
+                            <p>Fill out the form below and we'll get back to you as soon as possible.</p>
+                        </div>
+                        <div style={{
+                            height: isMobile ? '600px' : '700px',
+                            overflow: 'auto'
+                        }}>
+                            <iframe
+                                src="https://api.leadconnectorhq.com/widget/form/54Quvx8AZl6lfePNAsrR"
+                                style={{ 
+                                    width: "100%", 
+                                    height: "100%", 
+                                    border: "none", 
+                                    borderRadius: "0 0 8px 8px"
+                                }}
+                                id="popup-ghl-form"
+                                data-layout='{"id":"INLINE"}'
+                                data-trigger-type="alwaysShow"
+                                data-trigger-value=""
+                                data-activation-type="alwaysActivated"
+                                data-activation-value=""
+                                data-deactivation-type="neverDeactivate"
+                                data-deactivation-value=""
+                                data-form-name="Quote Request Form"
+                                data-form-id="54Quvx8AZl6lfePNAsrR"
+                                title="Quote Request Form"
+                            />
+                        </div>
+                    </div>
+                </div>
+            )}                             
         </>
     )
 }

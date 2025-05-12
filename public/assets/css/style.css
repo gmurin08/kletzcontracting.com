@@ -1146,7 +1146,7 @@ label {
 }
 .banner-img-wrap {
 	position: relative;
-	margin-left: 100px;
+	margin-left: 150px;
 	z-index: 1;
 }
 .banner-img-wrap img {
@@ -1156,9 +1156,9 @@ label {
 .banner-img-wrap::before {
 	content: "";
 	position: absolute;
-	left: 15px;
+	left: 0px;
 	top: 15px;
-	width: 100%;
+	width: 80%;
 	height: 100%;
 	background: #1B2242;
 	border-radius: 10px;
@@ -1166,7 +1166,7 @@ label {
 	transition: .3s linear;
 }
 .banner-img-wrap:hover::before {
-	left: 0;
+	left: -10px;
 	top: 0;
 }
 .banner-img-wrap .overly-text {
@@ -2054,7 +2054,7 @@ label {
 	height: 100%;
 	border-radius: 5px;
 	z-index: -1;
-	background: linear-gradient(100.16deg, #FE5D14 1.96%, rgba(28, 28, 28, 0) 198.08%);
+	background: linear-gradient(100.16deg, #990000 1.96%, rgba(28, 28, 28, 0) 198.08%);
 	opacity: 0;
 	transition: .3s linear;
 }

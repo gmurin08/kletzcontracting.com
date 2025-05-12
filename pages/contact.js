@@ -1,7 +1,8 @@
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
-
+import useMobileResponse from "@/hooks/useMobileResponse";
 export default function Contact() {
+    const isMobile = useMobileResponse()
     return (
         <>
             <Layout breadcrumbTitle="Contact Us">
@@ -10,13 +11,12 @@ export default function Contact() {
                         <div className="row justify-content-center">
                             {/* Contact Form */}
                             <div className="col-xl-6 col-lg-10">
-                                <div className="contact-form-wrap" data-background="/assets/img/images/contact_form_bg.jpg">
-                                        <div>
+                                        {/* <div>
                                             <img src="/assets/img/logo/kletz.png" alt="Kletz Contracting Logo"
                                             style={{width:'150px', paddingBottom:'30px'}} />
                                         </div>
                                         <h2 className="title">Let’s Talk About Your Project</h2>
-                                        <p>Whether it’s a roof replacement, emergency repair, or exterior upgrade — tell us what you need. We’ll respond within one business day.</p>
+                                        <p>Whether it’s a roof replacement, emergency repair, or exterior upgrade — tell us what you need. We’ll respond within one business day.</p> */}
                                     {/* <form action="#" className="contact-form">
                                         <div className="row">
                                             <div className="col-md-6">
@@ -50,7 +50,11 @@ export default function Contact() {
                                     </form> */}
                                     <iframe
                                         src="https://api.leadconnectorhq.com/widget/form/54Quvx8AZl6lfePNAsrR"
-                                        style={{ width: "100%", height: "750px", border: "none", borderRadius: "3px" }}
+                                        style={{ 
+                                            width: "100%", 
+                                            border: "none", 
+                                            borderRadius: "3px" 
+                                        }}
                                         id="inline-54Quvx8AZl6lfePNAsrR"
                                         data-layout='{"id":"INLINE"}'
                                         data-trigger-type="alwaysShow"
@@ -66,7 +70,6 @@ export default function Contact() {
                                         />
                                         <script src="https://link.msgsndr.com/js/form_embed.js" async></script>
 
-                                </div>
                             </div>
 
                             {/* Contact Info & Map */}

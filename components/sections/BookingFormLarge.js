@@ -62,8 +62,8 @@ export default function BookingFormLarge() {
                     <div className="row">
                         <div className="col-lg-12">
                             <div className="section-title white-title mb-60">
-                                <span className="sub-title">Your roof require professional attention</span>
-                                <h2 className="title">Book Your Appointment</h2>
+                                <span className="sub-title">Ready to Get Started?</span>
+                                <h2 className="title">Contact Us</h2>
                             </div>
                         </div>
                     </div>

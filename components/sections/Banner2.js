@@ -45,7 +45,7 @@ export default function Banner2() {
                         <li><img src="/assets/img/banner/h3_banner_shape01.png" alt="" className="layer" data-depth="0.3" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape02.png" alt="" className="layer" data-depth="0.3" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape03.png" alt="" className="layer" data-depth="0.1" /></li>
-                        <li><img src="/assets/img/banner/h3_banner_shape04.png" alt="" className="layer" data-depth="0.2" /></li>
+                        <li><img src="/assets/img/banner/h3_banner_shape04.png" alt="" className="banner-img-wrap" data-depth="0.2" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape05.png" alt="" className="wow fadeInLeft" data-wow-delay=".4s" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape06.png" alt="" /></li>
                         <li><img src="/assets/img/banner/h3_banner_shape07.png" alt="" className="rotateme" /></li>
