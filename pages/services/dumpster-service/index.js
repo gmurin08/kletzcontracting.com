@@ -109,7 +109,7 @@ export default function ServiceDetails() {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/calendar.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Book Online</h4>
@@ -120,7 +120,7 @@ export default function ServiceDetails() {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/truck.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">We Deliver</h4>
@@ -131,11 +131,11 @@ export default function ServiceDetails() {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/credit-card.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Secure Payment</h4>
-                                                                            <p>All payments are handled securely through our Stripe checkout. Future charges like overweight fees or late pickups can be handled easily through your saved method.</p>
+                                                                            <p>All payments are handled securely through Stripe.</p>
                                                                         </div>
                                                                     </div>
                                                                 </li>

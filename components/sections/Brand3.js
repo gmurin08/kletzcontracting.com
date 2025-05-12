@@ -52,7 +52,7 @@ const images = [
         description: 'St. Jude Children’s Research Hospital logo – pediatric cancer charity',
     },
     {
-        url: '/assets/img/brand/salvation.webp',
+        url: '/assets/img/brand/salvation.png',
         description: 'The Salvation Army logo – nonprofit community support organization',
     },
     {

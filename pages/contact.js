@@ -68,7 +68,9 @@ export default function Contact() {
                                         data-form-id="54Quvx8AZl6lfePNAsrR"
                                         title="Main Contact Form"
                                         />
-                                        <script src="https://link.msgsndr.com/js/form_embed.js" async></script>
+
+<script src="https://link.msgsndr.com/js/form_embed.js" async></script>
+
 
                             </div>
 
