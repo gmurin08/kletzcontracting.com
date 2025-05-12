@@ -102,7 +102,7 @@ export default function Header({ headerCls, headerTop }) {
                                 <div className="menu-wrap">
                                     <nav className="menu-nav">
                                         <div className="logo different-logo">
-                                            <Link href="/"><img src="/assets/img/logo/kletz-kogo-rs.svg" alt="Logo" /></Link>
+                                            <Link href="/"><img src="/assets/img/logo/kletz-logo-rs.svg" alt="Logo" /></Link>
                                         </div>
                                         <div className="logo d-none">
                                             <Link href="/"><img src="/assets/img/logo/kletz-logo-rs.svg" alt="Logo" /></Link>
