@@ -170,95 +170,262 @@ export default function ServiceDetails() {
                                                 </div>
                                             </div>
 
-                                            <div className="cta-area text-center mt-60">
-                                                <h2 className="title">Ready to Book Your Dumpster?</h2>
-                                                <p>Fill out the form below to begin your rental. We’ll confirm availability and follow up with next steps.</p>
+<div className="cta-area text-center mt-60">
+<div className="form-header" style={{
+        width: '100%',
+        borderRadius: '8px 8px 0 0',
+        overflow: 'hidden',
+        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
+    }}>
+        <img 
+            src="/assets/img/banner/dumpster_form_banner.png" 
+            alt="Ready to Book Your Dumpster?" 
+            style={{
+                width: '100%',
+                height: 'auto',
+                display: 'block'
+            }}
+        />
+    </div>
 
-                                                <form onSubmit={handleSubmit} className="booking-form mt-4">
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="name" 
-                                                            value={formData.name}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Full Name" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="email" 
-                                                            name="email" 
-                                                            value={formData.email}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Email Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="tel" 
-                                                            name="phone" 
-                                                            value={formData.phone}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Phone Number" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="dumpster_size" 
-                                                            value={formData.dumpster_size}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            required
-                                                        >
-                                                            <option value="">Select Dumpster Size</option>
-                                                            <option value="10">10 Yard</option>
-                                                            <option value="15">15 Yard</option>
-                                                            <option value="20">20 Yard</option>
-                                                            <option value="30">30 Yard</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="address" 
-                                                            value={formData.address}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Drop-Off Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-12 mb-3">
-                                                        <input 
-                                                            type="date" 
-                                                            name="service_date" 
-                                                            value={formData.service_date}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <button 
-                                                    type="submit" 
-                                                    className="btn btn-primary btn-lg"
-                                                    disabled={isSubmitting}
-                                                >
-                                                    {isSubmitting ? 'Processing...' : 'Reserve My Dumpster'}
-                                                </button>
-                                            </form>
-                                            </div>
+    <div style={{
+        background: 'white',
+        padding: '30px',
+        borderRadius: '0 0 8px 8px',
+        boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
+        border: '1px solid #eaeaea',
+        borderTop: 'none'
+    }}>
+        <form onSubmit={handleSubmit} className="booking-form">
+            <div className="form-row">
+                <div className="col-md-6 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-user" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="text" 
+                            name="name" 
+                            value={formData.name}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
+                            }}
+                            placeholder="Full Name" 
+                            required 
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-envelope" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="email" 
+                            name="email" 
+                            value={formData.email}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
+                            }}
+                            placeholder="Email Address" 
+                            required 
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="form-row">
+                <div className="col-md-6 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-phone" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="tel" 
+                            name="phone" 
+                            value={formData.phone}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
+                            }}
+                            placeholder="Phone Number" 
+                            required 
+                        />
+                    </div>
+                </div>
+                <div className="col-md-6 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-trash" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <select 
+                            name="dumpster_size" 
+                            value={formData.dumpster_size}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)',
+                                appearance: 'none',
+                                backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'right 15px top 50%',
+                                backgroundSize: '10px auto'
+                            }}
+                            required
+                        >
+                            <option value="">Select Dumpster Size</option>
+                            <option value="10">10 Yard</option>
+                            <option value="12">12 Yard</option>
+                            <option value="15">15 Yard</option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div className="form-row">
+                <div className="col-md-12 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-map-marker-alt" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="text" 
+                            name="address" 
+                            value={formData.address}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
+                            }}
+                            placeholder="Drop-Off Address" 
+                            required 
+                        />
+                    </div>
+                </div>
+                <div className="col-md-12 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-calendar" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="date" 
+                            name="service_date" 
+                            value={formData.service_date}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0, 0, 0, 0.1)'
+                            }}
+                            required 
+                        />
+                    </div>
+                </div>
+            </div>
+            <button 
+                type="submit" 
+                className="btn"
+                style={{
+                    background: 'linear-gradient(to right,#990000,rgb(99, 99, 99))',
+                    color: 'white',
+                    fontSize: '18px',
+                    fontWeight: '600',
+                    padding: '15px 40px',
+                    border: 'none',
+                    borderRadius: '4px',
+                    cursor: 'pointer',
+                    transition: 'all 0.3s ease',
+                    boxShadow: '0 4px 15px rgba(255, 95, 109, 0.3)',
+                    marginTop: '10px',
+                    display: 'inline-block',
+                    textTransform: 'uppercase',
+                }}
+                disabled={isSubmitting}
+                onMouseOver={(e) => e.currentTarget.style.transform = 'translateY(-2px)'}
+                onMouseOut={(e) => e.currentTarget.style.transform = 'translateY(0)'}
+            >
+                {isSubmitting ? 
+                    <span>
+                        <i className="fas fa-circle-notch fa-spin" style={{marginRight: '10px'}}></i>
+                        Processing...
+                    </span> : 
+                    <span>
+                        <i className="fas fa-truck" style={{marginRight: '10px'}}></i>
+                        Request My Dumpster
+                    </span>
+                }
+            </button>
+        </form>
+    </div>
+</div>
 
                                         </div>
                                     </div>
@@ -270,14 +437,13 @@ export default function ServiceDetails() {
                                             <h4 className="widget-title">More Services</h4>
                                             <div className="our-services-list">
                                                 <ul className="list-wrap">
-                                                    <li><Link href="#">Commercial Dumpsters<i className="fas fa-arrow-right" /></Link></li>
                                                     <li><Link href="#">Construction Debris Removal<i className="fas fa-arrow-right" /></Link></li>
                                                     <li><Link href="#">Bulk Cleanouts<i className="fas fa-arrow-right" /></Link></li>
                                                     <li><Link href="#">Recycling Support<i className="fas fa-arrow-right" /></Link></li>
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Quote</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -298,7 +464,7 @@ export default function ServiceDetails() {
                                                 <Link href="/assets/docs/dumpster-service-details.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Dumpster Service Guide.pdf</Link>
                                                 <Link href="/assets/docs/dumpster-sizes.docx" download target="_blank"><i className="fas fa-file-pdf" />Dumpster Sizes & Limits.docx</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                     </aside>
                                 </div>
                             </div>
