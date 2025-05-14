@@ -5,7 +5,8 @@ import Link from "next/link"
 import Head from "next/head"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
-
+import MainContact from "@/components/elements/MainContact"
+import { Main } from "next/document"
 const processSideImg = {
     width: "100%",
     height: "100%",
@@ -130,7 +131,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/design.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Design & Planning</h4>
@@ -141,7 +142,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/permits.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Permits & Preparation</h4>
@@ -152,7 +153,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/construction.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Professional Construction</h4>
@@ -237,140 +238,11 @@ export default function ServiceDetails(props) {
                                                 </div>
                                             </div>
 
-                                            <div className="cta-area text-center mt-60">
-                                                <h2 className="title">Ready to Expand Your Home?</h2>
-                                                <p>Complete the form below to schedule a free consultation for your home addition project. Our Pittsburgh design-build team will discuss your needs, explore options, and provide a detailed proposal.</p>
+                                            <div className="cta-area mt-60">
+                                                <h2 className="title text-center">Ready to Expand Your Home?</h2>
+                                                <p className="text-center" style={{paddingBottom:"20px"}}>Complete the form below to schedule a free consultation for your home addition project. Our Pittsburgh design-build team will discuss your needs, explore options, and provide a detailed proposal.</p>
 
-                                                <form onSubmit={handleSubmit} className="booking-form mt-4">
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="name" 
-                                                            value={formData.name}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Full Name" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="email" 
-                                                            name="email" 
-                                                            value={formData.email}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Email Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="tel" 
-                                                            name="phone" 
-                                                            value={formData.phone}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Phone Number" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="addition_type" 
-                                                            value={formData.addition_type}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            required
-                                                        >
-                                                            <option value="">Select Addition Type</option>
-                                                            <option value="room">Room Addition</option>
-                                                            <option value="kitchen">Kitchen Extension</option>
-                                                            <option value="master">Master Suite</option>
-                                                            <option value="second-story">Second Story Addition</option>
-                                                            <option value="sunroom">Sunroom/Four-Season Room</option>
-                                                            <option value="in-law">In-Law Suite</option>
-                                                            <option value="other">Other/Not Sure</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="address" 
-                                                            value={formData.address}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Property Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="preferred_timeline" 
-                                                            value={formData.preferred_timeline}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                        >
-                                                            <option value="">Preferred Timeline</option>
-                                                            <option value="1-3">1-3 Months</option>
-                                                            <option value="3-6">3-6 Months</option>
-                                                            <option value="6-12">6-12 Months</option>
-                                                            <option value="planning">Just Planning</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="budget_range" 
-                                                            value={formData.budget_range}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                        >
-                                                            <option value="">Budget Range</option>
-                                                            <option value="under-50k">Under $50K</option>
-                                                            <option value="50k-100k">$50K - $100K</option>
-                                                            <option value="100k-150k">$100K - $150K</option>
-                                                            <option value="150k-plus">$150K+</option>
-                                                            <option value="undecided">Undecided</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <textarea 
-                                                            name="message" 
-                                                            value={formData.message}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Tell us about your home addition project" 
-                                                            rows="4"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <button 
-                                                    type="submit" 
-                                                    className="btn btn-primary btn-lg"
-                                                    disabled={isSubmitting}
-                                                >
-                                                    {isSubmitting ? 'Processing...' : 'Schedule Free Consultation'}
-                                                </button>
-                                                {submitStatus.success && (
-                                                    <div className="alert alert-success mt-3">
-                                                        Thank you! Your home addition consultation request has been submitted. We'll contact you shortly.
-                                                    </div>
-                                                )}
-                                                {submitStatus.error && (
-                                                    <div className="alert alert-danger mt-3">
-                                                        {submitStatus.error}
-                                                    </div>
-                                                )}
-                                            </form>
+                                                <MainContact/>
                                             </div>
 
                                         </div>
@@ -392,7 +264,7 @@ export default function ServiceDetails(props) {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Design Consultation</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -413,7 +285,7 @@ export default function ServiceDetails(props) {
                                                 <Link href="/assets/docs/home-addition-guide.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Home Addition Planning Guide.pdf</Link>
                                                 <Link href="/assets/docs/addition-portfolio.pdf" download target="_blank"><i className="fas fa-file-pdf" />Home Addition Portfolio.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Service Areas</h4>
                                             <div className="service-areas-content">

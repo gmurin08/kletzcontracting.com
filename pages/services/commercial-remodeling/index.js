@@ -2,7 +2,7 @@ import Layout from "@/components/layout/Layout"
 import Brand3 from "@/components/sections/Brand3"
 import { useState } from "react"
 import Link from "next/link"
-
+import MainContact from "@/components/elements/MainContact"
 const processSideImg = {
     width: "100%",
     height: "100%",
@@ -149,12 +149,12 @@ export default function ServiceDetails() {
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
-                                                    <div className="col-lg-7 order-0 order-lg-2">
+                                                    {/* <div className="col-lg-7 order-0 order-lg-2">
                                                         <div className="benefits-img">
                                                             <img src="/assets/img/services/commercial_benefits1.jpg" alt="Office Remodeling in Pittsburgh" />
                                                             <img src="/assets/img/services/commercial_benefits2.jpg" alt="Retail Space Renovation" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
                                                             <h2 className="title">Our Advantages</h2>
@@ -169,8 +169,13 @@ export default function ServiceDetails() {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className="cta-area mt-60">
+                                                <h2 className="title text-center">Ready to Transform Your Commercial Space?</h2>
+                                                <p className="text-center" style={{paddingBottom:"20px"}}>Complete the form below to request a consultation for your commercial remodeling project in Pittsburgh. Our team will contact you promptly to discuss your needs.</p>
 
-                                            <div className="cta-area text-center mt-60">
+                                                <MainContact/>
+                                            </div>
+                                            {/* <div className="cta-area text-center mt-60">
                                                 <h2 className="title">Ready to Transform Your Commercial Space?</h2>
                                                 <p>Complete the form below to request a consultation for your commercial remodeling project in Pittsburgh. Our team will contact you promptly to discuss your needs.</p>
 
@@ -282,7 +287,7 @@ export default function ServiceDetails() {
                                                     </div>
                                                 )}
                                             </form>
-                                            </div>
+                                            </div> */}
 
                                         </div>
                                     </div>
@@ -302,7 +307,7 @@ export default function ServiceDetails() {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Estimate</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -323,7 +328,7 @@ export default function ServiceDetails() {
                                                 <Link href="/assets/docs/commercial-brochure.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Commercial Services Brochure.pdf</Link>
                                                 <Link href="/assets/docs/project-portfolio.pdf" download target="_blank"><i className="fas fa-file-pdf" />Past Project Portfolio.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Contact Information</h4>
                                             <div className="contact-info">

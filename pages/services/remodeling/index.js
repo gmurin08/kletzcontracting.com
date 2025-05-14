@@ -5,7 +5,7 @@ import Link from "next/link"
 import Head from "next/head"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
-
+import MainContact from "@/components/elements/MainContact"
 const processSideImg = {
     width: "100%",
     height: "100%",
@@ -130,7 +130,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/design.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Design Consultation</h4>
@@ -141,7 +141,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/planning.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Detailed Planning</h4>
@@ -152,7 +152,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/construction.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Quality Construction</h4>
@@ -171,12 +171,12 @@ export default function ServiceDetails(props) {
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
-                                                    <div className="col-lg-7 order-0 order-lg-2">
+                                                    {/* <div className="col-lg-7 order-0 order-lg-2">
                                                         <div className="benefits-img">
                                                             <img src="/assets/img/services/remodeling_benefits1.jpg" alt="Kitchen Remodeling in Pittsburgh" />
                                                             <img src="/assets/img/services/remodeling_benefits2.jpg" alt="Whole House Renovation" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
                                                             <h2 className="title">Our Remodeling Advantages</h2>
@@ -237,7 +237,7 @@ export default function ServiceDetails(props) {
                                                 </div>
                                             </div>
 
-                                            <div className="cta-area text-center mt-60">
+                                            {/* <div className="cta-area text-center mt-60">
                                                 <h2 className="title">Ready to Transform Your Home?</h2>
                                                 <p>Complete the form below to schedule a free design consultation for your remodeling project. Our Pittsburgh experts will discuss your vision, explore options, and provide a detailed proposal.</p>
 
@@ -371,9 +371,9 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 )}
                                             </form>
-                                            </div>
+                                            </div>*/}
 
-                                        </div>
+                                        </div> 
                                     </div>
                                 </div>
 
@@ -392,7 +392,7 @@ export default function ServiceDetails(props) {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Design Consultation</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -406,14 +406,14 @@ export default function ServiceDetails(props) {
                                                 </div>
                                                 <button type="submit" className="btn btn-two">Request Consultation</button>
                                             </form>
-                                        </div>
-                                        <div className="services-widget">
+                                        </div> */}
+                                        {/* <div className="services-widget">
                                             <h4 className="widget-title">Resources</h4>
                                             <div className="download-wrap">
                                                 <Link href="/assets/docs/remodeling-guide.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Home Remodeling Guide.pdf</Link>
                                                 <Link href="/assets/docs/renovation-portfolio.pdf" download target="_blank"><i className="fas fa-file-pdf" />Renovation Portfolio.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Service Areas</h4>
                                             <div className="service-areas-content">
@@ -451,6 +451,11 @@ export default function ServiceDetails(props) {
                             </div>
                         </div>
                     </section>
+                    <div className="cta-area mt-60" style={{display:"flex", flexDirection:'column', justifyContent:"center"}} >
+                        <h2 className="title text-center">Ready to Transform Your Home?</h2>
+                        <p className="text-center" style={{paddingBottom:"50px"}}>Complete the form below to schedule a free design consultation for your remodeling project.<br/> Our Pittsburgh experts will discuss your vision, explore options, and provide a detailed proposal.</p>
+                        <MainContact/>
+                    </div>
                     <Brand3 />
                 </div>
             </Layout>

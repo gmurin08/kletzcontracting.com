@@ -5,6 +5,7 @@ import Link from "next/link"
 import Head from "next/head"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
+import MainContact from "@/components/elements/MainContact"
 
 const processSideImg = {
     width: "100%",
@@ -130,7 +131,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/consultation.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">In-Home Consultation</h4>
@@ -141,7 +142,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/preparation.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Professional Preparation</h4>
@@ -152,7 +153,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/installation.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Expert Installation</h4>
@@ -171,12 +172,12 @@ export default function ServiceDetails(props) {
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
-                                                    <div className="col-lg-7 order-0 order-lg-2">
+                                                    {/* <div className="col-lg-7 order-0 order-lg-2">
                                                         <div className="benefits-img">
                                                             <img src="/assets/img/services/flooring_benefits1.jpg" alt="Hardwood Flooring Installation in Pittsburgh" />
                                                             <img src="/assets/img/services/flooring_benefits2.jpg" alt="Luxury Vinyl Plank Flooring" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
                                                             <h2 className="title">Our Flooring Advantages</h2>
@@ -236,8 +237,13 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className="cta-area mt-60">
+                                                <h2 className="title text-center">Ready for Beautiful New Floors?</h2>
+                                                <p className="text-center" style={{paddingBottom:"20px"}}>Complete the form below to schedule a free in-home consultation and estimate. Our Pittsburgh flooring experts will bring samples and help you select the perfect flooring solution for your space.</p>
 
-                                            <div className="cta-area text-center mt-60">
+                                                <MainContact/>
+                                            </div>
+                                            {/* <div className="cta-area text-center mt-60">
                                                 <h2 className="title">Ready for Beautiful New Floors?</h2>
                                                 <p>Complete the form below to schedule a free in-home consultation and estimate. Our Pittsburgh flooring experts will bring samples and help you select the perfect flooring solution for your space.</p>
 
@@ -361,7 +367,7 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 )}
                                             </form>
-                                            </div>
+                                            </div> */}
 
                                         </div>
                                     </div>
@@ -382,7 +388,7 @@ export default function ServiceDetails(props) {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Flooring Estimate</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -403,7 +409,7 @@ export default function ServiceDetails(props) {
                                                 <Link href="/assets/docs/flooring-materials-guide.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Flooring Materials Guide.pdf</Link>
                                                 <Link href="/assets/docs/flooring-maintenance-tips.pdf" download target="_blank"><i className="fas fa-file-pdf" />Flooring Maintenance Tips.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Service Areas</h4>
                                             <div className="service-areas-content">

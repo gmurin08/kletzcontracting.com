@@ -5,7 +5,7 @@ import Link from "next/link"
 import Head from "next/head"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
-
+import MainContact from "@/components/elements/MainContact"
 const processSideImg = {
     width: "100%",
     height: "100%",
@@ -130,7 +130,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/inspection.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Thorough Assessment</h4>
@@ -141,7 +141,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/preparation.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Expert Preparation</h4>
@@ -152,7 +152,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/installation.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Precision Installation</h4>
@@ -171,15 +171,15 @@ export default function ServiceDetails(props) {
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
-                                                    <div className="col-lg-7 order-0 order-lg-2">
+                                                    {/* <div className="col-lg-7 order-0 order-lg-2">
                                                         <div className="benefits-img">
                                                             <img src="/assets/img/services/siding_benefits1.jpg" alt="Vinyl Siding Installation in Pittsburgh" />
                                                             <img src="/assets/img/services/siding_benefits2.jpg" alt="Fiber Cement Siding Installation" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
-                                                            <h2 className="title">Our Siding Advantages</h2>
+                                                            <h2 className="title">Our Siding Advantage</h2>
                                                             <ul className="list-wrap">
                                                                 <li><i className="fas fa-check-circle" />Licensed, insured, and locally owned since 1996</li>
                                                                 <li><i className="fas fa-check-circle" />Factory-trained and certified installers</li>
@@ -236,139 +236,13 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className="cta-area mt-60">
+                                                <h2 className="title text-center">Ready for Beautiful, Durable Siding?</h2>
+                                                <p className="text-center" style={{paddingBottom:"20px"}}>Complete the form below to schedule a free siding consultation and estimate. Our Pittsburgh experts will help you select the perfect materials and provide detailed pricing for your project.</p>
 
-                                            <div className="cta-area text-center mt-60">
-                                                <h2 className="title">Ready for Beautiful, Durable Siding?</h2>
-                                                <p>Complete the form below to schedule a free siding consultation and estimate. Our Pittsburgh experts will help you select the perfect materials and provide detailed pricing for your project.</p>
-
-                                                <form onSubmit={handleSubmit} className="booking-form mt-4">
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="name" 
-                                                            value={formData.name}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Full Name" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="email" 
-                                                            name="email" 
-                                                            value={formData.email}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Email Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="tel" 
-                                                            name="phone" 
-                                                            value={formData.phone}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Phone Number" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="siding_type" 
-                                                            value={formData.siding_type}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            required
-                                                        >
-                                                            <option value="">Select Siding Material</option>
-                                                            <option value="vinyl">Vinyl Siding</option>
-                                                            <option value="fiber-cement">Fiber Cement Siding</option>
-                                                            <option value="engineered-wood">Engineered Wood Siding</option>
-                                                            <option value="cedar">Cedar/Wood Siding</option>
-                                                            <option value="insulated">Insulated Siding</option>
-                                                            <option value="not-sure">Not Sure/Need Recommendation</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="address" 
-                                                            value={formData.address}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Property Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="project_type" 
-                                                            value={formData.project_type}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                        >
-                                                            <option value="">Project Type</option>
-                                                            <option value="full-replacement">Full Siding Replacement</option>
-                                                            <option value="partial">Partial Replacement/Repair</option>
-                                                            <option value="new-construction">New Construction</option>
-                                                        </select>
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="home_size" 
-                                                            value={formData.home_size}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                        >
-                                                            <option value="">Home Size</option>
-                                                            <option value="small">Small (Under 1,500 sq ft)</option>
-                                                            <option value="medium">Medium (1,500-2,500 sq ft)</option>
-                                                            <option value="large">Large (2,500-3,500 sq ft)</option>
-                                                            <option value="very-large">Very Large (3,500+ sq ft)</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <textarea 
-                                                            name="message" 
-                                                            value={formData.message}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Tell us about your siding project" 
-                                                            rows="4"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <button 
-                                                    type="submit" 
-                                                    className="btn btn-primary btn-lg"
-                                                    disabled={isSubmitting}
-                                                >
-                                                    {isSubmitting ? 'Processing...' : 'Schedule Free Estimate'}
-                                                </button>
-                                                {submitStatus.success && (
-                                                    <div className="alert alert-success mt-3">
-                                                        Thank you! Your siding consultation request has been submitted. We'll contact you shortly.
-                                                    </div>
-                                                )}
-                                                {submitStatus.error && (
-                                                    <div className="alert alert-danger mt-3">
-                                                        {submitStatus.error}
-                                                    </div>
-                                                )}
-                                            </form>
+                                                <MainContact/>
                                             </div>
+                                            
 
                                         </div>
                                     </div>
@@ -389,7 +263,7 @@ export default function ServiceDetails(props) {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Siding Estimate</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -410,7 +284,7 @@ export default function ServiceDetails(props) {
                                                 <Link href="/assets/docs/siding-materials-guide.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Siding Materials Guide.pdf</Link>
                                                 <Link href="/assets/docs/siding-maintenance-tips.pdf" download target="_blank"><i className="fas fa-file-pdf" />Siding Maintenance Guide.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Service Areas</h4>
                                             <div className="service-areas-content">

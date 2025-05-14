@@ -29,30 +29,66 @@ export default function BookingFormLarge() {
     }, []);
     
 
-    const handleSubmit = (e) => {
+    const handleSubmit = async (e) => {
         e.preventDefault();
         
         if (!isInUSA) {
             alert("Sorry, we currently only accept form submissions from within the United States.");
             return;
         }
-
+    
         const form = e.target;
-        const params = new URLSearchParams({
-            first_name: form.name.value,
-            last_name: form.lastName.value,
-            phone: form.phone.value,
-            email: form.email.value,
-            address: form.location.value,
-            city: form.city.value,
-            state: form.state.value,
-            message: form.message.value
-        });
-    
-        // Replace with your actual GHL form URL
-        const ghlFormURL = "https://your-ghl-subdomain.gohighlevel.com/form/YOUR_FORM_ID";
-    
-        window.location.href = `${ghlFormURL}?${params.toString()}`;
+        
+        try {
+            // Get current page URL for source tracking
+            const currentUrl = window.location.href;
+            
+            // Prepare the data for our API route
+            const formData = {
+                firstName: form.name.value,
+                lastName: form.lastName.value,
+                phone: form.phone.value,
+                email: form.email.value,
+                address: form.location.value,
+                city: form.city.value,
+                state: form.state.value,
+                country: "US", // Default to US
+                postalCode: "", // Not captured in this form
+                notes: form.message.value,
+                agreeToTerms: true // Default to true since no consent checkbox
+            };
+            
+            // Show loading state if desired
+            // setIsSubmitting(true); // Uncomment if you add this state
+            
+            // Call our API route
+            const response = await fetch('/api/submit-contact-form', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+            
+            const result = await response.json();
+            
+            if (!response.ok) {
+                throw new Error(result.error || "Form submission failed");
+            }
+            
+            // Form submitted successfully
+            alert("Thank you for your submission! We'll get back to you shortly.");
+            
+            // Reset form
+            form.reset();
+            
+        } catch (error) {
+            console.error("Error submitting form:", error);
+            alert("There was an error submitting your form. Please try again later.");
+        } finally {
+            // Hide loading state if desired
+            // setIsSubmitting(false); // Uncomment if you add this state
+        }
     };
     
     return (

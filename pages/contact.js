@@ -1,5 +1,6 @@
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
+import MainContact from "@/components/elements/MainContact"
 import useMobileResponse from "@/hooks/useMobileResponse";
 export default function Contact() {
     const isMobile = useMobileResponse()
@@ -48,7 +49,7 @@ export default function Contact() {
                                         </div>
                                         <button className="btn" type="submit">Send Message</button>
                                     </form> */}
-                                    <iframe
+                                    {/* <iframe
                                         src="https://api.leadconnectorhq.com/widget/form/54Quvx8AZl6lfePNAsrR"
                                         style={{ 
                                             width: "100%", 
@@ -69,8 +70,8 @@ export default function Contact() {
                                         title="Main Contact Form"
                                         />
 
-<script src="https://link.msgsndr.com/js/form_embed.js" async></script>
-
+<script src="https://link.msgsndr.com/js/form_embed.js" async></script> */}
+                            <MainContact/>
 
                             </div>
 

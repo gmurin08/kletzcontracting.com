@@ -5,6 +5,7 @@ import Link from "next/link"
 import Head from "next/head"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
+import MainContact from "@/components/elements/MainContact"
 
 const processSideImg = {
     width: "100%",
@@ -128,7 +129,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/design.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Design Consultation</h4>
@@ -139,7 +140,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/permit.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Permits & Planning</h4>
@@ -150,7 +151,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/build.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Expert Construction</h4>
@@ -169,12 +170,12 @@ export default function ServiceDetails(props) {
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
-                                                    <div className="col-lg-7 order-0 order-lg-2">
+                                                    {/* <div className="col-lg-7 order-0 order-lg-2">
                                                         <div className="benefits-img">
                                                             <img src="/assets/img/services/deck_benefits1.jpg" alt="Composite Deck in Pittsburgh" />
                                                             <img src="/assets/img/services/deck_benefits2.jpg" alt="Custom Wood Deck Installation" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
                                                             <h2 className="title">Our Deck Advantages</h2>
@@ -221,13 +222,20 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 </div>
                                             </div>
+                                            <div className="cta-area mt-60">
+                                                <h2 className="title text-center">Ready to Build Your Dream Deck?</h2>
+                                                <p className="text-center" style={{paddingBottom:"20px"}}>Complete the form below to schedule a free consultation. Our Pittsburgh deck builders will contact you to discuss your project and provide a detailed estimate.</p>
 
-                                            <div className="cta-area text-center mt-60">
+                                                <MainContact/>
+                                            </div>
+
+                                            {/* <div className="cta-area text-center mt-60">
+                                            
                                                 <h2 className="title">Ready to Build Your Dream Deck?</h2>
                                                 <p>Complete the form below to schedule a free consultation. Our Pittsburgh deck builders will contact you to discuss your project and provide a detailed estimate.</p>
 
                                                 <form onSubmit={handleSubmit} className="booking-form mt-4">
-                                                {/* Form content remains the same */}
+                                       
                                                 <div className="form-row">
                                                     <div className="col-md-6 mb-3">
                                                         <input 
@@ -335,7 +343,7 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 )}
                                             </form>
-                                            </div>
+                                            </div> */}
 
                                         </div>
                                     </div>
@@ -355,7 +363,7 @@ export default function ServiceDetails(props) {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Deck Estimate</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -376,7 +384,7 @@ export default function ServiceDetails(props) {
                                                 <Link href="/assets/docs/deck-materials-guide.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Deck Materials Guide.pdf</Link>
                                                 <Link href="/assets/docs/deck-maintenance-tips.pdf" download target="_blank"><i className="fas fa-file-pdf" />Deck Maintenance Tips.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Our Service Area</h4>
                                             <div className="contact-info">

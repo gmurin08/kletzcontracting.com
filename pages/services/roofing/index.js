@@ -5,7 +5,7 @@ import Link from "next/link"
 import Head from "next/head"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
-
+import MainContact from "@/components/elements/MainContact"
 const processSideImg = {
     width: "100%",
     height: "100%",
@@ -128,7 +128,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/inspection.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Thorough Inspection</h4>
@@ -139,7 +139,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/estimate.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Detailed Estimate</h4>
@@ -150,7 +150,7 @@ export default function ServiceDetails(props) {
                                                                 <li>
                                                                     <div className="services-process-item">
                                                                         <div className="icon">
-                                                                            <img src="/assets/img/icon/installation.svg" alt="" />
+                                                                            <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
                                                                             <h4 className="title">Professional Installation</h4>
@@ -169,12 +169,12 @@ export default function ServiceDetails(props) {
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
-                                                    <div className="col-lg-7 order-0 order-lg-2">
+                                                    {/* <div className="col-lg-7 order-0 order-lg-2">
                                                         <div className="benefits-img">
                                                             <img src="/assets/img/services/roofing_benefits1.jpg" alt="Quality Roof Installation in Pittsburgh" />
                                                             <img src="/assets/img/services/roofing_benefits2.jpg" alt="Shingle Roof Replacement" />
                                                         </div>
-                                                    </div>
+                                                    </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
                                                             <h2 className="title">Our Roofing Advantages</h2>
@@ -223,119 +223,7 @@ export default function ServiceDetails(props) {
                                                 </div>
                                             </div>
 
-                                            <div className="cta-area text-center mt-60">
-                                                <h2 className="title">Ready for a Quality Roof Installation?</h2>
-                                                <p>Complete the form below to schedule a free roof inspection and estimate. Our Pittsburgh roofing experts will assess your needs and provide a detailed quote for your project.</p>
-
-                                                <form onSubmit={handleSubmit} className="booking-form mt-4">
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="name" 
-                                                            value={formData.name}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Full Name" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="email" 
-                                                            name="email" 
-                                                            value={formData.email}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Email Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-6 mb-3">
-                                                        <input 
-                                                            type="tel" 
-                                                            name="phone" 
-                                                            value={formData.phone}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Phone Number" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-6 mb-3">
-                                                        <select 
-                                                            name="roof_type" 
-                                                            value={formData.roof_type}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            required
-                                                        >
-                                                            <option value="">Select Service Type</option>
-                                                            <option value="full-replacement">Full Roof Replacement</option>
-                                                            <option value="repair">Roof Repair</option>
-                                                            <option value="inspection">Roof Inspection</option>
-                                                            <option value="storm-damage">Storm Damage Assessment</option>
-                                                            <option value="commercial">Commercial Roofing</option>
-                                                            <option value="other">Other Roofing Service</option>
-                                                        </select>
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <input 
-                                                            type="text" 
-                                                            name="address" 
-                                                            value={formData.address}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Property Address" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                    <div className="col-md-12 mb-3">
-                                                        <input 
-                                                            type="date" 
-                                                            name="service_date" 
-                                                            value={formData.service_date}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            required 
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <div className="form-row">
-                                                    <div className="col-md-12 mb-3">
-                                                        <textarea 
-                                                            name="message" 
-                                                            value={formData.message}
-                                                            onChange={handleChange}
-                                                            className="form-control" 
-                                                            placeholder="Tell us about your roofing needs" 
-                                                            rows="4"
-                                                        />
-                                                    </div>
-                                                </div>
-                                                <button 
-                                                    type="submit" 
-                                                    className="btn btn-primary btn-lg"
-                                                    disabled={isSubmitting}
-                                                >
-                                                    {isSubmitting ? 'Processing...' : 'Request Free Estimate'}
-                                                </button>
-                                                {submitStatus.success && (
-                                                    <div className="alert alert-success mt-3">
-                                                        Thank you! Your roofing consultation request has been submitted. We'll contact you shortly.
-                                                    </div>
-                                                )}
-                                                {submitStatus.error && (
-                                                    <div className="alert alert-danger mt-3">
-                                                        {submitStatus.error}
-                                                    </div>
-                                                )}
-                                            </form>
-                                            </div>
+                                            
 
                                         </div>
                                     </div>
@@ -356,7 +244,7 @@ export default function ServiceDetails(props) {
                                                 </ul>
                                             </div>
                                         </div>
-                                        <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
+                                        {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
                                             <h4 className="widget-title">Get a Free Roof Inspection</h4>
                                             <form action="#" className="sidebar-form">
                                                 <div className="form-grp">
@@ -370,22 +258,21 @@ export default function ServiceDetails(props) {
                                                 </div>
                                                 <button type="submit" className="btn btn-two">Schedule Inspection</button>
                                             </form>
-                                        </div>
-                                        <div className="services-widget">
+                                        </div> */}
+                                        {/* <div className="services-widget">
                                             <h4 className="widget-title">Resources</h4>
                                             <div className="download-wrap">
                                                 <Link href="/assets/docs/roofing-materials-guide.pdf" download target="_blank"><i className="fas fa-cloud-download-alt" />Roofing Materials Guide.pdf</Link>
                                                 <Link href="/assets/docs/roof-maintenance-tips.pdf" download target="_blank"><i className="fas fa-file-pdf" />Roof Maintenance Tips.pdf</Link>
-                                                <Link href="/assets/docs/insurance-claims-guide.pdf" download target="_blank"><i className="fas fa-file-pdf" />Storm Damage Claims Guide.pdf</Link>
                                             </div>
-                                        </div>
+                                        </div> */}
                                         <div className="services-widget">
                                             <h4 className="widget-title">Emergency Roof Repairs</h4>
                                             <div className="emergency-info">
                                                 <p>Experiencing a roof leak or storm damage? Our emergency response team is available to help minimize damage to your home.</p>
                                                 <div className="emergency-phone">
                                                     <i className="fas fa-phone-alt"></i>
-                                                    <span>(412) 555-1234</span>
+                                                    <span> (412) 200-2475</span>
                                                 </div>
                                                 <p className="mt-3">Service areas include Pittsburgh, Robinson Township, Upper St. Clair, Mt. Lebanon, Bethel Park, and surrounding communities.</p>
                                                 <p className="address-info"><i className="fas fa-map-marker-alt"></i> 1468 Old Steubenville Pike, suite d, Pittsburgh, PA 15205</p>
@@ -396,7 +283,13 @@ export default function ServiceDetails(props) {
                             </div>
                         </div>
                     </section>
+                    <div className="cta-area mt-60" style={{display:"flex", flexDirection:'column'}} >
+                        <h2 className="title text-center">Ready for a Quality Roof Installation?</h2>
+                        <p className="text-center" style={{paddingBottom:"50px"}}>Complete the form below to schedule a free roof inspection and estimate. <br/>Our Pittsburgh roofing experts will assess your needs and provide a detailed quote for your project.</p>
+                        <MainContact/>
+                    </div>
                     <Brand3 />
+                    
                 </div>
             </Layout>
         </>
@@ -419,18 +312,58 @@ export async function getStaticProps() {
                     "name": "Kletz Contracting",
                     "url": "https://kletzcontracting.com"
                 },
-                "areaServed": {
-                    "@type": "City",
-                    "name": "Pittsburgh"
-                },
+                "areaServed": [
+                        {
+                            "@type": "City",
+                            "name": "Pittsburgh"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Robinson Township"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Upper St. Clair"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Mt. Lebanon"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Bethel Park"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "South Hills"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Wexford"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Sewickley"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Cranberry Township"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Moon Township"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "Peters Township"
+                        },
+                        {
+                            "@type": "City",
+                            "name": "North Hills"
+                        }
+                    ],
                 "description": "Professional roofing services in Pittsburgh including roof replacement, repairs, inspections, and storm damage restoration. Quality materials and expert installation with warranties.",
-                "offers": {
-                    "@type": "Offer",
-                    "priceSpecification": {
-                        "@type": "PriceSpecification",
-                        "priceCurrency": "USD"
-                    }
-                },
+
                 "termsOfService": "Free inspections and estimates provided",
                 "hasOfferCatalog": {
                     "@type": "OfferCatalog",
@@ -479,19 +412,6 @@ export async function getStaticProps() {
                             }
                         }
                     ]
-                },
-                "review": {
-                    "@type": "Review",
-                    "reviewRating": {
-                        "@type": "Rating",
-                        "ratingValue": "5",
-                        "bestRating": "5"
-                    },
-                    "author": {
-                        "@type": "Person",
-                        "name": "Michael S."
-                    },
-                    "reviewBody": "Kletz Contracting replaced our roof after storm damage, and their work was exceptional. The crew was professional, efficient, and left our property spotless. Our new roof looks great and has withstood several severe storms already."
                 }
             }
         },
