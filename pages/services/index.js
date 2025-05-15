@@ -13,7 +13,7 @@ const services = [
     { id: 5, title: "Home Additions", image: "/assets/img/services/additions.jpg", icon: "/assets/img/icon/addition.svg", slug: "home-additions" },
     { id: 6, title: "Deck Construction", image: "/assets/img/services/decks.jpg", icon: "/assets/img/icon/deck.svg", slug: "deck-construction" },
     { id: 7, title: "Dumpster Services", image: "/assets/img/services/dumpster.jpg", icon: "/assets/img/icon/dumpster.svg", slug: "dumpster-service" },
-    { id: 8, title: "Flooring", image: "/assets/img/services/flooring.jpg", icon: "/assets/img/icons/flooring.svg", slug: "flooring"}
+    { id: 8, title: "Flooring", image: "/assets/img/services/flooring.jpg", icon: "/assets/img/icon/flooring.svg", slug: "flooring"}
 ]
 export default function Service() {
     const [isActive, setIsActive] = useState({

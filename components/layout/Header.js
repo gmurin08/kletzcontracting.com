@@ -111,13 +111,24 @@ export default function Header({ headerCls, headerTop }) {
                                             <ul className="navigation">
                                                 <li><Link href="/">Home</Link></li>
                                                 <li><Link href="/about">About us</Link></li>
-                                                <li><Link href={"/services"}>Services</Link></li>
-                                                {/* <li className="menu-item-has-children"><Link href="/services">Services</Link>
+                                                <li className="menu-item-has-children"><Link href="/services">Services</Link>
                                                     <ul className="sub-menu">
-                                                        <li><Link href="/services">Services Page</Link></li>
-                                                        <li><Link href="/services-details">Services Details</Link></li>
+                                                        <li><Link href="/services/roofing">Roofing</Link></li>
+                                                        <li><Link href="/services/siding">Siding</Link></li>
+                                                        {/* <li className="menu-item-has-children"><Link href="/services">Remodeling</Link>
+                                                            <ul className="sub-menu">
+                                                            <li><Link href="/siding">Home Remodeling</Link></li>
+                                                            <li><Link href="/siding">Commercial Remodeling</Link></li>
+                                                            </ul>
+                                                        </li> */}
+                                                        <li><Link href="/services/remodeling">Home Remodeling</Link></li>
+                                                        <li><Link href="/services/commercial-remodeling">Commercial Remodeling</Link></li>
+                                                        <li><Link href="/services/home-additions">Home Additions</Link></li>
+                                                        <li><Link href="/services/deck-construction">Deck Construction</Link></li>
+                                                        <li><Link href="/services/dumpster-service">Dumpster Services</Link></li>
+                                                        <li><Link href="/services/flooring">Flooring</Link></li>
                                                     </ul>
-                                                </li> */}
+                                                </li>
                                                 {/* <li className="menu-item-has-children"><Link href="/#">Pages</Link>
                                                     <ul className="sub-menu">
                                                         <li><Link href="/project">Project Page</Link></li>
@@ -128,7 +139,7 @@ export default function Header({ headerCls, headerTop }) {
                                                     </ul>
                                                 </li> */}
                                                 <li><Link href='/financing'>Financing</Link></li>
-                                                <li><Link href="/blog">Blog</Link></li>
+                                                {/* <li><Link href="/blog">Blog</Link></li> */}
                                                 <li><Link href="/contact">Contact</Link></li>
                                             </ul>
                                         </div>

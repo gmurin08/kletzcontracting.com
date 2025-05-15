@@ -14,7 +14,7 @@ const processSideImg = {
         borderRadius: '15px'
 };
 
-export default function ServiceDetails() {
+export default function DumpsterService() {
 
         // State for form data and submission status
         const [formData, setFormData] = useState({
