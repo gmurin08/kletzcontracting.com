@@ -3,7 +3,7 @@ import faqs from '@/data/faqs'
 export default function FaqSection({category}) {
     const [isActive, setIsActive] = useState({
         status: false,
-        key: 1,
+        key: 0,
     })
 
     const faqList = faqs[category] || []

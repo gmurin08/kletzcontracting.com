@@ -28,12 +28,12 @@ export default function Footer1() {
                                         <h2 className="fw-title">Our Services</h2>
                                         <div className="footer-link">
                                             <ul className="list-wrap">
-                                                <li><Link href="/services/roofing/roof-replacement"><i className="fas fa-angle-double-right" />Roof Replacement</Link></li>
-                                                <li><Link href="/services/roofing/roof-repair"><i className="fas fa-angle-double-right" />Roof Repair</Link></li>
-                                                <li><Link href="/services/siding-installation"><i className="fas fa-angle-double-right" />Siding Installation</Link></li>
-                                                <li><Link href="/services/roofing/gutter-installation"><i className="fas fa-angle-double-right" />Gutter Installation</Link></li>
-                                                <li><Link href="/services/roofing/roof-inspection"><i className="fas fa-angle-double-right" />Roof Inspections</Link></li>
-                                                <li><Link href="/services/roofing/storm-damage-repair"><i className="fas fa-angle-double-right" />Storm Damage Repair</Link></li>
+                                                <li><Link href="/services/roofing"><i className="fas fa-angle-double-right" />Roofing</Link></li>
+                                                <li><Link href="/services/siding"><i className="fas fa-angle-double-right" />Siding</Link></li>
+                                                <li><Link href="/services/remodeling"><i className="fas fa-angle-double-right" />Remodeling</Link></li>
+                                                <li><Link href="/services/commercial-remodeling"><i className="fas fa-angle-double-right" />Commercial Build Outs</Link></li>
+                                                <li><Link href="/services/roofing/deck-construction"><i className="fas fa-angle-double-right" />Deck Construction</Link></li>
+                                                <li><Link href="/services/roofing/flooring"><i className="fas fa-angle-double-right" />Flooring</Link></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -45,10 +45,10 @@ export default function Footer1() {
                                             <ul className="list-wrap">
                                                 <li><Link href="/about"><i className="fas fa-angle-double-right" />About Us</Link></li>
                                                 <li><Link href="/services"><i className="fas fa-angle-double-right" />Our Services</Link></li>
-                                                <li><Link href="/projects"><i className="fas fa-angle-double-right" />Past Projects</Link></li>
-                                                <li><Link href="/reviews"><i className="fas fa-angle-double-right" />Customer Reviews</Link></li>
-                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Get a Quote</Link></li>
                                                 <li><Link href="/contact"><i className="fas fa-angle-double-right" />Contact Us</Link></li>
+                                                <li><Link href="/dumpster-service"><i className="fas fa-angle-double-right" />Book A Dumpster</Link></li>
+                                                <li><Link href="/contact"><i className="fas fa-angle-double-right" />Get a Quote</Link></li>
+                                                
                                             </ul>
                                         </div>
                                     </div>
