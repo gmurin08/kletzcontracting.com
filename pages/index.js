@@ -42,7 +42,7 @@ export default function Home() {
                 <Work2 />
                 {/* <Project3 /> */}
                 <FaqSection category={'home'}/>
-                <Blog1 />
+                {/* <Blog1 /> */}
                 <CtaContact />
             </Layout>
         </>
