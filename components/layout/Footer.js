@@ -32,8 +32,8 @@ export default function Footer1() {
                                                 <li><Link href="/services/siding"><i className="fas fa-angle-double-right" />Siding</Link></li>
                                                 <li><Link href="/services/remodeling"><i className="fas fa-angle-double-right" />Remodeling</Link></li>
                                                 <li><Link href="/services/commercial-remodeling"><i className="fas fa-angle-double-right" />Commercial Build Outs</Link></li>
-                                                <li><Link href="/services/roofing/deck-construction"><i className="fas fa-angle-double-right" />Deck Construction</Link></li>
-                                                <li><Link href="/services/roofing/flooring"><i className="fas fa-angle-double-right" />Flooring</Link></li>
+                                                <li><Link href="/services/deck-construction"><i className="fas fa-angle-double-right" />Deck Construction</Link></li>
+                                                <li><Link href="/services/flooring"><i className="fas fa-angle-double-right" />Flooring</Link></li>
                                             </ul>
                                         </div>
                                     </div>
