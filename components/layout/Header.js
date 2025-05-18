@@ -81,10 +81,9 @@ export default function Header({ headerCls, headerTop }) {
                                     </div> */}
                                     <div className="header-social">
                                         <ul className="list-wrap">
-                                            <li><Link href="#"><i className="fab fa-facebook-f" /></Link></li>
-                                            <li><Link href="#"><i className="fab fa-linkedin-in" /></Link></li>
-                                            <li><Link href="#"><i className="fab fa-twitter" /></Link></li>
-                                            <li><Link href="#"><i className="fab fa-youtube" /></Link></li>
+                                            <li><Link href="https://facebook.com/kletzcontracting"><i className="fab fa-facebook-f" /></Link></li>
+                                            <li><Link href="https://www.linkedin.com/in/john-kletz-jr-1685411a/"><i className="fab fa-linkedin-in" /></Link></li>
+                                            <li><Link href="https://g.co/kgs/qHs3XHn"><i className="fab fa-google" /></Link></li>
                                         </ul>
                                     </div>
                                 </div>
@@ -164,11 +163,9 @@ export default function Header({ headerCls, headerTop }) {
                                         </div>
                                         <div className="social-links">
                                             <ul className="clearfix list-wrap">
-                                                <li><Link href="/#"><i className="fab fa-facebook-f" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-twitter" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-google" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-linkedin-in" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-youtube" /></Link></li>
+                                                <li><Link href="https://facebook.com/kletzcontracting"><i className="fab fa-facebook-f" /></Link></li>
+                                                <li><Link href="https://www.linkedin.com/in/john-kletz-jr-1685411a/"><i className="fab fa-linkedin-in" /></Link></li>
+                                                <li><Link href="https://g.co/kgs/qHs3XHn"><i className="fab fa-google" /></Link></li>
                                             </ul>
                                         </div>
                                         <div className="address-field">

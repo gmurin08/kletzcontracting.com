@@ -46,7 +46,7 @@ export default function Footer1() {
                                                 <li><Link href="/about"><i className="fas fa-angle-double-right" />About Us</Link></li>
                                                 <li><Link href="/services"><i className="fas fa-angle-double-right" />Our Services</Link></li>
                                                 <li><Link href="/contact"><i className="fas fa-angle-double-right" />Contact Us</Link></li>
-                                                <li><Link href="/dumpster-service"><i className="fas fa-angle-double-right" />Book A Dumpster</Link></li>
+                                                <li><Link href="/services/dumpster-service"><i className="fas fa-angle-double-right" />Book A Dumpster</Link></li>
                                                 <li><Link href="/contact"><i className="fas fa-angle-double-right" />Get a Quote</Link></li>
                                                 
                                             </ul>
@@ -104,10 +104,9 @@ export default function Footer1() {
                                         <div className="footer-social">
                                             <h2 className="title">Follow Us:</h2>
                                             <ul className="list-wrap">
-                                                <li><Link href="/#"><i className="fab fa-facebook-f" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-twitter" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-linkedin-in" /></Link></li>
-                                                <li><Link href="/#"><i className="fab fa-google" /></Link></li>
+                                                <li><Link href="https://facebook.com/kletzcontracting"><i className="fab fa-facebook-f" /></Link></li>
+                                                <li><Link href="https://www.linkedin.com/in/john-kletz-jr-1685411a/"><i className="fab fa-linkedin-in" /></Link></li>
+                                                <li><Link href="https://g.co/kgs/qHs3XHn"><i className="fab fa-google" /></Link></li>
                                             </ul>
                                         </div>
                                     </div>
@@ -118,12 +117,17 @@ export default function Footer1() {
                     <div className="footer-bottom">
                         <div className="container">
                             <div className="row">
-                                <div className="col-md-6">
+                                <div className="col-md-4">
                                     <div className="copyright-text">
                                         <p>© Copyright {new Date().getFullYear()}. All Right Reserved</p>
                                     </div>
                                 </div>
-                                <div className="col-md-6">
+                                <div className="col-md-4">
+                                    <div className="copyright-text">
+                                        <a href="https://www.aldercreekdigital.com ">Designed By Alder Creek Digital</a>
+                                    </div>
+                                </div>
+                                <div className="col-md-4">
                                     <div className="footer-bootom-menu">
                                         <ul className="list-wrap">
                                             <li><Link href="/privacy-policy">Privacy Policy</Link></li>

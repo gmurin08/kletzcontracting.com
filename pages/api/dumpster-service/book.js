@@ -25,7 +25,7 @@ export default async function handler(req, res) {
   });
 
   await transporter.sendMail({
-    from: `"Booking Alerts" <${process.env.SMTP_USER}>`,
+    from: `"Booking Alerts" <donotreply@goaldercreekdigital.com>`,
     to: process.env.CLIENT_EMAIL,
     subject: 'New Dumpster Booking Request',
     html: `

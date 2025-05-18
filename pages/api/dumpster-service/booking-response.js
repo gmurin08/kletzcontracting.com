@@ -12,7 +12,7 @@ export default async function handler(req, res) {
   const { data: booking, error } = await supabase.from('bookings').select('*').eq('id', id).single();
   if (error || !booking) return res.status(404).send('Booking not found');
 
-  const baseUrl = process.env.BASE_URL || 'https://yourdomain.com/';
+  const baseUrl = process.env.BASE_URL || 'https://kletzcontracting.com/';
   const logoUrl = 'https://storage.googleapis.com/msgsndr/3xGyNbyyifHaQaEVS0Sx/media/681ba0cc6da8499d97d2cdd0.png';
   
   if (action === 'deny') {
@@ -114,7 +114,7 @@ async function sendEmail(to, subject, html) {
   });
   
   await transporter.sendMail({
-    from: `"Kletz Contracting" <${process.env.SMTP_USER}>`,
+    from: `"Kletz Contracting" <donotreply@goaldercreekdigital.com>`,
     to,
     subject,
     html,
