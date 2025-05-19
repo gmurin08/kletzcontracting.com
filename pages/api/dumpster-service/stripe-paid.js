@@ -36,16 +36,19 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  // IMPORTANT: For production on Vercel/Netlify/etc, we need to handle the body differently
+  // PRODUCTION FIX: Handle body differently for Vercel
   let rawBody;
   
-  // Method 1: Try to get raw body from Vercel
-  if (req.body && Buffer.isBuffer(req.body)) {
+  // Check if body is already parsed by Vercel as an object
+  if (req.body && typeof req.body === 'object' && !Buffer.isBuffer(req.body)) {
+    // Vercel parsed it as JSON, convert back to string for signature verification
+    rawBody = Buffer.from(JSON.stringify(req.body));
+  } else if (req.body && Buffer.isBuffer(req.body)) {
     rawBody = req.body;
   } else if (req.body && typeof req.body === 'string') {
-    rawBody = Buffer.from(req.body);
+    rawBody = Buffer.from(req.body, 'utf8');
   } else {
-    // Method 2: Stream the request (fallback)
+    // Original stream reading approach
     try {
       const chunks = [];
       for await (const chunk of req) {
@@ -57,6 +60,11 @@ export default async function handler(req, res) {
       return res.status(400).send('Error reading request body');
     }
   }
+  
+  // Debug logging
+  console.log('Raw body length:', rawBody.length);
+  console.log('Raw body type:', typeof req.body);
+  console.log('Stripe signature:', sig);
 
   const sig = req.headers['stripe-signature'];
   
