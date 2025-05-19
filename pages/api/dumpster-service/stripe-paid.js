@@ -32,9 +32,7 @@ export const config = {
 };
 
 export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).end();
-  }
+
 
   // PRODUCTION FIX: Handle body differently for Vercel
   let rawBody;
