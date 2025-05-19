@@ -26,7 +26,7 @@ export default async function handler(req, res) {
     
     await sendEmail(booking.email, 'Important Update About Your Dumpster Rental Request', deniedHtml);
     // Redirect to business dashboard or status page
-    return res.redirect('/admin/bookings/status?action=denied&id=' + id);
+    return res.redirect('/admin/booking-denied');
   }
 
   // Create Stripe customer if needed
@@ -99,7 +99,7 @@ export default async function handler(req, res) {
   
   await sendEmail(booking.email, 'Your Dumpster Rental Request Has Been Approved!', acceptedHtml);
   // Redirect to business dashboard or status page
-  return res.redirect('/admin/bookings/status?action=approved&id=' + id);
+  return res.redirect('/admin/booking-request-sent');
 }
 
 async function sendEmail(to, subject, html) {
