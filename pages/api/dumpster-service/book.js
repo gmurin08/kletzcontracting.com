@@ -11,8 +11,8 @@ export default async function handler(req, res) {
   const { data, error } = await supabase.from('bookings').insert([{ name, email, phone, dumpster_size, address, service_date}]).select().single();
   if (error) return res.status(500).json({ error: error.message });
 
-  const approveLink = `${process.env.BASE_URL}api/dumpster-service/booking-response?id=${data.id}&action=approve`;
-  const denyLink = `${process.env.BASE_URL}api/dumpster-service/booking-response?id=${data.id}&action=deny`;
+  const approveLink = `${process.env.BASE_URL}/api/dumpster-service/booking-response?id=${data.id}&action=approve`;
+  const denyLink = `${process.env.BASE_URL}/api/dumpster-service/booking-response?id=${data.id}&action=deny`;
 
   const transporter = nodemailer.createTransport({
     host: process.env.SMTP_HOST,
