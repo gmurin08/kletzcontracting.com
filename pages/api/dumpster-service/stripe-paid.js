@@ -36,35 +36,47 @@ export default async function handler(req, res) {
     return res.status(405).end();
   }
 
-  const sig = req.headers['stripe-signature'];
-  
-  // Add debugging
-  console.log('Headers:', req.headers);
-  console.log('Stripe signature:', sig);
-  
+  // IMPORTANT: For production on Vercel/Netlify/etc, we need to handle the body differently
   let rawBody;
-  try {
-    const chunks = [];
-    for await (const chunk of req) {
-      chunks.push(chunk);
+  
+  // Method 1: Try to get raw body from Vercel
+  if (req.body && Buffer.isBuffer(req.body)) {
+    rawBody = req.body;
+  } else if (req.body && typeof req.body === 'string') {
+    rawBody = Buffer.from(req.body);
+  } else {
+    // Method 2: Stream the request (fallback)
+    try {
+      const chunks = [];
+      for await (const chunk of req) {
+        chunks.push(chunk);
+      }
+      rawBody = Buffer.concat(chunks);
+    } catch (err) {
+      console.error('Error reading request body:', err);
+      return res.status(400).send('Error reading request body');
     }
-    rawBody = Buffer.concat(chunks);
-    
-    // Debug the raw body
-    console.log('Raw body length:', rawBody.length);
-    console.log('Raw body first 100 chars:', rawBody.toString().substring(0, 100));
-    
-  } catch (err) {
-    console.error('Error reading request body:', err);
-    return res.status(400).send('Error reading request body');
   }
 
+  const sig = req.headers['stripe-signature'];
+  
+  // Debug logging
+  console.log('Raw body length:', rawBody.length);
+  console.log('Raw body type:', typeof rawBody);
+  console.log('Signature:', sig);
+  console.log('Webhook secret exists:', !!process.env.STRIPE_WEBHOOK_SECRET);
+  
   let event;
   try {
+    // Ensure rawBody is a Buffer
+    if (!Buffer.isBuffer(rawBody)) {
+      rawBody = Buffer.from(rawBody);
+    }
+    
     event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
   } catch (err) {
     console.error('Webhook signature verification failed:', err.message);
-    console.error('Webhook secret (first 10 chars):', process.env.STRIPE_WEBHOOK_SECRET?.substring(0, 10));
+    console.error('Error details:', err);
     return res.status(400).send(`Webhook Error: ${err.message}`);
   }
 
@@ -74,6 +86,10 @@ export default async function handler(req, res) {
     const session = event.data.object;
     const bookingId = session.metadata.booking_id;
 
+    if (!bookingId) {
+      console.log('No booking_id found in metadata');
+      return res.status(200).json({ received: true, message: 'No booking_id in metadata' });
+    }
     try {
       const { data: booking } = await supabase
         .from('bookings')
