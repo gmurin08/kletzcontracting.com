@@ -366,6 +366,12 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           <div class="action-container">
             <a href="${paymentUrl}" class="action-button">Complete Payment</a>
           </div>
+  
+          <p>Note: In order to prevent any delay in service. Please click below to sign our dumpster rental agreement.</p>
+
+          <div class="action-container">
+            <a href="https://sendlink.co/documents/doc-form/6810e1bbbd56f4288f4db5bb?locale=en_US" class="action-button">Sign Contract</a>
+          </div>
           
           <p>After your payment is processed, you'll receive a confirmation email with your receipt and further instructions.</p>
           
