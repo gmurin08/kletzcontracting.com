@@ -2,7 +2,8 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
 import { buffer } from 'micro';
-import puppeteer from 'puppeteer';
+import puppeteer from 'puppeteer-core';
+import chromium from '@sparticuz/chromium';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -116,7 +117,7 @@ async function generateInvoicePDF(session, bookingData = null) {
       <tr>
         <td>${item.description}</td>
         <td style="text-align: center;">${item.quantity || 1}</td>
-        <td style="text-align: right;">${(item.amount_total / 100).toFixed(2)}</td>
+        <td style="text-align: right;">$${(item.amount_total / 100).toFixed(2)}</td>
       </tr>
     `).join('');
 
