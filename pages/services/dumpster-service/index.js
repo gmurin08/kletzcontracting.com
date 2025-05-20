@@ -170,7 +170,7 @@ export default function DumpsterService() {
                                                 </div>
                                             </div>
 
-<div className="cta-area text-center mt-60">
+{/* <div className="cta-area text-center mt-60">
 <div className="form-header" style={{
         width: '100%',
         borderRadius: '8px 8px 0 0',
@@ -424,7 +424,7 @@ export default function DumpsterService() {
             </button>
         </form>
     </div>
-</div>
+</div> */}
 
                                         </div>
                                     </div>
