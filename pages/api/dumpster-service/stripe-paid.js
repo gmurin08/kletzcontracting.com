@@ -212,8 +212,7 @@ async function generateInvoicePDF(session, bookingData = null) {
         <div class="header">
           <h1 class="invoice-title">INVOICE</h1>
           <h2 class="company-name">Kletz Contracting</h2>
-          <p>1468 Old Steubenville Pike, Suite D<br>Pittsburgh, PA 15205<br>(412) 200-2475</p>
-          <p>PA HIC No. 011961</p>
+          <p>1468 Old Steubenville Pike, Suite D<br>Pittsburgh, PA 15205<br>(412) 123-4567</p>
         </div>
 
         <div class="customer-info">
@@ -252,16 +251,19 @@ async function generateInvoicePDF(session, bookingData = null) {
 
         <div class="footer">
           <p>Thank you for your business!</p>
-          <p>Contact us: (412) 200-2475 | info@kletzcontracting.com</p>
+          <p>Contact us: (412) 123-4567 | info@kletzcontracting.com</p>
         </div>
       </body>
       </html>
     `;
 
-    // Generate PDF using Puppeteer
+    // Generate PDF using Puppeteer with Chromium for Vercel
     const browser = await puppeteer.launch({
-      headless: 'new',
-      args: ['--no-sandbox', '--disable-setuid-sandbox']
+      args: chromium.args,
+      defaultViewport: chromium.defaultViewport,
+      executablePath: await chromium.executablePath,
+      headless: chromium.headless,
+      ignoreHTTPSErrors: true,
     });
     
     const page = await browser.newPage();
