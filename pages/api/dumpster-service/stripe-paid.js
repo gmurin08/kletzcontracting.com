@@ -306,7 +306,7 @@ async function sendInvoicePDF(session, bookingData = null) {
       },
     });
 
-    const customerEmail = 'gmurin@gmail.com' //session.customer_details.email;
+    const customerEmail = session.customer_details.email;
     const customerName = session.customer_details.name || bookingData?.name || 'Customer';
 
     // Generate calendar link if this is a dumpster booking
