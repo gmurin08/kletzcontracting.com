@@ -2,6 +2,7 @@ import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
 import { buffer } from 'micro';
+import puppeteer from 'puppeteer';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -40,89 +41,579 @@ export default async function handler(req, res) {
   if (event.type === 'checkout.session.completed') {
     const session = event.data.object;
     const bookingId = session.metadata?.booking_id;
-
-    if (!bookingId) {
-      console.log('No booking_id found in metadata');
-      return res.status(200).json({ received: true, message: 'No booking_id in metadata' });
+    
+    console.log('Processing checkout session completed:', session.id);
+    
+    let bookingData = null;
+    
+    // If this is a dumpster booking, update the booking status and get booking details
+    if (bookingId) {
+      bookingData = await updateBookingStatus(bookingId);
     }
-
-    try {
-      const { data: booking, error } = await supabase
-        .from('bookings')
-        .update({ status: 'paid' })
-        .eq('id', bookingId)
-        .select()
-        .single();
-
-      if (error) {
-        console.error('Supabase error:', error);
-        return res.status(500).send('Database error: ' + error.message);
-      }
-
-      if (booking) {
-        console.log('Booking updated successfully:', booking.id);
-        
-        // Simple email sending without complex templates for now
-        const transporter = nodemailer.createTransport({
-          host: process.env.SMTP_HOST,
-          port: 587,
-          secure: false,
-          auth: {
-            user: process.env.SMTP_USER,
-            pass: process.env.SMTP_PASS,
-          },
-        });
-
-        const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dumpster+Dropoff&dates=${booking.service_date.replace(/-/g, '')}T090000Z/${booking.service_date.replace(/-/g, '')}T100000Z&details=Dumpster+delivery+at+${encodeURIComponent(booking.address)}`;
-
-        try {
-          // Customer email
-          await transporter.sendMail({
-            from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
-            to: booking.email,
-            subject: 'Booking Confirmed ✅ - Kletz Contracting',
-            html: `
-              <h1>Payment Confirmed!</h1>
-              <p>Hi ${booking.name},</p>
-              <p>Thank you for your payment! Your dumpster rental is confirmed for ${booking.service_date}.</p>
-              <p><a href="${calendarLink}">Add to Calendar</a></p>
-              <p>Delivery Address: ${booking.address}</p>
-              <p>Contact: (412) 123-4567</p>
-            `
-          });
-
-          // Business email
-          await transporter.sendMail({
-            from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
-            to: process.env.CLIENT_EMAIL,
-            subject: 'New Paid Booking 💰 - Action Required',
-            html: `
-              <h1>Payment Received!</h1>
-              <p>Customer ${booking.name} has paid for their booking.</p>
-              <p>Service Date: ${booking.service_date}</p>
-              <p>Address: ${booking.address}</p>
-              <p>Booking ID: ${booking.id}</p>
-              <p><a href="${calendarLink}">Add to Calendar</a></p>
-            `
-          });
-
-          console.log('Emails sent successfully');
-        } catch (emailError) {
-          console.error('Email error:', emailError);
-          // Don't fail the webhook if emails fail
-        }
-      } else {
-        console.log('No booking found with ID:', bookingId);
-      }
-    } catch (dbError) {
-      console.error('Database error:', dbError);
-      return res.status(500).send('Database error: ' + dbError.message);
-    }
+    
+    // Always send an invoice PDF, but customize based on whether it's a booking
+    await sendInvoicePDF(session, bookingData);
+    
+    // Send business notification email with PDF
+    await sendBusinessNotification(session, bookingData);
+  } else {
+    console.log('Ignoring event type:', event.type);
   }
 
   res.status(200).json({ received: true });
 }
 
+async function updateBookingStatus(bookingId) {
+  try {
+    const { data: booking, error } = await supabase
+      .from('bookings')
+      .update({ status: 'paid' })
+      .eq('id', bookingId)
+      .select()
+      .single();
+
+    if (error) {
+      console.error('Supabase error:', error);
+      return null;
+    }
+
+    if (booking) {
+      console.log('Booking updated successfully:', booking.id);
+      return booking;
+    } else {
+      console.log('No booking found with ID:', bookingId);
+      return null;
+    }
+  } catch (dbError) {
+    console.error('Database error:', dbError);
+    return null;
+  }
+}
+
+async function generateInvoicePDF(session, bookingData = null) {
+  try {
+    // Use the session data directly from the webhook event
+    // If it doesn't have line_items, we'll create a simple line item from the amount
+    let lineItems = [];
+    
+    if (session.line_items && session.line_items.data) {
+      lineItems = session.line_items.data;
+    } else {
+      // Create a simple line item from the session amount
+      const description = bookingData 
+        ? `Dumpster Rental Service - ${bookingData.service_date}`
+        : 'Purchase';
+      
+      lineItems = [{
+        description: description,
+        quantity: 1,
+        amount_total: session.amount_total
+      }];
+    }
+
+    // Format line items for PDF
+    const lineItemsHtml = lineItems.map(item => `
+      <tr>
+        <td>${item.description}</td>
+        <td style="text-align: center;">${item.quantity || 1}</td>
+        <td style="text-align: right;">${(item.amount_total / 100).toFixed(2)}</td>
+      </tr>
+    `).join('');
+
+    const totalAmount = session.amount_total / 100;
+    const customerName = session.customer_details.name || bookingData?.name || 'Customer';
+
+    // Generate calendar link if this is a dumpster booking
+    let calendarSection = '';
+    if (bookingData) {
+      calendarSection = `
+        <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #28a745;">
+          <h3 style="color: #28a745; margin-top: 0;">🗓️ Booking Details</h3>
+          <p><strong>Service Date:</strong> ${bookingData.service_date}</p>
+          <p><strong>Delivery Address:</strong> ${bookingData.address}</p>
+          <p><strong>Booking ID:</strong> ${bookingData.id}</p>
+        </div>
+      `;
+    }
+
+    const invoiceHtml = `
+      <!DOCTYPE html>
+      <html>
+      <head>
+        <meta charset="UTF-8">
+        <style>
+          body {
+            font-family: Arial, sans-serif;
+            margin: 0;
+            padding: 20px;
+            font-size: 14px;
+            line-height: 1.6;
+          }
+          .header {
+            text-align: center;
+            border-bottom: 2px solid #333;
+            padding-bottom: 20px;
+            margin-bottom: 30px;
+          }
+          .invoice-title {
+            color: #333;
+            margin: 0;
+            font-size: 36px;
+          }
+          .company-name {
+            color: #666;
+            margin: 10px 0 0 0;
+            font-size: 24px;
+          }
+          .customer-info {
+            margin-bottom: 30px;
+          }
+          .booking-details {
+            background-color: #f8f9fa;
+            padding: 20px;
+            margin: 20px 0;
+            border-radius: 8px;
+            border-left: 4px solid #28a745;
+          }
+          .invoice-table {
+            width: 100%;
+            border-collapse: collapse;
+            margin: 20px 0;
+          }
+          .invoice-table th,
+          .invoice-table td {
+            padding: 15px;
+            border: 1px solid #ddd;
+          }
+          .invoice-table th {
+            background-color: #f8f9fa;
+            text-align: left;
+          }
+          .invoice-table tfoot td {
+            background-color: #f8f9fa;
+            font-weight: bold;
+          }
+          .payment-status {
+            background-color: #e8f5e9;
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+          }
+          .footer {
+            text-align: center;
+            margin-top: 30px;
+            padding-top: 20px;
+            border-top: 1px solid #eee;
+            color: #666;
+          }
+        </style>
+      </head>
+      <body>
+        <div class="header">
+          <h1 class="invoice-title">INVOICE</h1>
+          <h2 class="company-name">Kletz Contracting</h2>
+          <p>1468 Old Steubenville Pike, Suite D<br>Pittsburgh, PA 15205<br>(412) 200-2475</p>
+          <p>PA HIC No. 011961</p>
+        </div>
+
+        <div class="customer-info">
+          <h3>Bill To:</h3>
+          <p><strong>${customerName}</strong><br>
+          ${session.customer_details.email}</p>
+        </div>
+
+        ${calendarSection}
+
+        <table class="invoice-table">
+          <thead>
+            <tr>
+              <th>Description</th>
+              <th style="text-align: center;">Quantity</th>
+              <th style="text-align: right;">Amount</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${lineItemsHtml}
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="2"><strong>TOTAL</strong></td>
+              <td style="text-align: right;"><strong>${totalAmount.toFixed(2)}</strong></td>
+            </tr>
+          </tfoot>
+        </table>
+
+        <div class="payment-status">
+          <p style="margin: 0;"><strong>✅ Payment Status: PAID</strong></p>
+          <p style="margin: 5px 0 0 0;">Payment ID: ${session.payment_intent}</p>
+          <p style="margin: 5px 0 0 0;">Invoice Date: ${new Date(session.created * 1000).toLocaleDateString()}</p>
+          <p style="margin: 5px 0 0 0;">Invoice #: INV-${session.id.slice(-8).toUpperCase()}</p>
+        </div>
+
+        <div class="footer">
+          <p>Thank you for your business!</p>
+          <p>Contact us: (412) 200-2475 | info@kletzcontracting.com</p>
+        </div>
+      </body>
+      </html>
+    `;
+
+    // Generate PDF using Puppeteer
+    const browser = await puppeteer.launch({
+      headless: 'new',
+      args: ['--no-sandbox', '--disable-setuid-sandbox']
+    });
+    
+    const page = await browser.newPage();
+    await page.setContent(invoiceHtml);
+    
+    const pdfBuffer = await page.pdf({
+      format: 'A4',
+      margin: {
+        top: '20px',
+        right: '20px',
+        bottom: '20px',
+        left: '20px'
+      }
+    });
+    
+    await browser.close();
+
+    return {
+      pdfBuffer,
+      filename: bookingData 
+        ? `invoice-booking-${bookingData.id.slice(0, 8)}.pdf`
+        : `invoice-${session.id.slice(-8)}.pdf`
+    };
+
+  } catch (error) {
+    console.error('Error generating PDF:', error);
+    throw error;
+  }
+}
+
+async function sendInvoicePDF(session, bookingData = null) {
+  try {
+    const { pdfBuffer, filename } = await generateInvoicePDF(session, bookingData);
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    const customerEmail = 'gmurin@gmail.com' //session.customer_details.email;
+    const customerName = session.customer_details.name || bookingData?.name || 'Customer';
+
+    // Generate calendar link if this is a dumpster booking
+    let calendarSection = '';
+    if (bookingData) {
+      const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dumpster+Dropoff&dates=${bookingData.service_date.replace(/-/g, '')}T090000Z/${bookingData.service_date.replace(/-/g, '')}T100000Z&details=Dumpster+delivery+at+${encodeURIComponent(bookingData.address)}`;
+      
+      calendarSection = `
+        <div style="background-color: #f8f9fa; padding: 20px; margin: 20px 0; border-radius: 8px; border-left: 4px solid #28a745;">
+          <h3 style="color: #28a745; margin-top: 0;">🗓️ Booking Confirmed!</h3>
+          <p><strong>Service Date:</strong> ${bookingData.service_date}</p>
+          <p><strong>Delivery Address:</strong> ${bookingData.address}</p>
+          <p><a href="${calendarLink}" style="background-color: #28a745; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">📅 Add to Calendar</a></p>
+        </div>
+      `;
+    }
+
+    const emailHtml = `
+      <div style="font-family: Arial, sans-serif; max-width: 600px; margin: 0 auto; padding: 20px;">
+        <h1 style="color: #28a745;">Payment Confirmed!</h1>
+        
+        <p>Dear ${customerName},</p>
+        
+        <p>Thank you for your payment! Please find your invoice attached as a PDF.</p>
+        
+        ${calendarSection}
+        
+        <div style="background-color: #e8f5e9; padding: 20px; border-radius: 8px; margin: 20px 0;">
+          <p style="margin: 0;"><strong>✅ Payment Status: PAID</strong></p>
+          <p style="margin: 5px 0 0 0;">Amount: $${(session.amount_total / 100).toFixed(2)}</p>
+          <p style="margin: 5px 0 0 0;">Payment ID: ${session.payment_intent}</p>
+        </div>
+        
+        <p>If you have any questions, please contact us at (412) 123-4567.</p>
+        
+        <p>Thank you for your business!<br>
+        <strong>Kletz Contracting</strong></p>
+      </div>
+    `;
+
+    const subject = bookingData 
+      ? 'Invoice & Booking Confirmation ✅ - Kletz Contracting'
+      : 'Invoice for Your Purchase - Kletz Contracting';
+
+    // Send to customer
+    await transporter.sendMail({
+      from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+      to: customerEmail,
+      subject: subject,
+      html: emailHtml,
+      attachments: [
+        {
+          filename: filename,
+          content: pdfBuffer,
+          contentType: 'application/pdf'
+        }
+      ]
+    });
+
+    // Send copy to business email
+    await transporter.sendMail({
+      from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+      to: process.env.CLIENT_EMAIL,
+      subject: `[COPY] ${subject}`,
+      html: `
+        <div style="background-color: #fff3cd; padding: 15px; margin-bottom: 20px; border: 1px solid #ffeaa7; border-radius: 5px;">
+          <p style="margin: 0; font-weight: bold; color: #856404;">📧 This is a copy of the invoice sent to: ${customerEmail}</p>
+        </div>
+        ${emailHtml}
+      `,
+      attachments: [
+        {
+          filename: filename,
+          content: pdfBuffer,
+          contentType: 'application/pdf'
+        }
+      ]
+    });
+
+    console.log('Invoice PDF sent to:', customerEmail);
+    console.log('Invoice PDF copy sent to business email');
+  } catch (error) {
+    console.error('Error sending invoice PDF:', error);
+  }
+}
+
+async function sendBusinessNotification(session, bookingData = null) {
+  try {
+    const { pdfBuffer, filename } = await generateInvoicePDF(session, bookingData);
+
+    const transporter = nodemailer.createTransport({
+      host: process.env.SMTP_HOST,
+      port: 587,
+      secure: false,
+      auth: {
+        user: process.env.SMTP_USER,
+        pass: process.env.SMTP_PASS,
+      },
+    });
+
+    const customerEmail = session.customer_details.email;
+    const customerName = session.customer_details.name || bookingData?.name || 'Customer';
+    const amount = (session.amount_total / 100).toFixed(2);
+
+    let subject;
+    let notificationHtml;
+
+    if (bookingData) {
+      const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dumpster+Dropoff&dates=${bookingData.service_date.replace(/-/g, '')}T090000Z/${bookingData.service_date.replace(/-/g, '')}T100000Z&details=Dumpster+delivery+at+${encodeURIComponent(bookingData.address)}`;
+      
+      subject = 'New Dumpster Booking 💰 - Action Required';
+      notificationHtml = `
+        <div style="background-color: #dc3545; color: white; padding: 20px; margin-bottom: 20px; border-radius: 8px;">
+          <h1 style="margin: 0; color: white;">🚨 NEW DUMPSTER BOOKING - ACTION REQUIRED</h1>
+          <p style="margin: 10px 0 0 0; color: white;">Customer ${customerName} has paid $${amount} for their dumpster booking</p>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+          <h3>Booking Details:</h3>
+          <ul>
+            <li><strong>Customer:</strong> ${customerName} (${customerEmail})</li>
+            <li><strong>Service Date:</strong> ${bookingData.service_date}</li>
+            <li><strong>Address:</strong> ${bookingData.address}</li>
+            <li><strong>Booking ID:</strong> ${bookingData.id}</li>
+            <li><strong>Payment ID:</strong> ${session.payment_intent}</li>
+          </ul>
+          <p><a href="${calendarLink}" style="background-color: #007bff; color: white; padding: 10px 20px; text-decoration: none; border-radius: 5px; display: inline-block;">📅 Add to Calendar</a></p>
+        </div>
+        
+        <p>📎 <strong>Customer invoice PDF is attached.</strong></p>
+        
+        <h3>Next Steps:</h3>
+        <ul>
+          <li>Schedule delivery for ${bookingData.service_date}</li>
+          <li>Contact customer day before for timing confirmation</li>
+          <li>Update delivery schedule in company system</li>
+        </ul>
+      `;
+    } else {
+      subject = 'New Payment Received 💰';
+      notificationHtml = `
+        <div style="background-color: #28a745; color: white; padding: 20px; margin-bottom: 20px; border-radius: 8px;">
+          <h1 style="margin: 0; color: white;">💰 NEW PAYMENT RECEIVED</h1>
+          <p style="margin: 10px 0 0 0; color: white;">Customer ${customerName} has made a $${amount} purchase</p>
+        </div>
+        
+        <div style="background-color: #f8f9fa; padding: 15px; margin-bottom: 20px; border-radius: 5px;">
+          <h3>Payment Details:</h3>
+          <ul>
+            <li><strong>Customer:</strong> ${customerName} (${customerEmail})</li>
+            <li><strong>Amount:</strong> $${amount}</li>
+            <li><strong>Payment ID:</strong> ${session.payment_intent}</li>
+            <li><strong>Date:</strong> ${new Date(session.created * 1000).toLocaleDateString()}</li>
+          </ul>
+        </div>
+        
+        <p>📎 <strong>Customer invoice PDF is attached.</strong></p>
+        <p>No additional action required - invoice has been automatically sent to customer.</p>
+      `;
+    }
+
+    await transporter.sendMail({
+      from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+      to: process.env.CLIENT_EMAIL,
+      subject: subject,
+      html: notificationHtml,
+      attachments: [
+        {
+          filename: filename,
+          content: pdfBuffer,
+          contentType: 'application/pdf'
+        }
+      ]
+    });
+
+    console.log('Business notification with PDF sent');
+  } catch (error) {
+    console.error('Error sending business notification:', error);
+  }
+}
+// import Stripe from 'stripe';
+// import { createClient } from '@supabase/supabase-js';
+// import nodemailer from 'nodemailer';
+// import { buffer } from 'micro';
+
+// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+// const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+
+// export const config = {
+//   api: {
+//     bodyParser: false,
+//   },
+// };
+
+// export default async function handler(req, res) {
+//   if (req.method !== 'POST') {
+//     return res.status(405).end();
+//   }
+
+//   const sig = req.headers['stripe-signature'];
+//   let rawBody;
+//   let event;
+
+//   try {
+//     rawBody = await buffer(req);
+//     console.log('Raw body length:', rawBody.length);
+//   } catch (err) {
+//     console.error('Error reading request body:', err);
+//     return res.status(400).send('Error reading request body');
+//   }
+
+//   try {
+//     event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
+//     console.log('Event type:', event.type);
+//   } catch (err) {
+//     console.error('Webhook signature verification failed:', err.message);
+//     return res.status(400).send(`Webhook Error: ${err.message}`);
+//   }
+
+//   if (event.type === 'checkout.session.completed') {
+//     const session = event.data.object;
+//     const bookingId = session.metadata?.booking_id;
+
+//     if (!bookingId) {
+//       console.log('No booking_id found in metadata');
+//       return res.status(200).json({ received: true, message: 'No booking_id in metadata' });
+//     }
+
+//     try {
+//       const { data: booking, error } = await supabase
+//         .from('bookings')
+//         .update({ status: 'paid' })
+//         .eq('id', bookingId)
+//         .select()
+//         .single();
+
+//       if (error) {
+//         console.error('Supabase error:', error);
+//         return res.status(500).send('Database error: ' + error.message);
+//       }
+
+//       if (booking) {
+//         console.log('Booking updated successfully:', booking.id);
+        
+//         // Simple email sending without complex templates for now
+//         const transporter = nodemailer.createTransport({
+//           host: process.env.SMTP_HOST,
+//           port: 587,
+//           secure: false,
+//           auth: {
+//             user: process.env.SMTP_USER,
+//             pass: process.env.SMTP_PASS,
+//           },
+//         });
+
+//         const calendarLink = `https://calendar.google.com/calendar/render?action=TEMPLATE&text=Dumpster+Dropoff&dates=${booking.service_date.replace(/-/g, '')}T090000Z/${booking.service_date.replace(/-/g, '')}T100000Z&details=Dumpster+delivery+at+${encodeURIComponent(booking.address)}`;
+
+//         try {
+//           // Customer email
+//           await transporter.sendMail({
+//             from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+//             to: booking.email,
+//             subject: 'Booking Confirmed ✅ - Kletz Contracting',
+//             html: `
+//               <h1>Payment Confirmed!</h1>
+//               <p>Hi ${booking.name},</p>
+//               <p>Thank you for your payment! Your dumpster rental is confirmed for ${booking.service_date}.</p>
+//               <p><a href="${calendarLink}">Add to Calendar</a></p>
+//               <p>Delivery Address: ${booking.address}</p>
+//               <p>Contact: (412) 123-4567</p>
+//             `
+//           });
+
+//           // Business email
+//           await transporter.sendMail({
+//             from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+//             to: process.env.CLIENT_EMAIL,
+//             subject: 'New Paid Booking 💰 - Action Required',
+//             html: `
+//               <h1>Payment Received!</h1>
+//               <p>Customer ${booking.name} has paid for their booking.</p>
+//               <p>Service Date: ${booking.service_date}</p>
+//               <p>Address: ${booking.address}</p>
+//               <p>Booking ID: ${booking.id}</p>
+//               <p><a href="${calendarLink}">Add to Calendar</a></p>
+//             `
+//           });
+
+//           console.log('Emails sent successfully');
+//         } catch (emailError) {
+//           console.error('Email error:', emailError);
+//           // Don't fail the webhook if emails fail
+//         }
+//       } else {
+//         console.log('No booking found with ID:', bookingId);
+//       }
+//     } catch (dbError) {
+//       console.error('Database error:', dbError);
+//       return res.status(500).send('Database error: ' + dbError.message);
+//     }
+//   }
+
+//   res.status(200).json({ received: true });
+// }
+
+
+//@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@
 
 // import Stripe from 'stripe';
 // import { createClient } from '@supabase/supabase-js';
