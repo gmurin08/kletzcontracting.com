@@ -322,7 +322,6 @@ export default function DumpsterService() {
                             required
                         >
                             <option value="">Select Dumpster Size</option>
-                            <option value="10">10 Yard</option>
                             <option value="12">12 Yard</option>
                             <option value="15">15 Yard</option>
                         </select>

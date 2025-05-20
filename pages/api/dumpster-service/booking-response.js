@@ -1,9 +1,41 @@
+//booking-response.js
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
 import Stripe from 'stripe';
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
+
+// Add price calculation utility functions
+function getDumpsterPrice(size) {
+  // Prices in cents
+  const prices = {
+    '12': 38000,  // $380 for 12 yard
+    '15': 40000   // $400 for 15 yard
+  };
+  
+  // Return the price for the given size, or a default if not found
+  return prices[size] || 38000; // Default to $380 if size is not recognized
+}
+
+// If you want to receive exactly the base price after Stripe takes its cut:
+function getPriceWithStripeFees(size) {
+  const basePrice = getDumpsterPrice(size);
+  
+  // Stripe's standard fee is 2.9% + $0.30 per transaction
+  const percentageFee = 0.029; // 2.9%
+  const fixedFee = 30; // $0.30 in cents
+  
+  // This formula ensures you receive exactly basePrice after Stripe takes its fee
+  const amountWithFees = Math.round(basePrice / (1 - percentageFee) + fixedFee);
+  
+  return amountWithFees;
+}
+
+function formatPrice(size) {
+  const priceInCents = getDumpsterPrice(size);
+  return `$${(priceInCents / 100).toFixed(2)}`;
+}
 
 export default async function handler(req, res) {
   const { id, action } = req.query;
@@ -48,6 +80,7 @@ export default async function handler(req, res) {
     await supabase.from('bookings').update({ stripe_customer_id: customer.id }).eq('id', id);
   }
 
+  // Create Stripe checkout session with dynamic pricing based on dumpster size
   const session = await stripe.checkout.sessions.create({
     payment_method_types: ['card'],
     mode: 'payment',
@@ -58,7 +91,7 @@ export default async function handler(req, res) {
         product_data: {
           name: `${booking.dumpster_size} Yard Dumpster Rental`,
         },
-        unit_amount: 30000,
+        unit_amount: getPriceWithStripeFees(booking.dumpster_size), // Price with fees included
       },
       quantity: 1,
     }],
@@ -101,6 +134,8 @@ export default async function handler(req, res) {
   // Redirect to business dashboard or status page
   return res.redirect('/admin/booking-request-sent');
 }
+
+
 
 async function sendEmail(to, subject, html) {
   const transporter = nodemailer.createTransport({
@@ -359,7 +394,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
               <li><strong>Dumpster Size:</strong> ${dumpsterSize} Yard</li>
               <li><strong>Delivery Date:</strong> ${date}</li>
               <li><strong>Delivery Address:</strong> ${address}</li>
-              <li><strong>Amount:</strong> $300.00</li>
+              <li><strong>Amount:</strong> ${formatPrice(dumpsterSize)}</li>
             </ul>
           </div>
           

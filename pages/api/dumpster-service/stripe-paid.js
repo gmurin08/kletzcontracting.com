@@ -1,3 +1,4 @@
+//stripe-paid.js
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { buffer } from 'micro';
