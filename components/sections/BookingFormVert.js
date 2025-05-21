@@ -1,16 +1,17 @@
 import { useState } from "react";
 import { isValidEmail, isValidPhone } from "../../util/validation";
 import { useRouter } from "next/navigation";
-import { ClientPageRoot } from "next/dist/client/components/client-page";
+
 export default function AppointmentVert() {
   const [form, setForm] = useState({
-    name: "",
-    phone: "",
-    zip: "",
+    firstName: "",
+    lastName: "",
     email: "",
-    message: ""
+    phone: "",
+    postalCode: "",
+    notes: ""
   });
-  const router = useRouter()
+  const router = useRouter();
 
   const [error, setError] = useState("");
 
@@ -24,7 +25,9 @@ export default function AppointmentVert() {
   const handleSubmit = async (e) => {
     e.preventDefault();
 
-    if (!form.name || !form.phone || !form.zip || !form.email) {
+    // Basic validation - check all fields are filled
+    if (!form.firstName || !form.lastName || !form.phone || 
+        !form.postalCode || !form.email || !form.notes) {
       setError("Please fill in all required fields.");
       return;
     }
@@ -41,33 +44,36 @@ export default function AppointmentVert() {
 
     setError(""); // Clear error on valid submit
 
-    const url = window.location.href
-
     try {
-      const response = await fetch(`/api/ghl-submit`,
-        {
-          method:'POST',
-          headers:{
-            'Content-Type':'application/json'
-          },
-          body:JSON.stringify({
-            name:form.name,
-            phone:form.phone,
-            url:url,
-            zip:form.zip,
-            email:form.email,
-            notes:form.note
-          })
-        }
-      )
+      const response = await fetch(`/api/submit-contact-form`, {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify({
+          firstName: form.firstName,
+          lastName: form.lastName,
+          email: form.email,
+          phone: form.phone,
+          address: "", // Sending empty string for address
+          city: "", // Sending empty string for city
+          state: "", // Sending empty string for state
+          country: "US",
+          postalCode: form.postalCode,
+          notes: form.notes
+        })
+      });
 
-      if (response.status === 200){
-          router.push('/thank-you')
+      if (response.ok) {
+        router.push('/thank-you');
+      } else {
+        const errorData = await response.json();
+        setError("Submission failed: " + (errorData.error || "Unknown error"));
       }
     } catch (error) {
-      console.log(error)
+      console.error("Form submission error:", error);
+      setError("An error occurred. Please try again later.");
     }
-    
   };
 
   return (
@@ -116,10 +122,23 @@ export default function AppointmentVert() {
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <input
-                        name="name"
+                        name="firstName"
                         type="text"
                         placeholder="Your Name"
-                        value={form.name}
+                        value={form.firstName}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-lg-4">
+                    <div className="form-grp">
+                      <input
+                        name="lastName"
+                        type="text"
+                        placeholder="Last Name"
+                        value={form.lastName}
                         onChange={handleChange}
                         required
                       />
@@ -142,19 +161,6 @@ export default function AppointmentVert() {
                   <div className="col-lg-4">
                     <div className="form-grp">
                       <input
-                        name="zip"
-                        type="text"
-                        placeholder="Service Zip Code"
-                        value={form.zip}
-                        onChange={handleChange}
-                        required
-                      />
-                    </div>
-                  </div>
-
-                  <div className="col-lg-4">
-                    <div className="form-grp">
-                      <input
                         name="email"
                         type="email"
                         placeholder="Email"
@@ -167,21 +173,34 @@ export default function AppointmentVert() {
 
                   <div className="col-lg-4">
                     <div className="form-grp">
-                      <textarea
-                        name="message"
-                        placeholder="Details"
-                        value={form.message}
+                      <input
+                        name="postalCode"
+                        type="text"
+                        placeholder="Service Zip Code"
+                        value={form.postalCode}
                         onChange={handleChange}
+                        required
                       />
                     </div>
                   </div>
 
                   <div className="col-lg-4">
+                    <div className="form-grp">
+                      <textarea
+                        name="notes"
+                        placeholder="Project Details"
+                        value={form.notes}
+                        onChange={handleChange}
+                        required
+                      />
+                    </div>
+                  </div>
+
+                  <div className="col-lg-12">
                     <button type="submit" className="btn">Submit</button>
                   </div>
                 </div>
               </form>
-
             </div>
           </div>
         </div>

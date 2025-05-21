@@ -1,6 +1,8 @@
 import { useState, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 
 const ContactForm = () => {
+  const router = useRouter();
   const [isMobile, setIsMobile] = useState(false);
 
   // Check for mobile view
@@ -286,11 +288,56 @@ const ContactForm = () => {
       
       <div style={styles.formBody}>
         {submitSuccess ? (
-          <div style={styles.successMessage}>
-            <h3 style={styles.successTitle}>Thank you for your submission!</h3>
-            <p>We'll get back to you as soon as possible.</p>
-          </div>
-        ) : (
+  <div style={styles.successMessage}>
+    <div>
+      <img 
+        src="/assets/img/logo/kletz.png" 
+        alt="Kletz Contracting Logo"
+        style={{width:'150px', paddingBottom:'30px'}} 
+      />
+    </div>
+    <h2 style={styles.successTitle}>Thank You for Choosing Kletz Contracting!</h2>
+    <p style={{
+      fontSize: '16px',
+      marginBottom: '24px'
+    }}>
+      We appreciate your business. Your project will receive our full attention and the quality workmanship that's built our reputation.
+    </p>
+    
+    <div style={{
+      backgroundColor: 'rgba(241, 248, 233, 0.64)',
+      borderLeft: '4px solid #689f38',
+      padding: '16px',
+      marginTop: '24px',
+      marginBottom: '24px'
+    }}>
+      <h2 style={{
+        fontSize: '20px',
+        fontWeight: '600',
+        color: '#33691e',
+        marginTop: '0'
+      }}>What Happens Next</h2>
+      <ol style={{
+        marginLeft: '24px',
+        marginTop: '12px',
+        marginBottom: '12px'
+      }}>
+        <li style={{ marginBottom: '8px' }}>A project manager will contact you within 24 hours to schedule an initial consultation.</li>
+        <li style={{ marginBottom: '8px' }}>We'll review your requirements in detail and provide a comprehensive timeline.</li>
+        <li style={{ marginBottom: '8px' }}>Once approved, our team will begin work according to the agreed schedule.</li>
+      </ol>
+    </div>
+    
+    <p style={{
+      marginTop: '24px',
+      fontStyle: 'italic'
+    }}>
+      If you have any questions before then, don't hesitate to reach out at{' '}
+      <strong>john@kletzcontracting.com</strong> or call{' '}<br/>
+      <strong>(412) 200-2475</strong>.
+    </p>
+  </div>
+) : (
           <form onSubmit={handleSubmit}>
             <div style={styles.formRow}>
               <div style={styles.formGroupInRow}>
@@ -457,7 +504,7 @@ const ContactForm = () => {
             </button>
             </div>
             <div style={styles.privacyLinks}>
-              <a href="/privacy-policy" style={styles.privacyLink}>Privacy Policy</a> | <a href="/terms" style={styles.privacyLink}>Terms of Service</a>
+              <a href="/privacy-policy" style={styles.privacyLink}>Privacy Policy</a> | <a href="/terms-and-conditions" style={styles.privacyLink}>Terms of Service</a>
             </div>
           </form>
         )}
