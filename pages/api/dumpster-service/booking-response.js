@@ -1,35 +1,16 @@
-//booking-response.js
+// Simplified booking-response.js - Contract only
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
-import Stripe from 'stripe';
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
-const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
-// Add price calculation utility functions
+// Price calculation utilities
 function getDumpsterPrice(size) {
-  // Prices in cents
   const prices = {
     '12': 38000,  // $380 for 12 yard
     '15': 40000   // $400 for 15 yard
   };
-  
-  // Return the price for the given size, or a default if not found
-  return prices[size] || 38000; // Default to $380 if size is not recognized
-}
-
-// If you want to receive exactly the base price after Stripe takes its cut:
-function getPriceWithStripeFees(size) {
-  const basePrice = getDumpsterPrice(size);
-  
-  // Stripe's standard fee is 2.9% + $0.30 per transaction
-  const percentageFee = 0.029; // 2.9%
-  const fixedFee = 30; // $0.30 in cents
-  
-  // This formula ensures you receive exactly basePrice after Stripe takes its fee
-  const amountWithFees = Math.round(basePrice / (1 - percentageFee) + fixedFee);
-  
-  return amountWithFees;
+  return prices[size] || 38000;
 }
 
 function formatPrice(size) {
@@ -48,6 +29,7 @@ export default async function handler(req, res) {
   const logoUrl = 'https://storage.googleapis.com/msgsndr/3xGyNbyyifHaQaEVS0Sx/media/681ba0cc6da8499d97d2cdd0.png';
   
   if (action === 'deny') {
+    // Just update status and send denial email
     await supabase.from('bookings').update({ status: 'denied' }).eq('id', id);
     
     const deniedHtml = generateDeniedEmail({
@@ -57,85 +39,44 @@ export default async function handler(req, res) {
     });
     
     await sendEmail(booking.email, 'Important Update About Your Dumpster Rental Request', deniedHtml);
-    // Redirect to business dashboard or status page
     return res.redirect('/admin/booking-denied');
   }
 
-  // Create Stripe customer if needed
-  let customer;
-  if (booking.stripe_customer_id) {
-    customer = await stripe.customers.retrieve(booking.stripe_customer_id);
-  } else {
-    const existingCustomers = await stripe.customers.list({ email: booking.email, limit: 1 });
-    if (existingCustomers.data.length > 0) {
-      customer = existingCustomers.data[0];
-    } else {
-      customer = await stripe.customers.create({
-        email: booking.email,
+  if (action === 'approve') {
+    try {
+      // Just update status to approved
+      await supabase.from('bookings').update({ status: 'approved' }).eq('id', id);
+      
+      // Send approval email with contract link
+      const acceptedHtml = generateAcceptedEmail({
         name: booking.name,
-        phone: booking.phone,
-        metadata: { booking_id: booking.id }
+        dumpsterSize: booking.dumpster_size,
+        date: new Date(booking.service_date).toLocaleDateString('en-US', {
+          weekday: 'long', 
+          year: 'numeric', 
+          month: 'long', 
+          day: 'numeric'
+        }),
+        address: booking.address,
+        amount: formatPrice(booking.dumpster_size),
+        contractUrl: "https://sendlink.co/documents/doc-form/6810e1bbbd56f4288f4db5bb?locale=en_US",
+        logoUrl,
+        baseUrl
       });
+      
+      await sendEmail(booking.email, 'Your Dumpster Rental Request Has Been Approved!', acceptedHtml);
+      
+      console.log('Booking approved and contract sent:', booking.id);
+      return res.redirect('/admin/booking-request-sent');
+
+    } catch (error) {
+      console.error('Error processing approval:', error);
+      return res.status(500).send('Error processing booking approval');
     }
-    await supabase.from('bookings').update({ stripe_customer_id: customer.id }).eq('id', id);
   }
 
-  // Create Stripe checkout session with dynamic pricing based on dumpster size
-  const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card'],
-    mode: 'payment',
-    customer: customer.id,
-    line_items: [{
-      price_data: {
-        currency: 'usd',
-        product_data: {
-          name: `${booking.dumpster_size} Yard Dumpster Rental`,
-        },
-        unit_amount: getPriceWithStripeFees(booking.dumpster_size), // Price with fees included
-      },
-      quantity: 1,
-    }],
-    payment_intent_data: {
-      setup_future_usage: 'off_session'
-    },
-    metadata: {
-      booking_id: booking.id,
-      name: booking.name,
-      phone: booking.phone,
-      address: booking.address,
-      service_date: booking.service_date,
-    },
-    success_url: `${baseUrl}/thank-you?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${baseUrl}/cancel`,
-  });
-
-  await supabase.from('bookings').update({ 
-    status: 'approved', 
-    stripe_url: session.url, 
-    stripe_customer_id: customer.id 
-  }).eq('id', id);
-  
-  const acceptedHtml = generateAcceptedEmail({
-    name: booking.name,
-    dumpsterSize: booking.dumpster_size,
-    date: new Date(booking.service_date).toLocaleDateString('en-US', {
-      weekday: 'long', 
-      year: 'numeric', 
-      month: 'long', 
-      day: 'numeric'
-    }),
-    address: booking.address,
-    paymentUrl: session.url,
-    logoUrl,
-    baseUrl
-  });
-  
-  await sendEmail(booking.email, 'Your Dumpster Rental Request Has Been Approved!', acceptedHtml);
-  // Redirect to business dashboard or status page
-  return res.redirect('/admin/booking-request-sent');
+  return res.status(400).send('Invalid action');
 }
-
-
 
 async function sendEmail(to, subject, html) {
   const transporter = nodemailer.createTransport({
@@ -156,7 +97,7 @@ async function sendEmail(to, subject, html) {
   });
 }
 
-function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, logoUrl, baseUrl }) {
+function generateAcceptedEmail({ name, dumpsterSize, date, address, amount, contractUrl, logoUrl, baseUrl }) {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -166,48 +107,15 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
       <title>Dumpster Rental Approved</title>
       <style>
         @media (prefers-color-scheme: dark) {
-          body {
-            background-color: #1a1a1a !important;
-            color: #f5f5f5 !important;
-          }
-          .container {
-            background-color: #2d2d2d !important;
-            border-color: #444444 !important;
-          }
-          .content {
-            background-color: #2d2d2d !important;
-          }
-          .footer {
-            background-color: #222222 !important;
-            border-color: #444444 !important;
-          }
-          h1, h2, h3, h4, p, li {
-            color: #f5f5f5 !important;
-          }
-          .booking-details {
-            background-color: #3d3d3d !important;
-            border-color: #555555 !important;
-          }
-          .booking-details li {
-            border-color: #555555 !important;
-          }
-          .action-button {
-            background-color: #990000 !important;
-            color: #ffffff !important;
-          }
-          .footer a {
-            color: #990000 !important;
-          }
-          .divider {
-            border-color: #555555 !important;
-          }
-          .steps li::before {
-            background-color: #990000 !important;
-            color: #ffffff !important;
-          }
-          .help-links a::after {
-            color: #990000 !important;
-          }
+          body { background-color: #1a1a1a !important; color: #f5f5f5 !important; }
+          .container { background-color: #2d2d2d !important; border-color: #444444 !important; }
+          .content { background-color: #2d2d2d !important; }
+          .footer { background-color: #222222 !important; border-color: #444444 !important; }
+          h1, h2, h3, h4, p, li { color: #f5f5f5 !important; }
+          .booking-details { background-color: #3d3d3d !important; border-color: #555555 !important; }
+          .booking-details li { border-color: #555555 !important; }
+          .action-button { background-color: #28a745 !important; color: #ffffff !important; }
+          .priority-notice { background-color: #3d3d3d !important; border-color: #555555 !important; }
         }
         
         body {
@@ -216,7 +124,6 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           color: #333333;
           margin: 0;
           padding: 0;
-          -webkit-font-smoothing: antialiased;
           background-color: #f7f7f7;
         }
         .container {
@@ -252,7 +159,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           color: #4a4a4a;
         }
         .booking-details {
-          background-color: #f9f9f9;
+          background-color: #f8f9fa;
           border-radius: 8px;
           padding: 20px;
           margin: 30px 0;
@@ -288,71 +195,46 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
         }
         .action-button {
           display: inline-block;
-          padding: 14px 36px;
-          background-color:rgb(40, 100, 190);
+          padding: 16px 40px;
+          background-color: #28a745;
           color: #ffffff;
           text-decoration: none;
           border-radius: 6px;
           font-weight: 600;
-          font-size: 16px;
-          transition: background-color 0.3s;
-          border: none;
+          font-size: 18px;
+          transition: all 0.3s;
         }
         .action-button:hover {
-          background-color:rgb(80, 200, 94);
+          background-color: #218838;
+          transform: translateY(-2px);
+          box-shadow: 0 4px 8px rgba(40, 167, 69, 0.3);
         }
-        .divider {
-          height: 1px;
-          background-color: #eeeeee;
-          border: none;
+        .priority-notice {
+          background-color: #fff3cd;
+          border: 1px solid #ffeaa7;
+          border-radius: 8px;
+          padding: 20px;
           margin: 30px 0;
+          color: #856404;
+        }
+        .priority-notice ul {
+          margin: 10px 0 0 0;
+          padding-left: 20px;
+        }
+        .priority-notice li {
+          margin-bottom: 8px;
         }
         .footer {
           padding: 20px 30px;
           text-align: center;
           font-size: 14px;
-          background-color: #f9f9f9;
+          background-color: #f8f9fa;
           color: #666666;
           border-top: 1px solid #eeeeee;
         }
         .footer a {
-          color:rgb(40, 100, 190);
+          color: #007bff;
           text-decoration: none;
-        }
-        .steps {
-          counter-reset: steps;
-          margin: 30px 0;
-          padding: 0;
-          list-style: none;
-        }
-        .steps li {
-          position: relative;
-          margin-bottom: 20px;
-          padding-left: 50px;
-          counter-increment: steps;
-        }
-        .steps li::before {
-          content: counter(steps);
-          position: absolute;
-          left: 0;
-          top: 0;
-          background-color:rgb(40, 100, 190);
-          color: #ffffff;
-          width: 30px;
-          height: 30px;
-          border-radius: 50%;
-          display: flex;
-          align-items: center;
-          justify-content: center;
-          font-weight: bold;
-        }
-        .steps h4 {
-          margin: 0 0 5px;
-          color: #292929;
-        }
-        .steps p {
-          margin: 0;
-          color: #666666;
         }
         .help-links {
           display: flex;
@@ -371,7 +253,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
         .help-links a::after {
           content: "→";
           margin-left: 5px;
-          color: #990000;
+          color: #28a745;
         }
       </style>
     </head>
@@ -386,7 +268,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
           
           <p>Hi ${name},</p>
           
-          <p>Great news! Your dumpster rental request has been approved. We're ready to deliver your dumpster on the scheduled date. To finalize your booking, please complete the payment using the link below.</p>
+          <p>Great news! Your dumpster rental request has been approved. To complete your booking, please sign the rental agreement using the button below.</p>
           
           <div class="booking-details">
             <h3>Booking Details</h3>
@@ -394,48 +276,26 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
               <li><strong>Dumpster Size:</strong> ${dumpsterSize} Yard</li>
               <li><strong>Delivery Date:</strong> ${date}</li>
               <li><strong>Delivery Address:</strong> ${address}</li>
-              <li><strong>Amount:</strong> ${formatPrice(dumpsterSize)}</li>
+              <li><strong>Estimated Cost:</strong> ${amount}</li>
             </ul>
           </div>
           
           <div class="action-container">
-            <a href="${paymentUrl}" class="action-button">Complete Payment</a>
+            <a href="${contractUrl}" class="action-button">📋 Sign Rental Agreement</a>
           </div>
-  
-          <p>Note: In order to prevent any delay in service. Please click below to sign our dumpster rental agreement.</p>
+          
+          <p>Please sign our rental agreement to confirm your booking. Once signed, we'll contact you to arrange payment and delivery details.</p>
 
-          <div class="action-container">
-            <a href="https://sendlink.co/documents/doc-form/6810e1bbbd56f4288f4db5bb?locale=en_US" class="action-button">Sign Contract</a>
+          <div class="priority-notice">
+            <strong>Next Steps:</strong> 
+            <ul>
+              <li>Click the button above to sign your rental agreement</li>
+              <li>We'll contact you within 24 hours to arrange payment</li>
+              <li>We'll confirm delivery timing the day before your scheduled date</li>
+            </ul>
           </div>
           
-          <p>After your payment is processed, you'll receive a confirmation email with your receipt and further instructions.</p>
-          
-          <hr class="divider">
-          
-          <h3>What Happens Next</h3>
-          
-          <ul class="steps">
-            <li>
-              <h4>Payment Confirmation</h4>
-              <p>Complete your payment to secure your booking.</p>
-            </li>
-            <li>
-              <h4>Pre-Delivery Notification</h4>
-              <p>We'll text you the day before delivery with your estimated arrival window.</p>
-            </li>
-            <li>
-              <h4>Delivery</h4>
-              <p>Our driver will place the dumpster according to your instructions.</p>
-            </li>
-            <li>
-              <h4>Usage Period</h4>
-              <p>You'll have the dumpster for the agreed rental period.</p>
-            </li>
-          </ul>
-          
-          <hr class="divider">
-          
-          <p>If you have any questions or need to make changes to your booking, please don't hesitate to contact us.</p>
+          <p>If you have any questions, please don't hesitate to contact us at (412) 200-2475.</p>
           
           <div class="help-links">
             <a href="${baseUrl}faq">Frequently Asked Questions</a>
@@ -446,11 +306,11 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, paymentUrl, 
         
         <div class="footer">
           <p>© ${new Date().getFullYear()} Kletz Contracting Inc. All rights reserved.</p>
+          <p>1468 Old Steubenville Pike - Suite D, Pittsburgh, PA 15205</p>
           <p>
             <a href="${baseUrl}privacy">Privacy Policy</a> | 
             <a href="${baseUrl}terms">Terms of Service</a>
           </p>
-          <p>1468 Old Steubenville Pike - Suite D, Pittsburgh, PA 15205</p>
         </div>
       </div>
     </body>
@@ -465,57 +325,14 @@ function generateDeniedEmail({ name, logoUrl, baseUrl }) {
     <head>
       <meta charset="UTF-8">
       <meta name="viewport" content="width=device-width, initial-scale=1.0">
-      <title>Dumpster Rental Update</title>
+      <title>Booking Update</title>
       <style>
-        @media (prefers-color-scheme: dark) {
-          body {
-            background-color: #1a1a1a !important;
-            color: #f5f5f5 !important;
-          }
-          .container {
-            background-color: #2d2d2d !important;
-            border-color: #444444 !important;
-          }
-          .content {
-            background-color: #2d2d2d !important;
-          }
-          .footer {
-            background-color: #222222 !important;
-            border-color: #444444 !important;
-          }
-          h1, h2, h3, h4, p {
-            color: #f5f5f5 !important;
-          }
-          .message-box {
-            background-color: #3d3d3d !important;
-            border-color: #555555 !important;
-          }
-          .action-button {
-            background-color: #990000 !important;
-            color: #ffffff !important;
-          }
-          .footer a {
-            color: #990000 !important;
-          }
-          .divider {
-            border-color: #555555 !important;
-          }
-          .alternative-container {
-            background-color: #3d3d3d !important;
-            border-color: #555555 !important;
-          }
-          .help-links a::after {
-            color: #990000 !important;
-          }
-        }
-        
         body {
           font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
           line-height: 1.6;
           color: #333333;
           margin: 0;
           padding: 0;
-          -webkit-font-smoothing: antialiased;
           background-color: #f7f7f7;
         }
         .container {
@@ -550,82 +367,27 @@ function generateDeniedEmail({ name, logoUrl, baseUrl }) {
           font-size: 16px;
           color: #4a4a4a;
         }
-        .message-box {
-          background-color: #f9f9f9;
-          border-radius: 8px;
-          padding: 25px;
-          margin: 30px 0;
-          border: 1px solid #eeeeee;
-        }
-        .message-box p {
-          margin: 0;
-        }
-        .action-container {
-          text-align: center;
-          margin: 35px 0;
-        }
         .action-button {
           display: inline-block;
           padding: 14px 36px;
-          background-color: #990000;
+          background-color: #dc3545;
           color: #ffffff;
           text-decoration: none;
           border-radius: 6px;
           font-weight: 600;
           font-size: 16px;
-          transition: background-color 0.3s;
-          border: none;
         }
-        .action-button:hover {
-          background-color: #7a0000;
-        }
-        .divider {
-          height: 1px;
-          background-color: #eeeeee;
-          border: none;
-          margin: 30px 0;
-        }
-        .alternative-container {
-          background-color: #f9f9f9;
-          border-radius: 8px;
-          padding: 25px;
-          margin: 30px 0;
-          border: 1px solid #eeeeee;
-        }
-        .alternative-container h3 {
-          margin-top: 0;
-          color: #292929;
+        .action-container {
+          text-align: center;
+          margin: 35px 0;
         }
         .footer {
           padding: 20px 30px;
           text-align: center;
           font-size: 14px;
-          background-color: #f9f9f9;
+          background-color: #f8f9fa;
           color: #666666;
           border-top: 1px solid #eeeeee;
-        }
-        .footer a {
-          color: #990000;
-          text-decoration: none;
-        }
-        .help-links {
-          display: flex;
-          justify-content: space-around;
-          margin: 30px 0;
-          flex-wrap: wrap;
-        }
-        .help-links a {
-          color: #333333;
-          text-decoration: none;
-          font-weight: bold;
-          margin: 10px;
-          display: inline-flex;
-          align-items: center;
-        }
-        .help-links a::after {
-          content: "→";
-          margin-left: 5px;
-          color: #990000;
         }
       </style>
     </head>
@@ -640,45 +402,19 @@ function generateDeniedEmail({ name, logoUrl, baseUrl }) {
           
           <p>Hi ${name},</p>
           
-          <p>Thank you for choosing Kletz Contracting for your dumpster rental needs. We've reviewed your request and unfortunately, we're unable to accommodate your booking for the requested date and location.</p>
+          <p>Thank you for your interest in our dumpster rental services. Unfortunately, we're unable to accommodate your booking request for the requested date and location.</p>
           
-          <div class="message-box">
-            <p>This could be due to several reasons including high demand in your area, limited availability of the requested dumpster size, or delivery constraints.</p>
-          </div>
-          
-          <p>We'd be happy to help you reschedule for an alternative date or suggest different options that might work better for your needs.</p>
+          <p>We'd be happy to help you reschedule for an alternative date or discuss other options.</p>
           
           <div class="action-container">
             <a href="${baseUrl}contact" class="action-button">Contact Us to Reschedule</a>
           </div>
           
-          <hr class="divider">
-          
-          <div class="alternative-container">
-            <h3>Alternative Options</h3>
-            <p>Consider these alternatives that might better fit your project needs:</p>
-            <ul>
-              <li>Schedule for a different date when we have more availability</li>
-              <li>Choose a different dumpster size that might be available sooner</li>
-              <li>Explore our on-demand pickup service for smaller waste disposal needs</li>
-            </ul>
-          </div>
-          
-          <p>We value your business and would like to find a solution that works for you. Please reply to this email or call us at (555) 123-4567 to discuss alternatives.</p>
-          
-          <div class="help-links">
-            <a href="${baseUrl}faq">Frequently Asked Questions</a>
-            <a href="${baseUrl}contact">Contact Support</a>
-            <a href="${baseUrl}size-guide">Dumpster Size Guide</a>
-          </div>
+          <p>Please don't hesitate to reach out - we value your business and want to find a solution that works.</p>
         </div>
         
         <div class="footer">
           <p>© ${new Date().getFullYear()} Kletz Contracting Inc. All rights reserved.</p>
-          <p>
-            <a href="${baseUrl}privacy-policy">Privacy Policy</a> | 
-            <a href="${baseUrl}terms-and-conditions">Terms of Service</a>
-          </p>
           <p>1468 Old Steubenville Pike - Suite D, Pittsburgh, PA 15205</p>
         </div>
       </div>

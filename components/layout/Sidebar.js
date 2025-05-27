@@ -37,6 +37,7 @@ export default function Sidebar({closeMenu}) {
                     </ul>
                     <div className="dropdown-btn" onClick={() => handleToggle(2)}><span className="fas fa-angle-down" /></div></li>
                     {/* <li><Link href='/service-areas'>Serice Areas</Link></li> */}
+                    <li><Link href="/recent-projects"onClick={closeMenu}>Projects</Link></li>
                 <li><Link href="/financing"onClick={closeMenu}>Financing</Link></li>
                 {/* <li><Link href="/blog" onClick={closeMenu}>Blog</Link></li> */}
                 <li><Link href="/contact" onClick={closeMenu}>Contact</Link></li>
