@@ -138,6 +138,7 @@ export default function Header({ headerCls, headerTop }) {
                                                     </ul>
                                                 </li> */}
                                                 <li><Link href='/recent-projects'>Projects</Link></li>
+                                                <li><Link href='/service-areas'>Service Areas</Link></li>
                                                 <li><Link href='/financing'>Financing</Link></li>
                                                 {/* <li><Link href="/blog">Blog</Link></li> */}
                                                 <li><Link href="/contact">Contact</Link></li>
@@ -171,7 +172,7 @@ export default function Header({ headerCls, headerTop }) {
                                         </div>
                                         <div className="address-field">
                                             <div>Kletz Contracting, Inc.</div>
-                                            <div>1025 Steubenville Pike Suite D</div>
+                                            <div>1468 Old Steubenville Pike suite d</div>
                                             <div>Pittsburgh, PA 15205</div>
                                         </div>
                                     </nav>
