@@ -139,7 +139,7 @@ export default function Header({ headerCls, headerTop }) {
                                                 </li> */}
                                                 <li><Link href='/recent-projects'>Projects</Link></li>
                                                 <li><Link href='/financing'>Financing</Link></li>
-                                                {/* <li><Link href="/blog">Blog</Link></li> */}
+                                                <li><Link href="/blog">Blog</Link></li>
                                                 <li><Link href="/contact">Contact</Link></li>
                                             </ul>
                                         </div>

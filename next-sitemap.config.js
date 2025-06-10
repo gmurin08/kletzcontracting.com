@@ -2,7 +2,7 @@
 module.exports = {
   siteUrl: 'https://kletzcontracting.com',
   generateRobotsTxt: true,
-  exclude: ['/api/*', '/admin/*', '/dashboard/*', '/blog', '/blog/*', '/OLDservices', 
+  exclude: ['/api/*', '/admin/*', '/dashboard/*', '/OLDservices', 
     '/blog-details', '/opportunity-updated', '/project', '/project-details', '/services-details',
     '/team', '/team-details'
   ],
@@ -11,7 +11,7 @@ module.exports = {
       {
         userAgent: '*',
         allow: '/',
-        disallow: ['/api/', '/admin/', '/dashboard/', '/blog/', '/blog/*', '/OLDservices', 
+        disallow: ['/api/', '/admin/', '/dashboard/', '/OLDservices', 
     '/blog-details', '/opportunity-updated', '/project', '/project-details', '/services-details',
     '/team', '/team-details'
   ],
