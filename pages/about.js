@@ -5,7 +5,8 @@ import Work1 from "@/components/sections/Work1"
 import AboutBanner from "@/components/sections/AboutBanner"
 import Link from "next/link"
 import Slider from "react-slick"
-import Script from "next/script";
+import Script from "next/script"
+import Head from "next/head";
 
 
 const settings = {
@@ -22,6 +23,17 @@ export default function About() {
 
     return (
         <>
+            <Head>
+                <title>About Kletz Contracting | Pittsburgh Roofing & Remodeling Experts Since 1996</title>
+                <meta name="description" content="Learn about Kletz Contracting, Pittsburgh's trusted roofing and remodeling company since 1996. Family-owned business serving Allegheny County, Beaver County, and Washington County with quality craftsmanship and reliable service." />
+                <meta property="og:title" content="About Kletz Contracting | Pittsburgh Roofing & Remodeling Experts Since 1996" />
+                <meta property="og:description" content="Learn about Kletz Contracting, Pittsburgh's trusted roofing and remodeling company since 1996. Family-owned business serving Allegheny County, Beaver County, and Washington County with quality craftsmanship and reliable service." />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://kletzcontracting.com/about" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="About Kletz Contracting | Pittsburgh Roofing & Remodeling Experts Since 1996" />
+                <meta name="twitter:description" content="Learn about Kletz Contracting, Pittsburgh's trusted roofing and remodeling company since 1996. Family-owned business serving Allegheny County, Beaver County, and Washington County with quality craftsmanship and reliable service." />
+            </Head>
             <Layout breadcrumbTitle="About Us">
 
                 <AboutBanner/>

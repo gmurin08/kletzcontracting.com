@@ -1,11 +1,23 @@
 import Layout from "@/components/layout/Layout"
 import Link from "next/link"
 import MainContact from "@/components/elements/MainContact"
-import useMobileResponse from "@/hooks/useMobileResponse";
+import useMobileResponse from "@/hooks/useMobileResponse"
+import Head from "next/head";
 export default function Contact() {
     const isMobile = useMobileResponse()
     return (
         <>
+            <Head>
+                <title>Contact Kletz Contracting | Pittsburgh Roofing & Remodeling | Free Estimates</title>
+                <meta name="description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 200-2475 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
+                <meta property="og:title" content="Contact Kletz Contracting | Pittsburgh Roofing & Remodeling | Free Estimates" />
+                <meta property="og:description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 200-2475 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
+                <meta property="og:type" content="website" />
+                <meta property="og:url" content="https://kletzcontracting.com/contact" />
+                <meta name="twitter:card" content="summary_large_image" />
+                <meta name="twitter:title" content="Contact Kletz Contracting | Pittsburgh Roofing & Remodeling | Free Estimates" />
+                <meta name="twitter:description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 200-2475 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
+            </Head>
             <Layout breadcrumbTitle="Contact Us">
                 <section className="contact-area pt-120 pb-120">
                     <div className="container">
