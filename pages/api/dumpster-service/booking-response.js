@@ -1,16 +1,18 @@
-// Simplified booking-response.js - Contract only
+// booking-response.js - Stripe payment workflow
 import { createClient } from '@supabase/supabase-js';
 import nodemailer from 'nodemailer';
+import Stripe from 'stripe';
 
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 
 // Price calculation utilities
 function getDumpsterPrice(size) {
   const prices = {
-    '12': 38000,  // $380 for 12 yard
-    '15': 40000   // $400 for 15 yard
+    '12': 39230,  // $380 for 12 yard
+    '15': 41230   // $400 for 15 yard
   };
-  return prices[size] || 38000;
+  return prices[size] || 392.30;
 }
 
 function formatPrice(size) {
@@ -20,10 +22,16 @@ function formatPrice(size) {
 
 export default async function handler(req, res) {
   const { id, action } = req.query;
-  if (!id || !action) return res.status(400).send('Missing parameters');
+  if (!id || !action) {
+    res.status(400).send('Missing parameters');
+    return;
+  }
 
   const { data: booking, error } = await supabase.from('bookings').select('*').eq('id', id).single();
-  if (error || !booking) return res.status(404).send('Booking not found');
+  if (error || !booking) {
+    res.status(404).send('Booking not found');
+    return;
+  }
 
   const baseUrl = process.env.BASE_URL || 'https://kletzcontracting.com/';
   const logoUrl = 'https://storage.googleapis.com/msgsndr/3xGyNbyyifHaQaEVS0Sx/media/681ba0cc6da8499d97d2cdd0.png';
@@ -39,15 +47,93 @@ export default async function handler(req, res) {
     });
     
     await sendEmail(booking.email, 'Important Update About Your Dumpster Rental Request', deniedHtml);
-    return res.redirect('/admin/booking-denied');
+    res.redirect('/admin/booking-denied');
+    return;
   }
 
   if (action === 'approve') {
     try {
-      // Just update status to approved
-      await supabase.from('bookings').update({ status: 'approved' }).eq('id', id);
+      // Create Stripe payment link
+      const priceInCents = getDumpsterPrice(booking.dumpster_size);
       
-      // Send approval email with contract link
+      let checkoutSession;
+      
+      // Create or get the 7% tax rate
+      let taxRate;
+      try {
+        // Try to find existing 7% tax rate
+        const taxRates = await stripe.taxRates.list({ limit: 100 });
+        taxRate = taxRates.data.find(rate => 
+          rate.percentage === 7 && 
+          rate.display_name === 'PA Sales Tax' &&
+          rate.active === true
+        );
+        
+        if (!taxRate) {
+          // Create new 7% tax rate
+          taxRate = await stripe.taxRates.create({
+            display_name: 'PA Sales Tax',
+            description: '7% Pennsylvania sales tax',
+            percentage: 7,
+            inclusive: false,
+          });
+        }
+      } catch (createTaxError) {
+        console.error('Failed to create/find tax rate:', createTaxError);
+        throw new Error('Unable to configure tax calculation');
+      }
+      
+      // Create checkout session with 7% tax
+      checkoutSession = await stripe.checkout.sessions.create({
+        payment_method_types: ['card'],
+        line_items: [{
+          price_data: {
+            currency: 'usd',
+            product_data: {
+              name: `${booking.dumpster_size} Yard Dumpster Rental`,
+              description: `Delivery Date: ${new Date(booking.service_date).toLocaleDateString('en-US', {
+                weekday: 'long', 
+                year: 'numeric', 
+                month: 'long', 
+                day: 'numeric'
+              })}\nAddress: ${booking.address}, ${booking.city}, ${booking.state} ${booking.zip}`,
+            },
+            unit_amount: priceInCents,
+          },
+          quantity: 1,
+          tax_rates: [taxRate.id],
+        }],
+        mode: 'payment',
+        billing_address_collection: 'required',
+        payment_intent_data: {
+          setup_future_usage: 'off_session',
+        },
+        success_url: `${baseUrl}/payment-success?booking_id=${booking.id}`,
+        cancel_url: `${baseUrl}/services/dumpster-service`,
+        metadata: {
+          booking_id: booking.id,
+          customer_name: booking.name,
+          customer_email: booking.email,
+          customer_phone: booking.phone,
+          dumpster_size: booking.dumpster_size,
+          service_date: booking.service_date,
+          address: booking.address,
+          city: booking.city,
+          state: booking.state,
+          zip: booking.zip
+        },
+        customer_email: booking.email,
+        customer_creation: 'always',
+      });
+      
+      // Update booking status and save payment link
+      await supabase.from('bookings').update({ 
+        status: 'approved',
+        stripe_checkout_url: checkoutSession.url,
+        stripe_session_id: checkoutSession.id
+      }).eq('id', id);
+      
+      // Send approval email with contract and payment link
       const acceptedHtml = generateAcceptedEmail({
         name: booking.name,
         dumpsterSize: booking.dumpster_size,
@@ -57,25 +143,29 @@ export default async function handler(req, res) {
           month: 'long', 
           day: 'numeric'
         }),
-        address: booking.address,
+        address: `${booking.address}, ${booking.city}, ${booking.state} ${booking.zip}`,
         amount: formatPrice(booking.dumpster_size),
         contractUrl: "https://sendlink.co/documents/doc-form/6810e1bbbd56f4288f4db5bb?locale=en_US",
+        paymentUrl: checkoutSession.url,
         logoUrl,
         baseUrl
       });
       
       await sendEmail(booking.email, 'Your Dumpster Rental Request Has Been Approved!', acceptedHtml);
       
-      console.log('Booking approved and contract sent:', booking.id);
-      return res.redirect('/admin/booking-request-sent');
+      console.log('Booking approved with Stripe payment link:', booking.id);
+      res.redirect('/admin/booking-request-sent');
+      return;
 
     } catch (error) {
       console.error('Error processing approval:', error);
-      return res.status(500).send('Error processing booking approval');
+      res.status(500).send('Error processing booking approval');
+      return;
     }
   }
 
-  return res.status(400).send('Invalid action');
+  res.status(400).send('Invalid action');
+  return;
 }
 
 async function sendEmail(to, subject, html) {
@@ -97,7 +187,7 @@ async function sendEmail(to, subject, html) {
   });
 }
 
-function generateAcceptedEmail({ name, dumpsterSize, date, address, amount, contractUrl, logoUrl, baseUrl }) {
+function generateAcceptedEmail({ name, dumpsterSize, date, address, amount, contractUrl, paymentUrl, logoUrl, baseUrl }) {
   return `
     <!DOCTYPE html>
     <html lang="en">
@@ -268,7 +358,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, amount, cont
           
           <p>Hi ${name},</p>
           
-          <p>Great news! Your dumpster rental request has been approved. To complete your booking, please sign the rental agreement using the button below.</p>
+          <p>Great news! Your dumpster rental request has been approved. To complete your booking, please sign the rental agreement and make your payment using the buttons below.</p>
           
           <div class="booking-details">
             <h3>Booking Details</h3>
@@ -281,16 +371,18 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, amount, cont
           </div>
           
           <div class="action-container">
-            <a href="${contractUrl}" class="action-button">📋 Sign Rental Agreement</a>
+            <a href="${contractUrl}" class="action-button" style="margin-right: 10px;">📋 Sign Rental Agreement</a>
+            <a href="${paymentUrl}" class="action-button" style="background-color: #6772e5;">💳 Pay Now</a>
           </div>
           
-          <p>Please sign our rental agreement to confirm your booking. Once signed, we'll contact you to arrange payment and delivery details.</p>
+          <p>Please sign our rental agreement and complete your payment to confirm your booking. Once both are completed, you'll receive a confirmation email with delivery details.</p>
 
           <div class="priority-notice">
             <strong>Next Steps:</strong> 
             <ul>
-              <li>Click the button above to sign your rental agreement</li>
-              <li>We'll contact you within 24 hours to arrange payment</li>
+              <li>Sign your rental agreement using the first button above</li>
+              <li>Complete your payment securely through Stripe using the second button</li>
+              <li>You'll receive a confirmation email with calendar invite once payment is processed</li>
               <li>We'll confirm delivery timing the day before your scheduled date</li>
             </ul>
           </div>

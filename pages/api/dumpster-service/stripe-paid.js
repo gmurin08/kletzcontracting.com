@@ -1,8 +1,8 @@
-// Enhanced stripe-paid.js with proper accounting data
+// stripe-paid.js - Stripe webhook for payment confirmation
 import Stripe from 'stripe';
 import { createClient } from '@supabase/supabase-js';
 import { buffer } from 'micro';
-import { sendInvoiceEmail, sendBusinessNotification } from '../../../lib/email-service';
+import nodemailer from 'nodemailer';
 
 const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
 const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
@@ -34,191 +34,290 @@ export default async function handler(req, res) {
     const session = event.data.object;
     const bookingId = session.metadata?.booking_id;
     
-    // Get detailed payment info from Stripe
-    const paymentIntent = await stripe.paymentIntents.retrieve(session.payment_intent);
-    const charge = paymentIntent.charges.data[0];
-    
-    // Calculate accurate accounting figures
-    const accountingData = calculateAccountingData(charge);
-    
-    let bookingData = null;
     if (bookingId) {
-      bookingData = await updateBookingWithAccountingData(bookingId, accountingData);
+      try {
+        // Update booking status to paid
+        const { data: booking, error } = await supabase
+          .from('bookings')
+          .update({ 
+            status: 'paid',
+            payment_date: new Date().toISOString(),
+            payment_amount: session.amount_total / 100
+          })
+          .eq('id', bookingId)
+          .select()
+          .single();
+
+        if (error) {
+          console.error('Database error:', error);
+          return res.status(500).json({ error: 'Failed to update booking' });
+        }
+
+        // Send confirmation emails
+        await sendConfirmationEmails(booking, session);
+        
+        console.log('Payment processed for booking:', bookingId);
+      } catch (error) {
+        console.error('Error processing payment:', error);
+        return res.status(500).json({ error: 'Internal server error' });
+      }
     }
-    
-    // Send emails with accurate amounts
-    await sendInvoiceEmail(session, bookingData, accountingData);
-    await sendBusinessNotification(session, bookingData, accountingData);
-    
-    // Optional: Create QuickBooks entry via API
-    // await createQuickBooksEntry(bookingData, accountingData);
   }
 
   res.status(200).json({ received: true });
 }
 
-function calculateAccountingData(charge) {
-  const grossAmount = charge.amount; // Amount in cents
-  const stripeFee = charge.application_fee_amount || calculateStripeFee(grossAmount);
-  const netAmount = grossAmount - stripeFee;
+async function sendConfirmationEmails(booking, session) {
+  const transporter = nodemailer.createTransport({
+    host: process.env.SMTP_HOST,
+    port: 587,
+    secure: false,
+    auth: {
+      user: process.env.SMTP_USER,
+      pass: process.env.SMTP_PASS,
+    },
+  });
+
+  const logoUrl = 'https://storage.googleapis.com/msgsndr/3xGyNbyyifHaQaEVS0Sx/media/681ba0cc6da8499d97d2cdd0.png';
+  const baseUrl = process.env.BASE_URL || 'https://kletzcontracting.com';
   
-  return {
-    grossAmount: grossAmount / 100, // Convert to dollars
-    stripeFee: stripeFee / 100,
-    netAmount: netAmount / 100,
-    stripeChargeId: charge.id,
-    paymentDate: new Date(charge.created * 1000).toISOString(),
-    paymentMethod: charge.payment_method_details?.type || 'card',
-    last4: charge.payment_method_details?.card?.last4 || null
-  };
+  // Generate calendar event
+  const startDate = new Date(booking.service_date);
+  const endDate = new Date(startDate);
+  endDate.setHours(endDate.getHours() + 2); // 2 hour window
+  
+  const icsContent = generateICS({
+    title: `Dumpster Delivery - ${booking.dumpster_size} Yard`,
+    location: booking.address,
+    description: `Dumpster rental delivery for ${booking.name}\\nPhone: ${booking.phone}\\nEmail: ${booking.email}`,
+    startDate,
+    endDate
+  });
+
+  // Send customer confirmation
+  const customerHtml = generateCustomerConfirmationEmail({
+    booking,
+    amount: session.amount_total / 100,
+    logoUrl
+  });
+  
+  await transporter.sendMail({
+    from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+    to: booking.email,
+    subject: '✅ Payment Confirmed - Dumpster Rental Ready for Delivery',
+    html: customerHtml,
+    attachments: [{
+      filename: 'dumpster-delivery.ics',
+      content: icsContent,
+      contentType: 'text/calendar'
+    }]
+  });
+
+  // Send business notification
+  const businessHtml = generateBusinessPaymentNotification({
+    booking,
+    amount: session.amount_total / 100
+  });
+  
+  await transporter.sendMail({
+    from: '"Kletz Contracting" <donotreply@goaldercreekdigital.com>',
+    to: process.env.CLIENT_EMAIL,
+    subject: `💰 Payment Received - Booking ${booking.id} Ready for Delivery`,
+    html: businessHtml,
+    attachments: [{
+      filename: 'dumpster-delivery.ics',
+      content: icsContent,
+      contentType: 'text/calendar'
+    }]
+  });
 }
 
-function calculateStripeFee(amountInCents) {
-  // Stripe standard pricing: 2.9% + $0.30
-  return Math.round(amountInCents * 0.029 + 30);
-}
-
-async function updateBookingWithAccountingData(bookingId, accountingData) {
-  try {
-    const { data: booking, error } = await supabase
-      .from('bookings')
-      .update({ 
-        status: 'paid',
-        payment_gross_amount: accountingData.grossAmount,
-        payment_stripe_fee: accountingData.stripeFee,
-        payment_net_amount: accountingData.netAmount,
-        stripe_charge_id: accountingData.stripeChargeId,
-        payment_date: accountingData.paymentDate,
-        payment_method: accountingData.paymentMethod,
-        payment_last4: accountingData.last4
-      })
-      .eq('id', bookingId)
-      .select()
-      .single();
-
-    return booking;
-  } catch (error) {
-    console.error('Database error:', error);
-    return null;
-  }
-}
-
-// Optional: Direct QuickBooks integration
-async function createQuickBooksEntry(bookingData, accountingData) {
-  // This would require QuickBooks API setup
-  const qbEntry = {
-    type: 'sales_receipt',
-    customer: bookingData.name,
-    date: accountingData.paymentDate,
-    line_items: [
-      {
-        description: `${bookingData.dumpster_size} Yard Dumpster Rental`,
-        amount: accountingData.grossAmount,
-        account: 'Dumpster Rental Income'
-      }
-    ],
-    expenses: [
-      {
-        description: 'Credit Card Processing Fees',
-        amount: accountingData.stripeFee,
-        account: 'Processing Fees Expense'
-      }
-    ],
-    deposit_to: 'Stripe Clearing Account', // Matches your bank deposit
-    reference: bookingData.id
+function generateICS({ title, location, description, startDate, endDate }) {
+  const formatDate = (date) => {
+    return date.toISOString().replace(/-|:|\.\d\d\d/g, '');
   };
   
-  // Would call QB API here
-  console.log('QB Entry to create:', qbEntry);
+  return `BEGIN:VCALENDAR
+VERSION:2.0
+PRODID:-//Kletz Contracting//Dumpster Rental//EN
+BEGIN:VEVENT
+UID:${Date.now()}@kletzcontracting.com
+DTSTAMP:${formatDate(new Date())}
+DTSTART:${formatDate(startDate)}
+DTEND:${formatDate(endDate)}
+SUMMARY:${title}
+DESCRIPTION:${description}
+LOCATION:${location}
+STATUS:CONFIRMED
+END:VEVENT
+END:VCALENDAR`;
 }
 
+function generateCustomerConfirmationEmail({ booking, amount, logoUrl }) {
+  const formatDate = (dateString) => new Date(dateString).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
-// //stripe-paid.js
-// import Stripe from 'stripe';
-// import { createClient } from '@supabase/supabase-js';
-// import { buffer } from 'micro';
-// import { sendInvoiceEmail, sendBusinessNotification } from '../../../lib/email-service';
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Payment Confirmed</title>
+    </head>
+    <body style="font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; line-height: 1.6; color: #333; margin: 0; padding: 0; background-color: #f7f7f7;">
+      <div style="max-width: 600px; margin: 20px auto; background: white; border-radius: 8px; overflow: hidden; box-shadow: 0 4px 6px rgba(0,0,0,0.1);">
+        
+        <div style="background: linear-gradient(135deg, #28a745, #20c997); color: white; padding: 30px; text-align: center;">
+          <img src="${logoUrl}" alt="Kletz Contracting" style="max-width: 200px; margin-bottom: 15px;">
+          <h1 style="margin: 0; font-size: 24px;">✅ Payment Confirmed!</h1>
+          <p style="margin: 10px 0 0 0; opacity: 0.9;">Your dumpster rental is confirmed and ready for delivery</p>
+        </div>
 
-// const stripe = new Stripe(process.env.STRIPE_SECRET_KEY);
-// const supabase = createClient(process.env.SUPABASE_URL, process.env.SUPABASE_SERVICE_ROLE_KEY);
+        <div style="padding: 30px;">
+          <p style="font-size: 16px; margin-bottom: 25px;">Hi ${booking.name},</p>
+          
+          <p style="font-size: 16px; margin-bottom: 25px;">Thank you for your payment! Your dumpster rental has been confirmed and we've attached a calendar invite to help you remember your delivery date.</p>
 
-// export const config = {
-//   api: {
-//     bodyParser: false,
-//   },
-// };
+          <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+            <h3 style="margin: 0 0 15px 0; color: #333;">Booking Details</h3>
+            <div style="display: grid; gap: 8px;">
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                <span style="color: #666;">Booking ID:</span>
+                <span style="font-weight: 600;">#${booking.id}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                <span style="color: #666;">Dumpster Size:</span>
+                <span style="font-weight: 600;">${booking.dumpster_size} Yard</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                <span style="color: #666;">Delivery Date:</span>
+                <span style="font-weight: 600;">${formatDate(booking.service_date)}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0; border-bottom: 1px solid #e9ecef;">
+                <span style="color: #666;">Address:</span>
+                <span style="font-weight: 600;">${booking.address}</span>
+              </div>
+              <div style="display: flex; justify-content: space-between; padding: 8px 0;">
+                <span style="color: #666;">Amount Paid:</span>
+                <span style="font-weight: 600; color: #28a745;">$${amount.toFixed(2)}</span>
+              </div>
+            </div>
+          </div>
 
-// export default async function handler(req, res) {
-//   if (req.method !== 'POST') {
-//     return res.status(405).end();
-//   }
+          <div style="background: #fff3cd; padding: 20px; border-radius: 8px; border: 1px solid #ffeaa7; margin-bottom: 25px;">
+            <h3 style="margin: 0 0 15px 0; color: #856404;">What Happens Next</h3>
+            <ul style="margin: 0; padding-left: 20px; color: #856404;">
+              <li>We'll contact you the day before delivery with timing details</li>
+              <li>Our driver will deliver and place your dumpster at the specified location</li>
+              <li>Contact us when you're ready for pickup or at the end of your rental period</li>
+            </ul>
+          </div>
 
-//   const sig = req.headers['stripe-signature'];
-//   let rawBody;
-//   let event;
+          <div style="text-align: center; margin: 30px 0;">
+            <p style="margin: 0 0 15px 0; font-size: 14px; color: #666;">Save the date! We've attached a calendar invite to this email.</p>
+            <div style="display: inline-block; padding: 12px 24px; background: #f8f9fa; border: 2px solid #dee2e6; border-radius: 8px;">
+              <span style="font-size: 24px;">📅</span>
+              <p style="margin: 5px 0 0 0; font-weight: 600;">${formatDate(booking.service_date)}</p>
+            </div>
+          </div>
 
-//   try {
-//     rawBody = await buffer(req);
-//     console.log('Raw body length:', rawBody.length);
-//   } catch (err) {
-//     console.error('Error reading request body:', err);
-//     return res.status(400).send('Error reading request body');
-//   }
+          <p style="margin: 0 0 15px 0;">Questions? Contact us at <a href="tel:(412) 200-2475" style="color: #28a745;">(412) 200-2475</a> or reply to this email.</p>
+          <p style="margin: 0;">Thank you for choosing Kletz Contracting!</p>
+        </div>
 
-//   try {
-//     event = stripe.webhooks.constructEvent(rawBody, sig, process.env.STRIPE_WEBHOOK_SECRET);
-//     console.log('Event type:', event.type);
-//   } catch (err) {
-//     console.error('Webhook signature verification failed:', err.message);
-//     return res.status(400).send(`Webhook Error: ${err.message}`);
-//   }
+        <div style="background: #f8f9fa; padding: 20px; text-align: center; border-top: 1px solid #e9ecef;">
+          <p style="margin: 0; font-size: 14px; color: #666;">© ${new Date().getFullYear()} Kletz Contracting Inc. All rights reserved.</p>
+          <p style="margin: 5px 0 0 0; font-size: 14px; color: #666;">1468 Old Steubenville Pike - Suite D, Pittsburgh, PA 15205</p>
+        </div>
+      </div>
+    </body>
+    </html>
+  `;
+}
 
-//   if (event.type === 'checkout.session.completed') {
-//     const session = event.data.object;
-//     const bookingId = session.metadata?.booking_id;
-    
-//     console.log('Processing checkout session completed:', session.id);
-    
-//     let bookingData = null;
-    
-//     // If this is a dumpster booking, update the booking status and get booking details
-//     if (bookingId) {
-//       bookingData = await updateBookingStatus(bookingId);
-//     }
-    
-//     // Send emails
-//     await sendInvoiceEmail(session, bookingData);
-//     await sendBusinessNotification(session, bookingData);
-//   } else {
-//     console.log('Ignoring event type:', event.type);
-//   }
+function generateBusinessPaymentNotification({ booking, amount }) {
+  const formatDate = (dateString) => new Date(dateString).toLocaleDateString('en-US', {
+    weekday: 'long',
+    year: 'numeric',
+    month: 'long',
+    day: 'numeric'
+  });
 
-//   res.status(200).json({ received: true });
-// }
+  return `
+    <!DOCTYPE html>
+    <html lang="en">
+    <head>
+      <meta charset="UTF-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1.0">
+      <title>Payment Received</title>
+    </head>
+    <body style="font-family: Arial, sans-serif; line-height: 1.6; color: #333; max-width: 600px; margin: 0 auto; padding: 20px;">
+      
+      <div style="background: #d4edda; border: 1px solid #c3e6cb; color: #155724; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <h2 style="margin: 0 0 10px 0;">💰 Payment Received!</h2>
+        <p style="margin: 0;">A dumpster rental booking has been paid and is ready for delivery.</p>
+      </div>
 
-// async function updateBookingStatus(bookingId) {
-//   try {
-//     const { data: booking, error } = await supabase
-//       .from('bookings')
-//       .update({ status: 'paid' })
-//       .eq('id', bookingId)
-//       .select()
-//       .single();
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <h3 style="margin: 0 0 15px 0;">Customer Information</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; font-weight: bold; width: 30%;">Name:</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">${booking.name}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; font-weight: bold;">Email:</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><a href="mailto:${booking.email}">${booking.email}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; font-weight: bold;">Phone:</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;"><a href="tel:${booking.phone}">${booking.phone}</a></td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; font-weight: bold;">Address:</td>
+            <td style="padding: 8px 0;">${booking.address}</td>
+          </tr>
+        </table>
+      </div>
 
-//     if (error) {
-//       console.error('Supabase error:', error);
-//       return null;
-//     }
+      <div style="background: #f8f9fa; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <h3 style="margin: 0 0 15px 0;">Service Details</h3>
+        <table style="width: 100%; border-collapse: collapse;">
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; font-weight: bold; width: 30%;">Booking ID:</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">#${booking.id}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; font-weight: bold;">Dumpster Size:</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6;">${booking.dumpster_size} Yard</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; font-weight: bold;">Delivery Date:</td>
+            <td style="padding: 8px 0; border-bottom: 1px solid #dee2e6; color: #dc3545; font-weight: bold;">${formatDate(booking.service_date)}</td>
+          </tr>
+          <tr>
+            <td style="padding: 8px 0; font-weight: bold;">Amount Paid:</td>
+            <td style="padding: 8px 0; color: #28a745; font-weight: bold; font-size: 18px;">$${amount.toFixed(2)}</td>
+          </tr>
+        </table>
+      </div>
 
-//     if (booking) {
-//       console.log('Booking updated successfully:', booking.id);
-//       return booking;
-//     } else {
-//       console.log('No booking found with ID:', bookingId);
-//       return null;
-//     }
-//   } catch (dbError) {
-//     console.error('Database error:', dbError);
-//     return null;
-//   }
-// }
+      <div style="background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; padding: 20px; border-radius: 8px; margin-bottom: 25px;">
+        <h3 style="margin: 0 0 10px 0;">⚠️ Action Required</h3>
+        <p style="margin: 0 0 10px 0;">Schedule delivery for <strong>${formatDate(booking.service_date)}</strong> and contact customer day before with timing details.</p>
+        <p style="margin: 0;">A calendar invite has been attached to this email for your convenience.</p>
+      </div>
+
+      <hr style="border: none; border-top: 1px solid #dee2e6; margin: 30px 0;">
+      <p style="margin: 0; font-size: 12px; color: #666; text-align: center;">
+        This notification was automatically generated when payment was received via Stripe.
+      </p>
+    </body>
+    </html>
+  `;
+}

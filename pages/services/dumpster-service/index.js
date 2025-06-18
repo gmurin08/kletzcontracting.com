@@ -23,6 +23,9 @@ export default function DumpsterService() {
             phone: '',
             dumpster_size: '',
             address: '',
+            city: '',
+            state: 'PA',
+            zip: '',
             service_date: ''
         });
         const [isSubmitting, setIsSubmitting] = useState(false);
@@ -70,6 +73,9 @@ export default function DumpsterService() {
                     phone: '',
                     dumpster_size: '',
                     address: '',
+                    city: '',
+                    state: 'PA',
+                    zip: '',
                     service_date: ''
                 });
             } catch (error) {
@@ -354,7 +360,105 @@ export default function DumpsterService() {
                                 transition: 'border-color 0.3s',
                                 boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
                             }}
-                            placeholder="Drop-Off Address" 
+                            placeholder="Street Address" 
+                            required 
+                        />
+                    </div>
+                </div>
+            </div>
+            <div className="form-row">
+                <div className="col-md-6 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-city" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="text" 
+                            name="city" 
+                            value={formData.city}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
+                            }}
+                            placeholder="City" 
+                            required 
+                        />
+                    </div>
+                </div>
+                <div className="col-md-3 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-flag-usa" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <select 
+                            name="state" 
+                            value={formData.state}
+                            onChange={handleChange}
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)',
+                                appearance: 'none',
+                                backgroundImage: 'url("data:image/svg+xml;charset=US-ASCII,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20width%3D%22292.4%22%20height%3D%22292.4%22%3E%3Cpath%20fill%3D%22%23666%22%20d%3D%22M287%2069.4a17.6%2017.6%200%200%200-13-5.4H18.4c-5%200-9.3%201.8-12.9%205.4A17.6%2017.6%200%200%200%200%2082.2c0%205%201.8%209.3%205.4%2012.9l128%20127.9c3.6%203.6%207.8%205.4%2012.8%205.4s9.2-1.8%2012.8-5.4L287%2095c3.5-3.5%205.4-7.8%205.4-12.8%200-5-1.9-9.2-5.5-12.8z%22%2F%3E%3C%2Fsvg%3E")',
+                                backgroundRepeat: 'no-repeat',
+                                backgroundPosition: 'right 15px top 50%',
+                                backgroundSize: '10px auto'
+                            }}
+                            required
+                        >
+                            <option value="PA">PA</option>
+                        </select>
+                    </div>
+                </div>
+                <div className="col-md-3 mb-3">
+                    <div style={{
+                        position: 'relative',
+                        marginBottom: '20px'
+                    }}>
+                        <i className="fas fa-hashtag" style={{
+                            position: 'absolute',
+                            left: '15px',
+                            top: '15px',
+                            color: '#666'
+                        }}></i>
+                        <input 
+                            type="text" 
+                            name="zip" 
+                            value={formData.zip}
+                            onChange={handleChange}
+                            pattern="[0-9]{5}(-[0-9]{4})?"
+                            style={{
+                                padding: '15px 15px 15px 45px',
+                                fontSize: '16px',
+                                borderRadius: '4px',
+                                border: '1px solid #ddd',
+                                width: '100%',
+                                transition: 'border-color 0.3s',
+                                boxShadow: 'inset 0 1px 3px rgba(0,0,0,0.1)'
+                            }}
+                            placeholder="ZIP Code" 
                             required 
                         />
                     </div>

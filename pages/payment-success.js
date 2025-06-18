@@ -3,22 +3,23 @@ import { useRouter } from 'next/router';
 import { useEffect, useState } from 'react';
 import Head from 'next/head';
 import Link from 'next/link';
+import Layout from '@/components/layout/Layout';
 
 export default function PaymentSuccess() {
   const router = useRouter();
-  const { bookingId, paymentId } = router.query;
+  const { booking_id, payment_intent } = router.query;
   const [booking, setBooking] = useState(null);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
-    if (bookingId) {
+    if (booking_id) {
       fetchBookingDetails();
     }
-  }, [bookingId]);
+  }, [booking_id]);
 
   const fetchBookingDetails = async () => {
     try {
-      const response = await fetch(`/api/get-booking?id=${bookingId}`);
+      const response = await fetch(`/api/get-booking?id=${booking_id}`);
       if (response.ok) {
         const data = await response.json();
         setBooking(data);
@@ -37,16 +38,24 @@ export default function PaymentSuccess() {
     day: 'numeric'
   });
 
+  const formatPrice = (amount) => {
+    if (!amount) return 'Paid';
+    if (typeof amount === 'string' && amount.includes('$')) return amount;
+    if (typeof amount === 'number') return `$${(amount / 100).toFixed(2)}`;
+    return `$${amount}`;
+  };
+
   return (
     <>
       <Head>
         <title>Payment Successful - Kletz Contracting</title>
         <meta name="description" content="Your payment has been processed successfully" />
       </Head>
-
+      <Layout>
+      
       <div style={{
         minHeight: '100vh',
-        background: 'linear-gradient(135deg, #28a745 0%, #20c997 100%)',
+        background: 'rgba(186, 185, 185, 0.5)',
         display: 'flex',
         alignItems: 'center',
         justifyContent: 'center',
@@ -125,16 +134,16 @@ export default function PaymentSuccess() {
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0', borderBottom: '1px solid #e9ecef' }}>
                       <span style={{ color: '#666' }}>Address:</span>
-                      <span style={{ fontWeight: '600' }}>{booking.address}</span>
+                      <span style={{ fontWeight: '600' }}>{booking.address}<br/>{booking.city}, {booking.state} {booking.zip}</span>
                     </div>
                     <div style={{ display: 'flex', justifyContent: 'space-between', padding: '8px 0' }}>
-                      <span style={{ color: '#666' }}>Amount Paid:</span>
-                      <span style={{ fontWeight: '600', color: '#28a745' }}>${booking.payment_amount}</span>
+                      <span style={{ color: '#666' }}>Status:</span>
+                      <span style={{ fontWeight: '600', color: '#28a745' }}>Paid</span>
                     </div>
                   </div>
                 </div>
 
-                {paymentId && (
+                {payment_intent && (
                   <div style={{
                     background: '#e8f5e8',
                     border: '1px solid #d4edda',
@@ -143,7 +152,7 @@ export default function PaymentSuccess() {
                     marginBottom: '30px'
                   }}>
                     <p style={{ margin: '0 0 8px 0', fontWeight: '600', color: '#155724' }}>
-                      Payment ID: {paymentId}
+                      Payment ID: {payment_intent}
                     </p>
                     <p style={{ margin: 0, fontSize: '14px', color: '#155724' }}>
                       Save this ID for your records
@@ -172,13 +181,13 @@ export default function PaymentSuccess() {
                     Questions about your rental?
                   </p>
                   <p style={{ margin: '0 0 20px 0' }}>
-                    <a href="tel:+14123456789" style={{
+                    <a href="tel:+14122002475" style={{
                       color: '#28a745',
                       textDecoration: 'none',
                       fontWeight: '600',
                       fontSize: '18px'
                     }}>
-                      📞 (412) 345-6789
+                      📞 (412) 200-2475
                     </a>
                   </p>
                   <p style={{ margin: 0 }}>
@@ -195,7 +204,7 @@ export default function PaymentSuccess() {
             ) : (
               <div style={{ padding: '20px', color: '#666' }}>
                 <p>Unable to load booking details.</p>
-                <p>If you have questions, please contact us at (412) 345-6789</p>
+                <p>If you have questions, please contact us at (412) 200-2475</p>
               </div>
             )}
 
@@ -234,6 +243,7 @@ export default function PaymentSuccess() {
           </div>
         </div>
       </div>
+      </Layout>
     </>
   );
 }
