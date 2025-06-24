@@ -44,9 +44,9 @@ export default function MtLebanon() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/mt-lebanon-hero.jpg" alt="Mt. Lebanon PA Roofing and Siding Services" />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Mt. Lebanon's Premier Roofing & Home Improvement Contractor</h1>

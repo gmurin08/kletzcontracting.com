@@ -44,9 +44,9 @@ export default function Pittsburgh() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/banner/Pittsburgh.png" alt="Pittsburgh PA Roofing and Siding Services" />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Pittsburgh's Premier Roofing & Home Improvement Contractor</h1>

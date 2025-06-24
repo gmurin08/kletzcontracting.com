@@ -44,9 +44,9 @@ export default function KennedyTownship() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/kennedy-township-hero.jpg" alt="Kennedy Township PA Roofing and Siding Services" />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Kennedy Township's Neighborhood Roofing & Home Improvement Experts</h1>

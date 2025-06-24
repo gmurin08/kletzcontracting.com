@@ -44,9 +44,9 @@ export default function UpperStClair() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/upper-st-clair-hero.jpg" alt="Upper St. Clair PA Roofing and Siding Services" />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Upper St. Clair's Elite Roofing & Home Improvement Contractor</h1>

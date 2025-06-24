@@ -44,9 +44,9 @@ export default function CranberryTownship() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/cranberry-township-hero.jpg" alt="Cranberry Township PA Roofing and Siding Services" />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Cranberry Township's Premier Roofing & Home Improvement Contractor</h1>

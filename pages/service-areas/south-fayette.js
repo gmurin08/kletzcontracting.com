@@ -44,9 +44,9 @@ export default function SouthFayette() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/south-fayette-hero.jpg" alt="South Fayette Township PA Roofing and Siding Services" />
-                                    </div>
+                                    </div> */}
                                     
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">South Fayette Township's Trusted Roofing & Home Improvement Contractor</h1>

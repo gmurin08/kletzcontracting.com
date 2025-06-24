@@ -44,10 +44,10 @@ export default function Mars() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/mars-pa-hero.jpg" alt="Mars PA Roofing and Siding Services" />
                                     </div>
-                                    
+                                     */}
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Mars PA's Trusted Roofing & Home Improvement Contractor</h1>
                                         

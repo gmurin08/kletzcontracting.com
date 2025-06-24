@@ -44,10 +44,10 @@ export default function Beaver() {
                         <div className="row">
                             <div className="col-xl-8">
                                 <div className="services-details-wrap">
-                                    <div className="services-details-thumb mb-4">
+                                    {/* <div className="services-details-thumb mb-4">
                                         <img src="/assets/img/areas/beaver-hero.jpg" alt="Beaver PA Roofing and Siding Services" />
                                     </div>
-                                    
+                                     */}
                                     <div className="services-details-content">
                                         <h1 className="title mb-4">Beaver's Trusted Roofing & Home Improvement Contractor</h1>
                                         
