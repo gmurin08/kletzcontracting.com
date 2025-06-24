@@ -2,7 +2,7 @@ import Layout from "@/components/layout/Layout"
 import Brand3 from "@/components/sections/Brand3"
 import { useState } from "react"
 import Link from "next/link"
-import Head from "next/head"
+import PageHead from "@/components/layout/PageHead"
 import Script from "next/script"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 import MainContact from "@/components/elements/MainContact"
@@ -83,22 +83,17 @@ export default function ServiceDetails(props) {
 
     return (
         <>
-            <Head>
-                <title>{props.metaTitle}</title>
-                <meta name="description" content={props.metaDescription} />
-                <link rel="canonical" href={props.canonicalUrl} />
-            </Head>
+            <PageHead 
+                headTitle={props.metaTitle}
+                metaDescription={props.metaDescription}
+                canonicalUrl={props.canonicalUrl}
+                keywords="roofing contractor Robinson Township PA, roof repair Pittsburgh, roof replacement Robinson Township, shingle roofing Allegheny County, metal roofing Pittsburgh PA, emergency roof repair, storm damage repair, commercial roofing Pittsburgh"
+                structuredData={props.serviceSchema}
+            />
             
             {/* Include the main business schema */}
             <LocalBusinessSchema />
             
-            {/* Add the service-specific schema */}
-            <Script
-                id="roofing-service-schema"
-                type="application/ld+json"
-                strategy="afterInteractive"
-                dangerouslySetInnerHTML={{ __html: JSON.stringify(props.serviceSchema) }}
-            />
             
             <Layout breadcrumbTitle="Professional Roofing Services">
                 <div>

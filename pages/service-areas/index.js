@@ -1,9 +1,10 @@
 import Layout from "@/components/layout/Layout"
+import PageHead from "@/components/layout/PageHead"
+import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 import Link from "next/link"
 import { useState } from 'react'
 import Counter2 from "@/components/sections/Counter2"
 import CtaContact from "@/components/sections/CtaContact"
-import Head from "next/head"
 export default function Service() {
     const [isActive, setIsActive] = useState({
         status: false,
@@ -24,17 +25,13 @@ export default function Service() {
     }
     return (
         <>
-            <Head>
-                <title>Pittsburgh Service Areas | Roofing & Remodeling in Allegheny, Beaver, Washington Counties</title>
-                <meta name="description" content="Kletz Contracting serves Pittsburgh and surrounding areas including Allegheny County, Beaver County, Washington County, and Butler County. Professional roofing, siding, and remodeling services in Western Pennsylvania." />
-                <meta property="og:title" content="Pittsburgh Service Areas | Roofing & Remodeling in Allegheny, Beaver, Washington Counties" />
-                <meta property="og:description" content="Kletz Contracting serves Pittsburgh and surrounding areas including Allegheny County, Beaver County, Washington County, and Butler County. Professional roofing, siding, and remodeling services in Western Pennsylvania." />
-                <meta property="og:type" content="website" />
-                <meta property="og:url" content="https://kletzcontracting.com/service-areas" />
-                <meta name="twitter:card" content="summary_large_image" />
-                <meta name="twitter:title" content="Pittsburgh Service Areas | Roofing & Remodeling in Allegheny, Beaver, Washington Counties" />
-                <meta name="twitter:description" content="Kletz Contracting serves Pittsburgh and surrounding areas including Allegheny County, Beaver County, Washington County, and Butler County. Professional roofing, siding, and remodeling services in Western Pennsylvania." />
-            </Head>
+            <PageHead 
+                headTitle="Service Areas | Pittsburgh Roofing & Siding Contractor | Kletz Contracting"
+                metaDescription="Kletz Contracting serves Pittsburgh and surrounding areas including Robinson Township, Allegheny County, Beaver County, Washington County, and Butler County. Professional roofing, siding, dumpster rental, and remodeling services throughout Western Pennsylvania."
+                canonicalUrl="https://kletzcontracting.com/service-areas"
+                keywords="Pittsburgh service areas, roofing contractor Allegheny County, siding installation Beaver County, dumpster rental Washington County, Butler County roofing, Western Pennsylvania contractor"
+            />
+            <LocalBusinessSchema />
             <Layout breadcrumbTitle="Service Areas">
                 <div>
                     <section className="inner-services-area pt-115 pb-90">
@@ -168,42 +165,42 @@ export default function Service() {
                                     <div className="row">
                                         <div className="col-md-3 col-sm-6">
                                             <ul className="communities-list">
-                                                <li>Pittsburgh</li>
-                                                <li>Mt. Lebanon</li>
-                                                <li>Upper St. Clair</li>
-                                                <li>Peters Township</li>
-                                                <li>Bethel Park</li>
-                                                <li>South Park</li>
+                                                <li><Link href="/service-areas/pittsburgh">Pittsburgh</Link></li>
+                                                <li><Link href="/service-areas/mt-lebanon">Mt. Lebanon</Link></li>
+                                                <li><Link href="/service-areas/upper-st-clair">Upper St. Clair</Link></li>
+                                                <li><Link href="/service-areas/peters-township">Peters Township</Link></li>
+                                                <li><Link href="/service-areas/bethel-park">Bethel Park</Link></li>
+                                                <li><Link href="/service-areas/south-park">South Park</Link></li>
                                             </ul>
                                         </div>
                                         <div className="col-md-3 col-sm-6">
                                             <ul className="communities-list">
-                                                <li>Cranberry Township</li>
-                                                <li>Mars</li>
-                                                <li>Wexford</li>
-                                                <li>Pine Township</li>
-                                                <li>Sewickley</li>
-                                                <li>Moon Township</li>
+                                                <li><Link href="/service-areas/cranberry-township">Cranberry Township</Link></li>
+                                                <li><Link href="/service-areas/mars">Mars</Link></li>
+                                                <li><Link href="/service-areas/wexford">Wexford</Link></li>
+                                                <li><Link href="/service-areas/pine-township">Pine Township</Link></li>
+                                                <li><Link href="/service-areas/sewickley">Sewickley</Link></li>
+                                                <li><Link href="/service-areas/moon-township">Moon Township</Link></li>
                                             </ul>
                                         </div>
                                         <div className="col-md-3 col-sm-6">
                                             <ul className="communities-list">
-                                                <li>Robinson Township</li>
-                                                <li>Coraopolis</li>
-                                                <li>McMurray</li>
-                                                <li>South Fayette</li>
-                                                <li>Canonsburg</li>
-                                                <li>Washington</li>
+                                                <li><Link href="/service-areas/robinson-township">Robinson Township</Link></li>
+                                                <li><Link href="/service-areas/coraopolis">Coraopolis</Link></li>
+                                                <li><Link href="/service-areas/kennedy-township">Kennedy Township</Link></li>
+                                                <li><Link href="/service-areas/mcmurray">McMurray</Link></li>
+                                                <li><Link href="/service-areas/south-fayette">South Fayette</Link></li>
+                                                <li><Link href="/service-areas/canonsburg">Canonsburg</Link></li>
                                             </ul>
                                         </div>
                                         <div className="col-md-3 col-sm-6">
                                             <ul className="communities-list">
-                                                <li>Beaver</li>
-                                                <li>Economy</li>
-                                                <li>Whitehall</li>
-                                                <li>Brentwood</li>
-                                                <li>Castle Shannon</li>
-                                                <li>Baldwin</li>
+                                                <li><Link href="/service-areas/beaver">Beaver</Link></li>
+                                                <li><Link href="/service-areas/economy">Economy</Link></li>
+                                                <li><Link href="/service-areas/greentree">Greentree</Link></li>
+                                                <li><Link href="/service-areas/crafton">Crafton</Link></li>
+                                                <li><Link href="/service-areas/castle-shannon">Castle Shannon</Link></li>
+                                                <li><Link href="/service-areas/carnegie">Carnegie</Link></li>
                                             </ul>
                                         </div>
                                     </div>

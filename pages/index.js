@@ -1,5 +1,5 @@
 import Layout from "@/components/layout/Layout"
-import Head from "next/head"
+import PageHead from "@/components/layout/PageHead"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 import AboutBanner from "@/components/sections/AboutBanner"
 import BookingFormVert from "@/components/sections/BookingFormVert"
@@ -17,16 +17,12 @@ export default function Home() {
 
     return (
         <>
-            <Head>
-                <title>Pittsburgh’s Trusted Remodeling & Roofing Experts</title>
-                <meta name="description" content="Interior & exterior remodeling done right – kitchens, bathrooms, roofing, and more. Serving Pittsburgh homeowners." />
-                <meta property="og:title" content="Pittsburgh’s Trusted Remodeling & Roofing Experts" />
-                <meta property="og:description" content="Kletz Contracting provides high-quality home renovations and roofing across Pittsburgh." />
-                <meta property="og:image" content="/assets/img/og/Kletz-OG-Home.jpg" />
-                <meta property="og:url" content="https://kletzcontracting.com" />
-                <meta property="og:type" content="website" />
-                <meta name="twitter:card" content="summary_large_image" />
-            </Head>
+            <PageHead 
+                headTitle="Kletz Contracting - Roofing, Siding & Dumpster Rental | Robinson Township PA"
+                metaDescription="Professional roofing, siding installation, and dumpster rental services in Robinson Township, PA. Family-owned contractor serving Pittsburgh and surrounding counties since 1985. Free estimates, licensed & insured."
+                canonicalUrl="https://kletzcontracting.com"
+                keywords="roofing contractor Robinson Township PA, siding installation Pittsburgh, dumpster rental Robinson Township, roof repair Allegheny County, vinyl siding Pittsburgh PA, roll off dumpster rental, home improvement contractor Pittsburgh"
+            />
             <LocalBusinessSchema />
             <FaqSchema category={"home"}/>
             <Layout headerCls="menu-area-three" headerTop>
