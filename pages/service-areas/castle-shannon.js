@@ -2,7 +2,6 @@ import Layout from "@/components/layout/Layout"
 import PageHead from "@/components/layout/PageHead"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 import Link from "next/link"
-import Counter3 from "@/components/sections/Counter3"
 import Brand3 from "@/components/sections/Brand3"
 import FaqSection from "@/components/sections/FaqSection"
 import FaqSchema from "@/components/FaqSchema"
@@ -212,7 +211,7 @@ export default function CastleShannon() {
                     </div>
                 </section>
                 
-                <Counter3 />
+          
                 <FaqSection category={'castle-shannon'}/>
                 <Brand3 />
             </Layout>
