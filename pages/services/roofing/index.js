@@ -106,8 +106,36 @@ export default function ServiceDetails(props) {
                                             <img src="/assets/img/services/roofing-main.jpg" alt="Professional Roofing Services in Pittsburgh" />
                                         </div>
                                         <div className="services-details-content">
-                                            <h2 className="title">Expert Roofing Services in Pittsburgh</h2>
-                                            <p>Protect your home or business with premium roofing services from Kletz Contracting. As Pittsburgh's trusted roofing contractor, we deliver exceptional craftsmanship and reliable protection against Pennsylvania's harsh weather. From roof inspections and repairs to complete replacements and storm damage restoration, our experienced team ensures quality materials, professional installation, and long-lasting results for every project.</p>
+                                            <h2 className="title">Protect Your Home with a Roof That Lasts</h2>
+                                            <p className="lead"><strong>Is your roof leaking? Worried about storm damage? Need a trusted contractor who won't overcharge?</strong></p>
+                                            <p>We understand how stressful roofing problems can be. That's why Pittsburgh homeowners have trusted Kletz Contracting since 1996 to deliver honest assessments, fair pricing, and roofs that protect what matters most—your family and investment. Whether you need emergency repairs or a complete replacement, we're here to give you peace of mind with a roof that performs year after year.</p>
+                                            
+                                            <div className="customer-benefits-banner mt-4 mb-4 p-4" style={{backgroundColor: "#f8f9fa", borderRadius: "10px"}}>
+                                                <h3 className="mb-3">Why Homeowners Choose Us:</h3>
+                                                <div className="row">
+                                                    <div className="col-md-4">
+                                                        <div className="benefit-item text-center p-3">
+                                                            <i className="fas fa-shield-alt fa-3x mb-3" style={{color: "#E74C3C"}}></i>
+                                                            <h5>Lifetime Warranties</h5>
+                                                            <p className="small">Sleep soundly knowing your roof is protected</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="benefit-item text-center p-3">
+                                                            <i className="fas fa-calendar-check fa-3x mb-3" style={{color: "#E74C3C"}}></i>
+                                                            <h5>On-Time, On-Budget</h5>
+                                                            <p className="small">No surprises, just honest work</p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-4">
+                                                        <div className="benefit-item text-center p-3">
+                                                            <i className="fas fa-hand-holding-usd fa-3x mb-3" style={{color: "#E74C3C"}}></i>
+                                                            <h5>Insurance Help</h5>
+                                                            <p className="small">We work with your insurance to maximize coverage</p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
 
                                             <div className="services-process-wrap">
                                                 <div className="row justify-content-center">
@@ -118,7 +146,7 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                     <div className="col-lg-6">
                                                         <div className="services-process-content">
-                                                            <h2 className="title">Our Roofing Process</h2>
+                                                            <h2 className="title">Simple Steps to a Worry-Free Roof</h2>
                                                             <ul className="list-wrap">
                                                                 <li>
                                                                     <div className="services-process-item">
@@ -126,8 +154,9 @@ export default function ServiceDetails(props) {
                                                                             <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
-                                                                            <h4 className="title">Thorough Inspection</h4>
-                                                                            <p>We begin with a comprehensive roof evaluation to assess current conditions, identify damage, and determine the best course of action. Our detailed inspection includes attic ventilation and structural integrity checks.</p>
+                                                                            <h4 className="title">1. Free, No-Pressure Inspection</h4>
+                                                                            <p>We'll thoroughly check your roof and show you exactly what we find—with photos. No scare tactics, just honest assessment. If your roof is fine, we'll tell you!</p>
+                                                                            <Link href="#contact-form" className="btn btn-sm btn-outline-danger mt-2">Schedule Free Inspection</Link>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -137,8 +166,8 @@ export default function ServiceDetails(props) {
                                                                             <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
-                                                                            <h4 className="title">Detailed Estimate</h4>
-                                                                            <p>Receive a clear, comprehensive estimate outlining all necessary work, material options, costs, and project timeline. We explain your options and help you select the best roofing solution for your needs and budget.</p>
+                                                                            <h4 className="title">2. Clear Options & Fair Pricing</h4>
+                                                                            <p>Get multiple solutions to fit your budget—from repairs to full replacement. We'll explain pros and cons of each option. Price guaranteed in writing for 30 days.</p>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -148,8 +177,8 @@ export default function ServiceDetails(props) {
                                                                             <img src="/assets/img/icon/flat_check.svg" alt="" />
                                                                         </div>
                                                                         <div className="content">
-                                                                            <h4 className="title">Professional Installation</h4>
-                                                                            <p>Our skilled roofing teams work efficiently and with precision to install your new roof. We use only premium materials, follow manufacturer specifications, and maintain a clean job site throughout the process.</p>
+                                                                            <h4 className="title">3. Expert Installation & Clean-Up</h4>
+                                                                            <p>Our certified crews complete most roofs in 1-2 days. We protect your property, clean up daily, and a final magnetic sweep ensures no nails left behind.</p>
                                                                         </div>
                                                                     </div>
                                                                 </li>
@@ -159,8 +188,42 @@ export default function ServiceDetails(props) {
                                                 </div>
                                             </div>
 
-                                            <h2 className="title-two">Why Choose Kletz Contracting for Your Roof</h2>
-                                            <p>Since 1996, homeowners and businesses across Pittsburgh have trusted Kletz Contracting for reliable, high-quality roofing services. We combine industry expertise with dedicated customer service to deliver roofing solutions that stand the test of time.</p>
+                                            <div className="common-problems-section mt-5 mb-5">
+                                                <h2 className="title-two">Common Roofing Problems We Solve</h2>
+                                                <div className="row mt-4">
+                                                    <div className="col-md-6 mb-4">
+                                                        <div className="problem-card p-4" style={{backgroundColor: "#fff", border: "1px solid #e0e0e0", borderRadius: "8px", height: "100%"}}>
+                                                            <h4><i className="fas fa-tint" style={{color: "#E74C3C"}}></i> Persistent Leaks</h4>
+                                                            <p className="mb-2">Water stains on ceilings? Drips during storms? We'll find the source and fix it right the first time.</p>
+                                                            <p className="text-success"><strong>✓ Same-day emergency service available</strong></p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-4">
+                                                        <div className="problem-card p-4" style={{backgroundColor: "#fff", border: "1px solid #e0e0e0", borderRadius: "8px", height: "100%"}}>
+                                                            <h4><i className="fas fa-wind" style={{color: "#E74C3C"}}></i> Storm & Wind Damage</h4>
+                                                            <p className="mb-2">Missing shingles? Hail damage? We handle insurance claims and restore your protection fast.</p>
+                                                            <p className="text-success"><strong>✓ Free storm damage assessments</strong></p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-4">
+                                                        <div className="problem-card p-4" style={{backgroundColor: "#fff", border: "1px solid #e0e0e0", borderRadius: "8px", height: "100%"}}>
+                                                            <h4><i className="fas fa-clock" style={{color: "#E74C3C"}}></i> Aging Roof</h4>
+                                                            <p className="mb-2">Roof over 20 years old? Curling shingles? Get an honest assessment of whether you need repairs or replacement.</p>
+                                                            <p className="text-success"><strong>✓ No-pressure consultations</strong></p>
+                                                        </div>
+                                                    </div>
+                                                    <div className="col-md-6 mb-4">
+                                                        <div className="problem-card p-4" style={{backgroundColor: "#fff", border: "1px solid #e0e0e0", borderRadius: "8px", height: "100%"}}>
+                                                            <h4><i className="fas fa-dollar-sign" style={{color: "#E74C3C"}}></i> Budget Concerns</h4>
+                                                            <p className="mb-2">Worried about costs? We offer flexible financing and work to find solutions within your budget.</p>
+                                                            <p className="text-success"><strong>✓ 0% financing available</strong></p>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                            
+                                            <h2 className="title-two">What Makes Us Different</h2>
+                                            <p>While other contractors focus on quick sales, we focus on your long-term satisfaction. Here's our promise to you:</p>
 
                                             <div className="service-benefits-wrap">
                                                 <div className="row">
@@ -172,14 +235,14 @@ export default function ServiceDetails(props) {
                                                     </div> */}
                                                     <div className="col-lg-5">
                                                         <div className="benefits-content">
-                                                            <h2 className="title">Our Roofing Advantages</h2>
+                                                            <h2 className="title">The Kletz Promise</h2>
                                                             <ul className="list-wrap">
-                                                                <li><i className="fas fa-check-circle" />Licensed, insured, and locally owned since 1996</li>
-                                                                <li><i className="fas fa-check-circle" />Premium materials with manufacturer warranties</li>
-                                                                <li><i className="fas fa-check-circle" />Experienced crews dedicated to quality craftsmanship</li>
-                                                                <li><i className="fas fa-check-circle" />Transparent pricing with no hidden fees</li>
-                                                                <li><i className="fas fa-check-circle" />Emergency services available for urgent repairs</li>
-                                                                <li><i className="fas fa-check-circle" />Insurance claim assistance for storm damage</li>
+                                                                <li><i className="fas fa-check-circle" /><strong>No Surprises:</strong> Fixed pricing in writing before we start</li>
+                                                                <li><i className="fas fa-check-circle" /><strong>Your Schedule:</strong> We work around your life, not ours</li>
+                                                                <li><i className="fas fa-check-circle" /><strong>Clean Job Sites:</strong> Your property protected and spotless daily</li>
+                                                                <li><i className="fas fa-check-circle" /><strong>Direct Communication:</strong> You'll have your project manager's cell phone</li>
+                                                                <li><i className="fas fa-check-circle" /><strong>Local Expertise:</strong> We know Pittsburgh weather and building codes</li>
+                                                                <li><i className="fas fa-check-circle" /><strong>Stand Behind Our Work:</strong> Full warranties you can actually use</li>
                                                             </ul>
                                                         </div>
                                                     </div>
@@ -187,38 +250,60 @@ export default function ServiceDetails(props) {
                                             </div>
 
                                             <div className="roofing-options mt-60">
-                                                <h2 className="title">Roofing Material Options</h2>
-                                                <p>We offer a variety of quality roofing materials to match your home's style, durability needs, and budget considerations:</p>
+                                                <h2 className="title">Find the Perfect Roof for Your Home & Budget</h2>
+                                                <p>Not sure which roofing material is right for you? We'll help you compare options based on your specific needs, climate considerations, and budget:</p>
                                                 
                                                 <div className="row mt-4">
                                                     <div className="col-md-6">
                                                         <div className="material-item mb-4">
-                                                            <h4>Asphalt Shingles</h4>
-                                                            <p>Our most popular option, offering excellent value, durability, and variety of colors and styles. Available in architectural and 3-tab designs with 25-50 year warranties.</p>
+                                                            <h4>Asphalt Shingles <span className="badge bg-success ms-2">Most Popular</span></h4>
+                                                            <p className="mb-2"><strong>Best for:</strong> Homeowners wanting great protection without breaking the bank</p>
+                                                            <p className="mb-0">• <strong>Cost:</strong> $$ • <strong>Lifespan:</strong> 25-50 years • <strong>Colors:</strong> 30+ options</p>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="material-item mb-4">
-                                                            <h4>Metal Roofing</h4>
-                                                            <p>Long-lasting option with exceptional durability and energy efficiency. Available in standing seam, metal shingle, and panel systems with 40+ year lifespans.</p>
+                                                            <h4>Metal Roofing <span className="badge bg-primary ms-2">Energy Saver</span></h4>
+                                                            <p className="mb-2"><strong>Best for:</strong> Maximum durability and lower energy bills</p>
+                                                            <p className="mb-0">• <strong>Cost:</strong> $$$ • <strong>Lifespan:</strong> 40-70 years • <strong>Saves:</strong> Up to 25% on cooling</p>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="material-item mb-4">
                                                             <h4>Flat Roofing Systems</h4>
-                                                            <p>Specialized solutions for low-slope and flat roofs including EPDM, TPO, and modified bitumen membranes. Ideal for commercial buildings and modern home designs.</p>
+                                                            <p className="mb-2"><strong>Best for:</strong> Low-slope roofs and modern designs</p>
+                                                            <p className="mb-0">• <strong>Cost:</strong> $$ • <strong>Lifespan:</strong> 20-30 years • <strong>Maintenance:</strong> Minimal</p>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6">
                                                         <div className="material-item mb-4">
-                                                            <h4>Premium Options</h4>
-                                                            <p>High-end materials including synthetic slate, cedar shake, and designer architectural shingles for distinctive looks and maximum durability.</p>
+                                                            <h4>Premium Options <span className="badge bg-warning ms-2">Luxury</span></h4>
+                                                            <p className="mb-2"><strong>Best for:</strong> Distinctive curb appeal and maximum value</p>
+                                                            <p className="mb-0">• <strong>Cost:</strong> $$$$ • <strong>Lifespan:</strong> 50+ years • <strong>ROI:</strong> Highest resale value</p>
                                                         </div>
                                                     </div>
                                                 </div>
                                             </div>
 
-                                            
+                                            <div className="trust-indicators mt-5 mb-5 text-center">
+                                                <div className="rating-badge d-inline-block p-3" style={{backgroundColor: "#f8f9fa", borderRadius: "10px"}}>
+                                                    <div className="mb-2">
+                                                        <i className="fas fa-star" style={{color: "#FFD700", fontSize: "1.5rem"}}></i>
+                                                        <i className="fas fa-star" style={{color: "#FFD700", fontSize: "1.5rem"}}></i>
+                                                        <i className="fas fa-star" style={{color: "#FFD700", fontSize: "1.5rem"}}></i>
+                                                        <i className="fas fa-star" style={{color: "#FFD700", fontSize: "1.5rem"}}></i>
+                                                        <i className="fas fa-star" style={{color: "#FFD700", fontSize: "1.5rem"}}></i>
+                                                    </div>
+                                                    <h3 className="mb-0">5-Star Rated Roofing Contractor</h3>
+                                                    <p className="mb-0 mt-2">Trusted by Pittsburgh homeowners since 1996</p>
+                                                </div>
+                                            </div>
+
+                                            <div className="guarantee-section mt-5 text-center p-4" style={{backgroundColor: "#E74C3C", color: "white", borderRadius: "10px"}}>
+                                                <h3 className="mb-3">Our 100% Satisfaction Guarantee</h3>
+                                                <p className="lead mb-3" style={{color:'white'}}>If you're not completely satisfied with our work, we'll make it right—guaranteed.</p>
+                                                <p className="mb-0" style={{color:'white'}}>That's our promise to you, backed by 28+ years serving Pittsburgh.</p>
+                                            </div>
 
                                         </div>
                                     </div>
@@ -227,16 +312,26 @@ export default function ServiceDetails(props) {
                                 <div className="col-xl-4 col-lg-6">
                                     <aside className="services-sidebar">
                                         <div className="services-widget">
-                                            <h4 className="widget-title">Roofing Services</h4>
+                                            <h4 className="widget-title">Popular Services</h4>
                                             <div className="our-services-list">
                                                 <ul className="list-wrap">
-                                                    <li><Link href="#">Roof Replacement<i className="fas fa-arrow-right" /></Link></li>
-                                                    <li><Link href="#">Roof Repairs<i className="fas fa-arrow-right" /></Link></li>
-                                                    <li><Link href="#">Storm Damage Restoration<i className="fas fa-arrow-right" /></Link></li>
-                                                    <li><Link href="#">Commercial Roofing<i className="fas fa-arrow-right" /></Link></li>
-                                                    <li><Link href="#">Roof Inspections<i className="fas fa-arrow-right" /></Link></li>
-                                                    <li><Link href="#">Gutter Installation<i className="fas fa-arrow-right" /></Link></li>
+                                                    <li><Link href="/services/roofing/emergency-leak-repair">Emergency Leak Repair<i className="fas fa-arrow-right" /></Link></li>
+                                                    <li><Link href="#">Complete Roof Replacement<i className="fas fa-arrow-right" /></Link></li>
+                                                    <li><Link href="#">Storm Damage Assessment<i className="fas fa-arrow-right" /></Link></li>
+                                                    <li><Link href="#">Preventive Maintenance<i className="fas fa-arrow-right" /></Link></li>
+                                                    <li><Link href="#">Insurance Claim Help<i className="fas fa-arrow-right" /></Link></li>
+                                                    <li><Link href="#">Gutter Protection<i className="fas fa-arrow-right" /></Link></li>
                                                 </ul>
+                                            </div>
+                                        </div>
+                                        <div className="services-widget" style={{backgroundColor: "#E74C3C", color: "white", padding: "20px", borderRadius: "10px"}}>
+                                            <h4 className="widget-title" style={{color: "white"}}>Limited Time Offer</h4>
+                                            <div className="offer-content text-center">
+                                                <h3 style={{color: "white"}}>$500 OFF</h3>
+                                                <p className="mb-3">Complete Roof Replacement</p>
+                                                <p className="small mb-3">Plus FREE gutter guards with full replacement</p>
+                                                <Link href="#contact-form" className="btn btn-light">Claim Offer</Link>
+                                                <p className="small mt-2 mb-0">*New customers only. Expires 30 days from today.</p>
                                             </div>
                                         </div>
                                         {/* <div className="services-widget widget-bg" data-background="/assets/img/services/sw_bg.jpg">
@@ -262,15 +357,20 @@ export default function ServiceDetails(props) {
                                             </div>
                                         </div> */}
                                         <div className="services-widget">
-                                            <h4 className="widget-title">Emergency Roof Repairs</h4>
+                                            <h4 className="widget-title">Need Help Now?</h4>
                                             <div className="emergency-info">
-                                                <p>Experiencing a roof leak or storm damage? Our emergency response team is available to help minimize damage to your home.</p>
-                                                <div className="emergency-phone">
-                                                    <i className="fas fa-phone-alt"></i>
-                                                    <span> (412) 200-2475</span>
+                                                <div className="text-center mb-3">
+                                                    <h3 style={{color: "#E74C3C"}}><i className="fas fa-phone-alt"></i> (412) 200-2475</h3>
+                                                    <p className="mb-2"><strong>24/7 Emergency Service</strong></p>
                                                 </div>
-                                                <p className="mt-3">Service areas include Pittsburgh, Robinson Township, Upper St. Clair, Mt. Lebanon, Bethel Park, and surrounding communities.</p>
-                                                <p className="address-info"><i className="fas fa-map-marker-alt"></i> 1468 Old Steubenville Pike, suite d, Pittsburgh, PA 15205</p>
+                                                <div className="quick-response-times p-3" style={{backgroundColor: "#f8f9fa", borderRadius: "8px"}}>
+                                                    <p className="mb-2"><strong>Average Response Times:</strong></p>
+                                                    <p className="mb-1">• Emergency calls: <strong>2-4 hours</strong></p>
+                                                    <p className="mb-1">• Free inspections: <strong>24-48 hours</strong></p>
+                                                    <p className="mb-0">• Project start: <strong>Within 1 week</strong></p>
+                                                </div>
+                                                <p className="mt-3 text-center"><strong>Serving all of Greater Pittsburgh</strong></p>
+                                                <p className="address-info text-center"><i className="fas fa-map-marker-alt"></i> 1468 Old Steubenville Pike, suite d, Pittsburgh, PA 15205</p>
                                             </div>
                                         </div>
                                     </aside>
@@ -279,9 +379,17 @@ export default function ServiceDetails(props) {
                         </div>
                     </section>
                     <div className="cta-area mt-60" style={{display:"flex", flexDirection:'column'}} >
-                        <h2 className="title text-center">Ready for a Quality Roof Installation?</h2>
-                        <p className="text-center" style={{paddingBottom:"50px"}}>Complete the form below to schedule a free roof inspection and estimate. <br/>Our Pittsburgh roofing experts will assess your needs and provide a detailed quote for your project.</p>
-                        <MainContact/>
+                        <h2 className="title text-center">Get Your Free Roof Assessment Today</h2>
+                        <p className="text-center" style={{paddingBottom:"20px"}}><strong>No obligations. No high-pressure sales. Just honest advice about your roof.</strong></p>
+                        <div className="text-center mb-4">
+                            <p className="mb-2">✓ Free inspection within 48 hours</p>
+                            <p className="mb-2">✓ Detailed photos of any issues found</p>
+                            <p className="mb-2">✓ Multiple repair/replacement options</p>
+                            <p>✓ Written estimates valid for 30 days</p>
+                        </div>
+                        <div id="contact-form">
+                            <MainContact/>
+                        </div>
                     </div>
                     <Brand3 />
                     
