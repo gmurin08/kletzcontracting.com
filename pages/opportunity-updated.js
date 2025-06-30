@@ -25,7 +25,7 @@ export default function OpportunityUpdated() {
     <div style={{ textAlign: 'center', padding: '50px 20px' }}>
       <h1>Thank You!</h1>
       <p>{message}</p>
-      <p>You can close this window now.</p>
+      <p>You can close this window now..</p>
     </div>
   );
 }
