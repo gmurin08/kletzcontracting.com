@@ -18,22 +18,31 @@ export default function Document() {
                 {/* Favicon */}
                 <link rel="icon" type="image/png" href="/assets/img/icon/favicon.png" />
                 <link rel="icon" type="image/png" sizes="192x192" href="/android-chrome-192x192.png" />
-                <link rel="apple-touch-icon" href="assets/img/iconapple-touch-icon.png" />
+                <link rel="apple-touch-icon" href="/assets/img/iconapple-touch-icon.png" />
 
                 {/* Fonts */}
                 <link rel="preconnect" href="https://fonts.bunny.net" />
                 <link href="https://fonts.bunny.net/css?family=dm-sans:400,400i,500,500i,700,700i|poppins:300,300i,400,400i,500,500i,600,600i,700,700i,800,800i" rel="stylesheet" />
             </Head>
             <body>
-                          {/* Google Tag Manager (noscript) */}
-          <noscript>
-            <iframe
-              src="https://www.googletagmanager.com/ns.html?id=GTM-KP4WTNWH"
-              height="0"
-              width="0"
-              style={{ display: 'none', visibility: 'hidden' }}
-            ></iframe>
-          </noscript>
+            {/* Google Tag Manager (noscript) */}
+            <noscript>
+                <iframe
+                src="https://www.googletagmanager.com/ns.html?id=GTM-KP4WTNWH"
+                height="0"
+                width="0"
+                style={{ display: 'none', visibility: 'hidden' }}
+                ></iframe>
+            </noscript>
+            {/* Meta Pixel (noscript) */}
+            <noscript>
+                <img
+                    height="1"
+                    width="1"
+                    style={{ display: "none" }}
+                    src="https://www.facebook.com/tr?id=1439900253827320&ev=PageView&noscript=1"
+                />
+            </noscript>
                 <Main />
                 <NextScript />
             </body>
