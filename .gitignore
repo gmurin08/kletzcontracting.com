@@ -135,3 +135,4 @@ dist
 /public/robots.txt
 /public/sitemap-*.xml
 
+.env*.local

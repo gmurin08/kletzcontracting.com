@@ -84,6 +84,78 @@ export default async function handler(req, res) {
   
       const opportunityData = await opportunityResponse.json();
 
+      // Send GA4 event for form submission
+      try {
+        const measurementId = process.env.GA4_MEASUREMENT_ID;
+        const apiSecret = process.env.GA4_API_SECRET;
+
+        if (measurementId && apiSecret) {
+          // Use a consistent client ID based on email for better user tracking
+          const clientId = req.body.ga_client_id || `${Date.now()}.${Math.random().toString(36).substring(2, 15)}`;
+          
+          const ga4EventPayload = {
+            client_id: clientId,
+            user_id: email, // Important for cross-device tracking
+            user_properties: {
+              email: { value: email },
+              phone: { value: phone || '' },
+              first_name: { value: firstName },
+              last_name: { value: lastName },
+              city: { value: city || '' },
+              state: { value: state || '' },
+              country: { value: country || 'US' }
+            },
+            events: [
+              {
+                name: 'form_submit',
+                params: {
+                  engagement_time_msec: '100',
+                  session_id: req.body.ga_session_id || Date.now().toString(),
+                  form_id: 'contact_form',
+                  form_name: 'Contact Form',
+                  form_destination: url || 'Direct Form',
+                  value: 1.0,
+                  currency: 'USD',
+                  // Enhanced parameters for remarketing
+                  email: email,
+                  phone: phone || '',
+                  lead_source: 'website_contact_form',
+                  timestamp_micros: (Date.now() * 1000).toString()
+                }
+              },
+              {
+                name: 'generate_lead',
+                params: {
+                  currency: 'USD',
+                  value: 1.0,
+                  lead_source: 'website_contact_form'
+                }
+              }
+            ]
+          };
+
+          const ga4Response = await fetch(
+            `https://www.google-analytics.com/mp/collect?measurement_id=${measurementId}&api_secret=${apiSecret}`,
+            {
+              method: 'POST',
+              headers: {
+                'Content-Type': 'application/json',
+              },
+              body: JSON.stringify(ga4EventPayload)
+            }
+          );
+
+          if (ga4Response.status === 204) {
+            console.log('GA4 form submit event sent successfully');
+          } else {
+            console.log('GA4 event sending failed:', await ga4Response.text());
+          }
+        }
+      } catch (ga4Error) {
+        console.log('GA4 tracking error:', ga4Error);
+        // Don't fail the entire request if GA4 tracking fails
+      }
+
       // Send email notification
       try {
         await sendContactNotification({

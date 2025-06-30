@@ -230,13 +230,51 @@ const ContactForm = () => {
     setIsSubmitting(true);
     
     try {
+      // Get GA4 client ID and session ID if available
+      let ga_client_id = null;
+      let ga_session_id = null;
+      
+      if (typeof window !== 'undefined') {
+        try {
+          // Try to get Google Analytics client ID from cookies
+          const gaCookies = document.cookie.split(';').find(c => c.trim().startsWith('_ga='));
+          if (gaCookies) {
+            // GA cookie format: _ga=GA1.2.XXXXXXXXX.YYYYYYYYY
+            const parts = gaCookies.split('.');
+            if (parts.length >= 4) {
+              ga_client_id = `${parts[2]}.${parts[3]}`;
+            }
+          }
+          
+          // Try to get session ID from GA4 cookies
+          const ga4SessionCookie = document.cookie.split(';').find(c => c.trim().startsWith('_ga_'));
+          if (ga4SessionCookie) {
+            ga_session_id = Date.now().toString();
+          }
+          
+          // Alternative: Get client ID from dataLayer if available
+          if (!ga_client_id && window.dataLayer) {
+            const clientIdEvent = window.dataLayer.find(event => event['gtm.uniqueEventId']);
+            if (clientIdEvent) {
+              ga_client_id = clientIdEvent['gtm.uniqueEventId'];
+            }
+          }
+        } catch (error) {
+          console.log('Could not retrieve GA client/session ID:', error);
+        }
+      }
+      
       // Replace with your actual form submission API endpoint
       const response = await fetch('/api/submit-contact-form', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
         },
-        body: JSON.stringify(formData)
+        body: JSON.stringify({
+          ...formData,
+          ga_client_id,
+          ga_session_id
+        })
       });
       
       if (!response.ok) throw new Error('Form submission failed');
