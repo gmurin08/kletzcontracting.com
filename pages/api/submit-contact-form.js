@@ -1,5 +1,20 @@
 // /pages/api/submit-contact-form.js
 import nodemailer from 'nodemailer';
+import crypto from 'crypto';
+
+// Parse cookies from request
+function parseCookies(cookieHeader) {
+  const cookies = {};
+  if (cookieHeader) {
+    cookieHeader.split(';').forEach(cookie => {
+      const [name, value] = cookie.trim().split('=');
+      if (name && value) {
+        cookies[name] = decodeURIComponent(value);
+      }
+    });
+  }
+  return cookies;
+}
 
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
@@ -8,6 +23,15 @@ export default async function handler(req, res) {
     const { firstName, lastName, email, phone, address, city, state, country, postalCode, notes } = req.body;
     const name = `${firstName} ${lastName}`;
     const url = req.headers.referer || 'Direct Form';
+    
+    // Parse cookies
+    req.cookies = parseCookies(req.headers.cookie);
+    
+    // Get client information for tracking
+    const userAgent = req.headers['user-agent'] || '';
+    const clientIp = req.headers['x-forwarded-for'] || req.socket.remoteAddress;
+    const eventTime = Math.floor(Date.now() / 1000);
+    const eventId = crypto.randomUUID();
   
     try {
       // Create/update contact
@@ -42,7 +66,6 @@ export default async function handler(req, res) {
   
       if (!contactResponse.ok) {
         const error = await contactResponse.text();
-        console.log('GHL Contact API Error:', error);
         return res.status(500).json({ error });
       }
   
@@ -56,7 +79,6 @@ export default async function handler(req, res) {
         "monetaryValue": 200,
         "status": "open" // Keep it open by default
       }
-      console.log("Opportunity request body:", opportunityBody);
 
       // Create opportunity with initial status
       const opportunityResponse = await fetch('https://services.leadconnectorhq.com/opportunities/upsert', {
@@ -69,12 +91,9 @@ export default async function handler(req, res) {
         },
         body: JSON.stringify(opportunityBody),
       });
-
-      console.log(opportunityResponse)
       
       if (!opportunityResponse.ok) {
         const error = await opportunityResponse.text();
-        console.log('GHL Opportunity API Error:', error);
         return res.status(200).json({ 
           success: true, 
           warning: "Contact created but opportunity creation failed", 
@@ -171,16 +190,40 @@ export default async function handler(req, res) {
           notes,
           url
         });
-        console.log('Email notification sent successfully');
       } catch (emailError) {
-        console.log('Email sending failed:', emailError);
         // Don't fail the entire request if email fails
+      }
+      
+      // Track conversions server-side (privacy-compliant)
+      try {
+        
+        const trackingData = {
+          email,
+          phone,
+          firstName,
+          lastName,
+          city,
+          state,
+          postalCode,
+          country,
+          url,
+          userAgent,
+          clientIp,
+          eventTime,
+          eventId,
+          clientId: req.cookies?._ga?.replace(/^GA\d\.\d\./, '') || crypto.randomUUID(),
+          fbc: req.cookies?._fbc || undefined,
+          fbp: req.cookies?._fbp || undefined
+        };
+        
+        await trackConversions(trackingData);
+      } catch (trackingError) {
+        // Don't fail the request if tracking fails
       }
       
       res.status(200).json({ success: true, contactData, opportunityData });
       
     } catch (err) {
-      console.log('Server Error:', err);
       res.status(500).json({ error: err.message });
     }
 }
@@ -303,4 +346,121 @@ async function sendContactNotification(contactDetails) {
   });
 
   return info;
+}
+
+// Privacy-compliant conversion tracking
+async function trackConversions(data) {
+  const promises = [];
+  
+  // Meta Conversions API (with automatic hashing)
+  if (process.env.META_PIXEL_ID && process.env.META_ACCESS_TOKEN) {
+    promises.push(trackMetaConversion(data));
+  }
+  
+  // Google Analytics 4 Measurement Protocol (no PII)
+  if (process.env.GA_MEASUREMENT_ID && process.env.GA_API_SECRET) {
+    promises.push(trackGoogleAnalytics(data));
+  }
+  
+  // Execute all tracking in parallel
+  await Promise.all(promises);
+}
+
+// Meta Conversions API - No PII version
+async function trackMetaConversion(data) {
+  const payload = {
+    data: [{
+      event_name: 'Lead',
+      event_time: data.eventTime,
+      event_id: data.eventId,
+      event_source_url: data.url,
+      action_source: 'website',
+      user_data: {
+        // Only non-PII data
+        client_ip_address: data.clientIp,
+        client_user_agent: data.userAgent,
+        fbc: data.fbc, // Facebook click ID from cookie if available
+        fbp: data.fbp  // Facebook browser ID from cookie if available
+      },
+      custom_data: {
+        lead_type: 'contact_form',
+        form_location: 'main_contact',
+        value: 100.00,
+        currency: 'USD'
+      }
+    }]
+  };
+  
+  const response = await fetch(
+    `https://graph.facebook.com/v18.0/${process.env.META_PIXEL_ID}/events`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({
+        ...payload,
+        access_token: process.env.META_ACCESS_TOKEN,
+        test_event_code: process.env.META_TEST_EVENT_CODE
+      })
+    }
+  );
+  
+  if (!response.ok) {
+    const error = await response.text();
+    throw new Error(`Meta tracking failed: ${response.status}`);
+  }
+  
+  return response.json();
+}
+
+// Google Analytics 4 - No PII, only anonymous tracking
+async function trackGoogleAnalytics(data) {
+  const payload = {
+    client_id: data.clientId, // Anonymous client ID only
+    events: [{
+      name: 'generate_lead',
+      params: {
+        // Match GTM structure for consistency
+        value: 100.00,
+        currency: 'USD',
+        engagement_time_msec: 100,
+        // Form-specific parameters matching GTM
+        form_id: 'main_contact_form',
+        form_name: 'Main Contact Form',
+        form_destination: data.url,
+        form_length: 11, // Number of fields in the form
+        form_submit_text: 'server_side',
+        // Lead tracking
+        lead_source: 'website',
+        lead_type: 'contact_form',
+        // Server-side specific
+        tracking_method: 'server_side',
+        // Anonymous location data only
+        country: data.country || 'US',
+        region: data.state || undefined,
+        // Enable debug mode only in development
+        ...(process.env.NODE_ENV === 'development' && { debug_mode: true })
+      }
+    }]
+  };
+  
+  const response = await fetch(
+    `https://www.google-analytics.com/mp/collect?measurement_id=${process.env.GA_MEASUREMENT_ID}&api_secret=${process.env.GA_API_SECRET}`,
+    {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(payload)
+    }
+  );
+  
+  if (!response.ok) {
+    const errorText = await response.text();
+    throw new Error(`GA4 tracking failed: ${response.status}`);
+  }
+  
+  // GA4 MP returns 204 No Content on success
+  return { success: true };
 }
