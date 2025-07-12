@@ -13,7 +13,6 @@ export default function Document() {
                 {/* Open Graph Defaults */}
                 <meta property="og:site_name" content="Kletz Contracting" />
                 <meta property="og:type" content="website" />
-                <meta property="og:image" content="https://kletzcontracting.com/assets/img/og/Kletz-OG-Home.jpg" />
 
                 {/* Favicon */}
                 <link rel="icon" type="image/png" href="/assets/img/icon/favicon.png" />

@@ -8,7 +8,11 @@ const PageHead = ({ headTitle, metaDescription, canonicalUrl, ogImage, keywords,
     
     const title = headTitle || defaultTitle
     const description = metaDescription || defaultDescription
-    const image = ogImage || defaultOgImage
+    const relativeImage = ogImage || defaultOgImage
+    // Convert relative image paths to absolute URLs for OG tags
+    const image = relativeImage.startsWith('http') 
+        ? relativeImage 
+        : `https://kletzcontracting.com${relativeImage}`
     
     return (
         <>
