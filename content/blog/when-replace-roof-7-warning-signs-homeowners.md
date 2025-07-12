@@ -3,7 +3,7 @@ title: "When to Replace Your Roof: 7 Warning Signs Every Homeowner Should Know"
 excerpt: "Learn the critical warning signs that indicate it's time for a roof replacement. From age-related wear to storm damage, discover what to watch for to protect your home."
 coverImage: "/assets/img/blog/covers/roof1.webp"
 date: "2025-01-07"
-publishDate: "2025-01-07"
+publishDate: "2025-05-07"
 author:
   name: "Kletz Team"
   picture: "/assets/img/team/team.jpg"

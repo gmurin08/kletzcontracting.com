@@ -7,7 +7,7 @@ import Breadcrumb from './Breadcrumb';
 import Footer from './Footer';
 import BackToTop from '../elements/BackToTop';
 
-export default function Layout({ headerCls, headerTop, headTitle, breadcrumbTitle, children }) {
+export default function Layout({ headerCls, headerTop, headTitle, breadcrumbTitle, children, metaDescription, ogImage, keywords, canonicalUrl, structuredData }) {
     useEffect(() => {
         const initWOW = async () => {
             if (typeof window !== 'undefined') {
@@ -27,7 +27,14 @@ export default function Layout({ headerCls, headerTop, headTitle, breadcrumbTitl
 
     return (
         <>
-            <PageHead headTitle={headTitle} />
+            <PageHead 
+                headTitle={headTitle} 
+                metaDescription={metaDescription}
+                ogImage={ogImage}
+                keywords={keywords}
+                canonicalUrl={canonicalUrl}
+                structuredData={structuredData}
+            />
             <DataBg />
             <Header headerCls={headerCls} headerTop={headerTop} />
             <main>

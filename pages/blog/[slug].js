@@ -15,9 +15,45 @@ export default function BlogPost({ post, relatedPosts }) {
         return <div>Post not found</div>
     }
 
+    // Create structured data for the blog post
+    const structuredData = {
+        "@context": "https://schema.org",
+        "@type": "BlogPosting",
+        "headline": post.title,
+        "description": post.excerpt,
+        "image": `https://kletzcontracting.com${post.coverImage}`,
+        "datePublished": post.publishDate || post.date,
+        "dateModified": post.date,
+        "author": {
+            "@type": "Organization",
+            "name": "Kletz Contracting",
+            "url": "https://kletzcontracting.com"
+        },
+        "publisher": {
+            "@type": "Organization",
+            "name": "Kletz Contracting",
+            "logo": {
+                "@type": "ImageObject",
+                "url": "https://kletzcontracting.com/assets/img/logo/logo.png"
+            }
+        },
+        "mainEntityOfPage": {
+            "@type": "WebPage",
+            "@id": `https://kletzcontracting.com/blog/${post.slug}`
+        }
+    }
+
     return (
         <>
-            <Layout breadcrumbTitle={post.title}>
+            <Layout 
+                breadcrumbTitle={post.title}
+                headTitle={post.seo?.title || post.title}
+                metaDescription={post.seo?.description || post.excerpt}
+                ogImage={post.coverImage}
+                keywords={post.seo?.keywords || post.tags?.join(', ')}
+                canonicalUrl={`https://kletzcontracting.com/blog/${post.slug}`}
+                structuredData={structuredData}
+            >
                 <section className="blog-details-area pt-120 pb-120">
                     <div className="container">
                         <div className="row justify-content-center">
