@@ -25,7 +25,10 @@ const PageHead = ({ headTitle, metaDescription, canonicalUrl, ogImage, keywords,
                 <meta property="og:type" content="website" />
                 <meta property="og:title" content={title} />
                 <meta property="og:description" content={description} />
+                {canonicalUrl && <meta property="og:url" content={canonicalUrl} />}
                 <meta property="og:image" content={image} />
+                <meta property="og:image:width" content="1200" />
+                <meta property="og:image:height" content="630" />
                 <meta property="og:locale" content="en_US" />
                 
                 {/* Twitter */}
