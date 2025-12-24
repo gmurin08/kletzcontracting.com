@@ -1,5 +1,4 @@
 import Layout from "@/components/layout/Layout"
-import PageHead from "@/components/layout/PageHead"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 import Brand3 from "@/components/sections/Brand3"
 import FaqSection from "@/components/sections/FaqSection"
@@ -91,16 +90,16 @@ export default function DumpsterService() {
     
     return (
         <>
-            <PageHead
+            <LocalBusinessSchema />
+            <FaqSchema category={"dumpster"} />
+            <Layout
+                breadcrumbTitle="Dumpster Rentals"
                 headTitle="Dumpster Rental Robinson Township PA | Roll Off Dumpster Service | Kletz Contracting"
                 metaDescription="Affordable dumpster rental in Robinson Township and Pittsburgh. 10-20 yard roll off dumpsters for home renovations, construction debris, and cleanouts. Same-day delivery available. Licensed & insured."
                 canonicalUrl="https://kletzcontracting.com/services/dumpster-service"
                 keywords="dumpster rental Robinson Township PA, roll off dumpster Pittsburgh, construction dumpster rental, 10 yard dumpster Robinson Township, 20 yard dumpster Pittsburgh PA, waste management Robinson Township, debris removal Pittsburgh"
                 ogImage="/assets/img/og/dumpster-og.webp"
-            />
-            <LocalBusinessSchema />
-            <FaqSchema category={"dumpster"} />
-            <Layout breadcrumbTitle="Dumpster Rentals">
+            >
                 <div>
                     <section className="services-details-area pt-120">
                         <div className="container">
