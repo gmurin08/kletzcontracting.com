@@ -536,7 +536,7 @@ export async function getStaticProps() {
         props: {
             metaTitle: "Professional Home Remodeling in Pittsburgh | Kletz Contracting",
             metaDescription: "Expert home remodeling services in Pittsburgh. Kitchen, bathroom, basement and whole house renovations with quality craftsmanship from Kletz Contracting.",
-            canonicalUrl: "https://www.kletzcontracting.com/services/home-remodeling",
+            canonicalUrl: "https://www.kletzcontracting.com/services/remodeling",
             serviceSchema: {
                 "@context": "https://schema.org",
                 "@type": "Service",
