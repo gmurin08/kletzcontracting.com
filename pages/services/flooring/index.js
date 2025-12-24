@@ -237,6 +237,27 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 </div>
                                             </div>
+
+                                            <div className="gallery-section mt-5 mb-5">
+                                                <h2 className="title-two text-center mb-4">Recent Flooring Projects</h2>
+                                                <div className="row">
+                                                    <div className="col-md-6 mb-4">
+                                                        <img
+                                                            src="/assets/img/flooring/bathroom%20after%206.webp"
+                                                            alt="Completed bathroom flooring installation"
+                                                            style={{width: "100%", height: "300px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-6 mb-4">
+                                                        <img
+                                                            src="/assets/img/flooring/kitchen%20after%202.webp"
+                                                            alt="Completed kitchen flooring installation"
+                                                            style={{width: "100%", height: "300px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
+
                                             <div className="cta-area mt-60">
                                                 <h2 className="title text-center">Ready for Beautiful New Floors?</h2>
                                                 <p className="text-center" style={{paddingBottom:"20px"}}>Complete the form below to schedule a free in-home consultation and estimate. Our Pittsburgh flooring experts will bring samples and help you select the perfect flooring solution for your space.</p>

@@ -107,7 +107,7 @@ export default function DumpsterService() {
                                 <div className="col-xl-8">
                                     <div className="services-details-wrap" >
                                         <div className="services-details-thumb">
-                                            <img src="/assets/img/services/dumpster.jpg" alt="Dumpster Rental" />
+                                            <img src="/assets/img/dumpster-service/roll%20off%20pickup%20angled%20shot%20from%20front%20right.webp" alt="Dumpster Rental" />
                                         </div>
                                         <div className="services-details-content">
                                             <h2 className="title">Get Your Dumpster Delivered Tomorrow—Book in 2 Minutes</h2>
@@ -304,6 +304,32 @@ export default function DumpsterService() {
                                                 </div>
                                             </div>
 
+                                            <div className="gallery-section mt-5 mb-5">
+                                                <h2 className="title-two text-center mb-4">Our Dumpster Fleet</h2>
+                                                <div className="row">
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/dumpster-service/dumpster%20shot%20froom%20street.webp"
+                                                            alt="Dumpster delivered to customer location"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/dumpster-service/new%20dumpster%20roll%20off%20truck%20angled%20shot%20from%20back%20right.webp"
+                                                            alt="Kletz Contracting roll off dumpster truck"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/dumpster-service/roll%20off%20pickup%20angled%20shot%20from%20front%20right.webp"
+                                                            alt="Roll off dumpster pickup truck"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                </div>
+                                            </div>
 
 <div className="trust-indicators mt-5 mb-5 text-center">
     <div className="rating-badge d-inline-block p-3" style={{backgroundColor: "#f8f9fa", borderRadius: "10px"}}>

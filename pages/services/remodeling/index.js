@@ -110,7 +110,7 @@ export default function ServiceDetails(props) {
                                 <div className="col-xl-8">
                                     <div className="services-details-wrap" >
                                         <div className="services-details-thumb">
-                                            <img src="/assets/img/services/home-remodeling-main.jpg" alt="Professional Home Remodeling in Pittsburgh" />
+                                            <img src="/assets/img/remodeling/kitchen-bed-bath-dec-25/kitchen%20after%202.webp" alt="Professional Home Remodeling in Pittsburgh" />
                                         </div>
                                         <div className="services-details-content">
                                             <h2 className="title">Expert Home Remodeling in Pittsburgh</h2>
@@ -233,6 +233,75 @@ export default function ServiceDetails(props) {
                                                             <h4>Historic Home Renovations</h4>
                                                             <p>Preserve the character of Pittsburgh's historic homes while updating systems and functionality. Our historic renovations blend period-appropriate details with modern amenities for the best of both worlds.</p>
                                                         </div>
+                                                    </div>
+                                                </div>
+                                            </div>
+
+                                            <div className="gallery-section mt-5 mb-5">
+                                                <h2 className="title-two text-center mb-4">Recent Remodeling Projects</h2>
+                                                <div className="row">
+                                                    <div className="col-md-4 mb-4" style={{overflow: "hidden", borderRadius: "8px"}}>
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/kitchen%20after.webp"
+                                                            alt="Completed kitchen remodel"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", transform: "rotate(90deg) scale(1.35)"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/kitchen%20after%202.webp"
+                                                            alt="Kitchen renovation completed"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4" style={{overflow: "hidden", borderRadius: "8px"}}>
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/bathroom%20after.webp"
+                                                            alt="Completed bathroom remodel"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", transform: "rotate(90deg) scale(1.35)"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/bathroom%20after%206.webp"
+                                                            alt="Bathroom renovation completed"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/bedroom%20after%20work%20completed%20with%20furniture.webp"
+                                                            alt="Completed bedroom remodel"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4" style={{overflow: "hidden", borderRadius: "8px"}}>
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/living%20room%20after.webp"
+                                                            alt="Living room renovation completed"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", transform: "rotate(90deg) scale(1.35)"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4" style={{overflow: "hidden", borderRadius: "8px"}}>
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/stairs%20after.webp"
+                                                            alt="Stairway renovation completed"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", transform: "rotate(90deg) scale(1.35)"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4" style={{overflow: "hidden", borderRadius: "8px"}}>
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/stairwell%20after.webp"
+                                                            alt="Stairwell remodel completed"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", transform: "rotate(90deg) scale(1.35)"}}
+                                                        />
+                                                    </div>
+                                                    <div className="col-md-4 mb-4">
+                                                        <img
+                                                            src="/assets/img/remodeling/kitchen-bed-bath-dec-25/bedroom%20taped%20and%20mudded.webp"
+                                                            alt="Bedroom drywall work in progress"
+                                                            style={{width: "100%", height: "250px", objectFit: "cover", borderRadius: "8px"}}
+                                                        />
                                                     </div>
                                                 </div>
                                             </div>
