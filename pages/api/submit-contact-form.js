@@ -340,7 +340,7 @@ async function sendContactNotification(contactDetails) {
   // Send email
   const info = await transporter.sendMail({
     from: process.env.SMTP_FROM,
-    to: process.env.CLIENT_EMAIL, // Send to yourself as notification
+    to: `${process.env.CLIENT_EMAIL}, victor@kletzcontracting.com`,
     subject: `New Contact Form Submission - ${contactDetails.firstName} ${contactDetails.lastName}`,
     html: emailHTML,
   });
