@@ -21,7 +21,7 @@ export default function BlogPost({ post, relatedPosts }) {
         "@type": "BlogPosting",
         "headline": post.title,
         "description": post.excerpt,
-        "image": `https://kletzcontracting.com${post.coverImage}`,
+        "image": post.coverImage.startsWith('http') ? post.coverImage : `https://kletzcontracting.com${post.coverImage}`,
         "datePublished": post.publishDate || post.date,
         "dateModified": post.date,
         "author": {
