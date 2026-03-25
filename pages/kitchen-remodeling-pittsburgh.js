@@ -89,7 +89,7 @@ export default function KitchenRemodelingPittsburgh() {
 
             {/* Hero Section */}
             <section style={{
-                backgroundImage: 'linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://imagen-api-storage.s3.us-east-2.amazonaws.com/kletzcontracting/kletz-banner.png)',
+                backgroundImage: 'linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://imagen-api-storage.s3.us-east-2.amazonaws.com/kletzcontracting/kithcen%20hero.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
                 paddingTop: '50px',
