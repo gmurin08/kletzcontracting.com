@@ -60,9 +60,9 @@ export default function KitchenRemodelingPittsburgh() {
         <>
             <Head>
                 <title>Kitchen Remodeling Pittsburgh | Free Estimates | Kletz Contracting</title>
-                <meta name="description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1985. Call (412) 200-2475 for a free estimate!" />
+                <meta name="description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1996. Call (412) 200-2475 for a free estimate!" />
                 <meta property="og:title" content="Kitchen Remodeling Pittsburgh | Free Estimates | Kletz Contracting" />
-                <meta property="og:description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1985. Free estimates!" />
+                <meta property="og:description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1996. Free estimates!" />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://kletzcontracting.com/kitchen-remodeling-pittsburgh" />
                 <meta name="robots" content="index, follow" />
@@ -112,7 +112,7 @@ export default function KitchenRemodelingPittsburgh() {
                                     <i className="fas fa-shield-alt" style={{color: '#4CAF50'}}></i> Licensed & Insured
                                 </span>
                                 <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '0.9rem' }}>
-                                    <i className="fas fa-history" style={{color: '#ffc107'}}></i> Family-Owned Since 1985
+                                    <i className="fas fa-history" style={{color: '#ffc107'}}></i> Family-Owned Since 1996
                                 </span>
                             </div>
                             <div className="d-none d-lg-flex" style={{ gap: '12px' }}>
@@ -135,7 +135,7 @@ export default function KitchenRemodelingPittsburgh() {
                     <div className="row text-center">
                         <div className="col-md-3 col-6 mb-2 mb-md-0">
                             <div style={{ color: 'white' }}>
-                                <h3 style={{ color: '#ffc107', marginBottom: '0' }}>40+</h3>
+                                <h3 style={{ color: '#ffc107', marginBottom: '0' }}>30+</h3>
                                 <p style={{ marginBottom: 0, fontSize: '0.9rem', color: 'rgba(255,255,255,0.8)' }}>Years in Business</p>
                             </div>
                         </div>
@@ -296,7 +296,7 @@ export default function KitchenRemodelingPittsburgh() {
                 <div className="container text-center">
                     <h3 style={{ color: 'white', marginBottom: '15px' }}>Our 100% Satisfaction Guarantee</h3>
                     <p className="lead" style={{ color: 'white', marginBottom: '5px' }}>If you're not completely satisfied with our work, we'll make it right — guaranteed.</p>
-                    <p style={{ color: 'rgba(255,255,255,0.9)' }}>Backed by 40+ years serving Pittsburgh homeowners.</p>
+                    <p style={{ color: 'rgba(255,255,255,0.9)' }}>Backed by 30+ years serving Pittsburgh homeowners.</p>
                 </div>
             </section>
 
