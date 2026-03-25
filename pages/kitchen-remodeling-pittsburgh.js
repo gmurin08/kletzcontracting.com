@@ -314,6 +314,8 @@ export default function KitchenRemodelingPittsburgh() {
                                 <p className="mb-1">&#10003; Financing options available</p>
                             </div>
                             <QuickForm />
+                        </div>
+                    </div>
                 </div>
             </section>
 
