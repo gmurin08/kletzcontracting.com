@@ -15,7 +15,8 @@ export default function KitchenRemodelingPittsburgh() {
                 <meta property="og:description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1985. Free estimates!" />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://kletzcontracting.com/kitchen-remodeling-pittsburgh" />
-                <meta name="robots" content="noindex, nofollow" />
+                <meta name="robots" content="index, follow" />
+                <link rel="canonical" href="https://kletzcontracting.com/kitchen-remodeling-pittsburgh" />
             </Head>
             <LocalBusinessSchema />
 
