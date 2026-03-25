@@ -1,8 +1,59 @@
 import Head from "next/head"
 import Link from "next/link"
 import { useState } from 'react'
+import { useRouter } from 'next/router'
 import MainContact from "@/components/elements/MainContact"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
+
+function QuickForm() {
+    const router = useRouter()
+    const [form, setForm] = useState({ firstName: '', phone: '', email: '', notes: '' })
+    const [submitting, setSubmitting] = useState(false)
+    const [error, setError] = useState('')
+
+    const handleSubmit = async (e) => {
+        e.preventDefault()
+        setSubmitting(true)
+        setError('')
+        try {
+            const res = await fetch('/api/submit-contact-form', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    firstName: form.firstName, lastName: '', email: form.email,
+                    phone: form.phone, address: '', city: '', state: '', country: 'US',
+                    postalCode: '', notes: form.notes || 'Kitchen remodel inquiry'
+                })
+            })
+            if (res.ok) { router.push('/thank-you') }
+            else { setError('Something went wrong. Please call us instead.') }
+        } catch { setError('Something went wrong. Please call us instead.') }
+        finally { setSubmitting(false) }
+    }
+
+    return (
+        <form onSubmit={handleSubmit} style={{ backgroundColor: 'rgba(255,255,255,0.95)', padding: '24px', borderRadius: '12px' }}>
+            <h3 style={{ color: '#131944', marginBottom: '4px', fontSize: '1.3rem', fontWeight: 700 }}>Get Your Free Estimate</h3>
+            <p style={{ color: '#666', fontSize: '0.85rem', marginBottom: '16px' }}>No obligation. Response within 24 hours.</p>
+            <input type="text" placeholder="Your Name *" required value={form.firstName} onChange={e => setForm({...form, firstName: e.target.value})}
+                style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '1rem' }} />
+            <input type="tel" placeholder="Phone Number *" required value={form.phone} onChange={e => setForm({...form, phone: e.target.value})}
+                style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '1rem' }} />
+            <input type="email" placeholder="Email *" required value={form.email} onChange={e => setForm({...form, email: e.target.value})}
+                style={{ width: '100%', padding: '12px', marginBottom: '10px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '1rem' }} />
+            <textarea placeholder="Tell us about your project (optional)" rows={2} value={form.notes} onChange={e => setForm({...form, notes: e.target.value})}
+                style={{ width: '100%', padding: '12px', marginBottom: '12px', borderRadius: '6px', border: '1px solid #ddd', fontSize: '1rem', resize: 'none' }} />
+            <button type="submit" disabled={submitting}
+                style={{ width: '100%', padding: '14px', backgroundColor: '#E74C3C', color: 'white', border: 'none', borderRadius: '6px', fontSize: '1.1rem', fontWeight: 700, cursor: 'pointer' }}>
+                {submitting ? 'Sending...' : 'Get My Free Estimate'}
+            </button>
+            {error && <p style={{ color: '#E74C3C', marginTop: '8px', fontSize: '0.85rem' }}>{error}</p>}
+            <p style={{ color: '#999', fontSize: '0.75rem', marginTop: '8px', marginBottom: 0, textAlign: 'center' }}>
+                Or call now: <a href="tel:4122002475" style={{ color: '#E74C3C', fontWeight: 700 }}>(412) 200-2475</a>
+            </p>
+        </form>
+    )
+}
 
 export default function KitchenRemodelingPittsburgh() {
 
@@ -39,43 +90,41 @@ export default function KitchenRemodelingPittsburgh() {
 
             {/* Hero Section */}
             <section style={{
-                backgroundImage: 'linear-gradient(rgba(0,0,0,0.6), rgba(0,0,0,0.6)), url(/assets/img/services/kitchen-main.jpg)',
+                backgroundImage: 'linear-gradient(rgba(0,0,0,0.65), rgba(0,0,0,0.65)), url(https://imagen-api-storage.s3.us-east-2.amazonaws.com/kletzcontracting/kletz-banner.png)',
                 backgroundSize: 'cover',
                 backgroundPosition: 'center',
-                minHeight: '550px',
-                paddingTop: '60px',
-                paddingBottom: '60px',
-                display: 'flex',
-                alignItems: 'center'
+                paddingTop: '50px',
+                paddingBottom: '50px',
             }}>
                 <div className="container">
                     <div className="row align-items-center">
-                        <div className="col-lg-8">
-                            <h1 style={{ color: 'white', fontSize: '3rem', marginBottom: '20px', fontWeight: 700 }}>
+                        <div className="col-lg-7">
+                            <h1 style={{ color: 'white', fontSize: '2.8rem', marginBottom: '16px', fontWeight: 700, lineHeight: 1.15 }}>
                                 Kitchen Remodeling in Pittsburgh
                             </h1>
-                            <h2 style={{ color: 'white', fontSize: '1.4rem', marginBottom: '25px', opacity: '0.9', fontWeight: 400 }}>
+                            <h2 style={{ color: 'white', fontSize: '1.3rem', marginBottom: '20px', opacity: '0.9', fontWeight: 400 }}>
                                 Create the kitchen your family deserves — from design to completion, we handle everything.
                             </h2>
-                            <div style={{ display: 'flex', gap: '15px', marginBottom: '30px', flexWrap: 'wrap' }}>
-                                <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '8px 16px', borderRadius: '20px', fontSize: '0.95rem' }}>
+                            <div style={{ display: 'flex', gap: '12px', marginBottom: '20px', flexWrap: 'wrap' }}>
+                                <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '0.9rem' }}>
                                     <i className="fas fa-star" style={{color: '#FFD700'}}></i> 4.8-Star Rated
                                 </span>
-                                <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '8px 16px', borderRadius: '20px', fontSize: '0.95rem' }}>
+                                <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '0.9rem' }}>
                                     <i className="fas fa-shield-alt" style={{color: '#4CAF50'}}></i> Licensed & Insured
                                 </span>
-                                <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '8px 16px', borderRadius: '20px', fontSize: '0.95rem' }}>
+                                <span style={{ backgroundColor: 'rgba(255,255,255,0.15)', color: 'white', padding: '6px 14px', borderRadius: '20px', fontSize: '0.9rem' }}>
                                     <i className="fas fa-history" style={{color: '#ffc107'}}></i> Family-Owned Since 1985
                                 </span>
                             </div>
-                            <div style={{ display: 'flex', gap: '15px', flexWrap: 'wrap' }}>
-                                <a href="#contact-form" className="btn btn-two" style={{ fontSize: '1.1rem', padding: '14px 30px' }}>
-                                    Get Your Free Estimate
-                                </a>
-                                <a href="tel:4122002475" className="btn" style={{ fontSize: '1.1rem', padding: '14px 30px' }}>
+                            <div className="d-none d-lg-flex" style={{ gap: '12px' }}>
+                                <a href="tel:4122002475" className="btn" style={{ fontSize: '1.1rem', padding: '12px 28px', backgroundColor: '#ffc107', color: '#131944', fontWeight: 700 }}>
+                                    <i className="fas fa-phone-alt" style={{ marginRight: '8px' }}></i>
                                     Call (412) 200-2475
                                 </a>
                             </div>
+                        </div>
+                        <div className="col-lg-5 mt-4 mt-lg-0">
+                            <QuickForm />
                         </div>
                     </div>
                 </div>
