@@ -2,7 +2,6 @@ import Head from "next/head"
 import Link from "next/link"
 import { useState } from 'react'
 import { useRouter } from 'next/router'
-import MainContact from "@/components/elements/MainContact"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 
 function QuickForm() {
@@ -305,7 +304,7 @@ export default function KitchenRemodelingPittsburgh() {
             <section className="pt-120 pb-120" id="contact-form">
                 <div className="container">
                     <div className="row justify-content-center">
-                        <div className="col-xl-8 text-center mb-4">
+                        <div className="col-xl-6 text-center mb-4">
                             <h2 className="title">Get Your Free Kitchen Remodel Estimate</h2>
                             <p><strong>No obligations. No high-pressure sales. Just honest advice about your kitchen project.</strong></p>
                             <div className="mb-4">
@@ -314,9 +313,7 @@ export default function KitchenRemodelingPittsburgh() {
                                 <p className="mb-1">&#10003; Design guidance included</p>
                                 <p className="mb-1">&#10003; Financing options available</p>
                             </div>
-                        </div>
-                    </div>
-                    <MainContact />
+                            <QuickForm />
                 </div>
             </section>
 
