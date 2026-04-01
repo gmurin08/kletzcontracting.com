@@ -179,7 +179,7 @@ export default function DumpsterService() {
                                                 <div className="row justify-content-center">
                                                     <div className="col-lg-6 col-md-8" style={{paddingBottom:'40px', display:'flex', alignItems:'center', justifyContent:'center'}}>
                                                             <div>
-                                                            <img style={processSideImg} src="/assets/img/services/dumpster-process1.jpg" alt="" />
+                                                            <img style={processSideImg} src="/assets/john/dumptruck.webp" alt="Kletz Contracting branded dumpster delivery truck" />
                                                             </div>
                                                     </div>
                                                     <div className="col-lg-6">

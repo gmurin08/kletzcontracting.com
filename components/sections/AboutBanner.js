@@ -10,15 +10,16 @@ export default function AboutBanner() {
                 <div className="container">
                     <div className="row align-items-center">
                         <div className="col-xl-7 col-lg-6 order-0 order-lg-2">
-                            <div className="about-img-wrap">
+                            {/* Desktop: van + nailer images */}
+                            <div className="about-img-wrap d-none d-lg-block">
                             <img
-                                src="/assets/img/images/roof-nailer.jpg"
-                                alt=""
+                                src="/assets/john/van.webp"
+                                alt="Kletz Contracting branded service van in Pittsburgh"
                                 className="wow fadeInRight"
                                 data-wow-delay=".4s"
                                 style={{ width: '369px', height: '550px', objectFit: 'cover' }}
                                 />
-                                <img src="/assets/img/images/about_img02.jpg" alt="" 
+                                <img src="/assets/img/images/roof-nailer.jpg" alt=""
                                 className="wow fadeInRight" data-wow-delay=".2s"
                                 style={{ width: '233px', height: '473px', objectFit: 'cover' }} />
                                 <div className="about-experiences-wrap">
@@ -39,6 +40,14 @@ export default function AboutBanner() {
                                         </div>
                                     </div>
                                 </div>
+                            </div>
+                            {/* Mobile: John & Julian trust image */}
+                            <div className="d-lg-none text-center mb-4">
+                                <img
+                                    src="/assets/john/Trusted Narrow Form.png"
+                                    alt="John and Julian Kletz - Trusted by Pittsburgh since 1996"
+                                    style={{ width: '100%', maxWidth: '400px', height: 'auto', borderRadius: '8px' }}
+                                />
                             </div>
                         </div>
                         <div className="col-xl-5 col-lg-6">

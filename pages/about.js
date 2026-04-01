@@ -47,18 +47,7 @@ export default function About() {
                         <div className="row align-items-center">
                             <div className="col-lg-6">
                                 <div className="history-img-wrap">
-                                    <ul className="list-wrap">
-                                        <li>
-                                            <img src="/assets/img/images/kletz_crew.jpg" alt="" />
-                                        </li>
-                                        <li>
-                                            <img src="/assets/img/images/john.jpg" alt="" />
-                                            {/* <VideoPopup /> */}
-                                        </li>
-                                        <li>
-                                            <img src="/assets/img/images/kletz_roof.png" alt="" />
-                                        </li>
-                                    </ul>
+                                    <img src="/assets/john/john.webp" alt="John Kletz, Owner of Kletz Contracting" style={{ width: '100%', borderRadius: '8px' }} />
                                 </div>
                             </div>
                             <div className="col-lg-6">

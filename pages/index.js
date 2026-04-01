@@ -12,6 +12,7 @@ import Work1 from "@/components/sections/Work1"
 import Work2 from "@/components/sections/Work2"
 import FaqSection from "@/components/sections/FaqSection"
 import FaqSchema from "@/components/FaqSchema"
+import TrustBanner from "@/components/sections/TrustBanner"
 
 export default function Home() {
 
@@ -35,6 +36,7 @@ export default function Home() {
                     <Counter3 />
                 </div>
                 {/* <VideoCarousel /> */}
+                <TrustBanner />
                 <Work2 />
                 {/* <Project3 /> */}
                 <FaqSection category={'home'}/>
