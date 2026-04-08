@@ -33,7 +33,7 @@ seo:
   - siding comparison
   description: Compare vinyl and fiber cement siding performance in Pittsburgh's harsh
     winters. Expert contractor insights on durability, cost, and maintenance.
-status: PUBLISHED
+status: published
 ---
 
 ## Why Pittsburgh's Climate Demands Special Siding Considerations
