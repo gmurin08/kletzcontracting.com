@@ -170,6 +170,82 @@
     "Electrical and plumbing updates"
   ],
   "featured": true
+},
+    {
+  "id": "office-buildout-tower-engineering",
+  "slug": "office-buildout-tower-engineering",
+  "title": "Commercial Office Buildout - Tower Engineering",
+  "category": "Commercial Construction",
+  "headerImage": "/projects/office-buildout-tower-engineering/032.webp",
+  "thumbnailImage": "/projects/office-buildout-tower-engineering/032.webp",
+  "galleryImages": [
+    "/projects/office-buildout-tower-engineering/001.webp",
+    "/projects/office-buildout-tower-engineering/009.webp",
+    "/projects/office-buildout-tower-engineering/013.webp",
+    "/projects/office-buildout-tower-engineering/015.webp",
+    "/projects/office-buildout-tower-engineering/018.webp",
+    "/projects/office-buildout-tower-engineering/020.webp",
+    "/projects/office-buildout-tower-engineering/022.webp",
+    "/projects/office-buildout-tower-engineering/025.webp",
+    "/projects/office-buildout-tower-engineering/028.webp",
+    "/projects/office-buildout-tower-engineering/029.webp",
+    "/projects/office-buildout-tower-engineering/031.webp",
+    "/projects/office-buildout-tower-engineering/033.webp",
+    "/projects/office-buildout-tower-engineering/035.webp",
+    "/projects/office-buildout-tower-engineering/038.webp",
+    "/projects/office-buildout-tower-engineering/042.webp"
+  ],
+  "date": "March 2021",
+  "location": "Pittsburgh, PA",
+  "description": "Large-scale commercial office buildout for Tower Engineering, transforming an open floor plate into a fully partitioned professional workspace. Scope included extensive metal-stud framing, drywall, suspended ceilings, and complete mechanical, electrical, and lighting rough-in across private offices, conference rooms, corridors, and open work areas.",
+  "challenge": "Dividing a large open commercial floor into a functional office layout on a tight schedule, while coordinating framing, drywall, ceiling grid, electrical, and HVAC trades simultaneously across the entire space and meeting commercial building codes.",
+  "solution": "Kletz Contracting sequenced the work floor-by-area, laying out and framing all partitions first, then running rough-ins before closing walls and hanging the suspended ceiling grid. Careful trade coordination kept the multi-room buildout moving efficiently from open shell to finished, move-in-ready office space.",
+  "features": [
+    "Metal-stud partition framing throughout",
+    "Drywall installation and finishing",
+    "Suspended acoustic ceiling grid",
+    "Private offices and conference rooms",
+    "Open-plan work areas and corridors",
+    "Electrical and lighting rough-in",
+    "HVAC and mechanical coordination",
+    "Insulation and sound control",
+    "Commercial-grade doors and hardware"
+  ],
+  "featured": true
+},
+    {
+  "id": "office-buildout-jks-financial",
+  "slug": "office-buildout-jks-financial",
+  "title": "Commercial Office Buildout - JKS Financial",
+  "category": "Commercial Construction",
+  "headerImage": "/projects/office-buildout-jks-financial/002.webp",
+  "thumbnailImage": "/projects/office-buildout-jks-financial/002.webp",
+  "galleryImages": [
+    "/projects/office-buildout-jks-financial/001.webp",
+    "/projects/office-buildout-jks-financial/003.webp",
+    "/projects/office-buildout-jks-financial/004.webp",
+    "/projects/office-buildout-jks-financial/005.webp",
+    "/projects/office-buildout-jks-financial/007.webp",
+    "/projects/office-buildout-jks-financial/006.webp",
+    "/projects/office-buildout-jks-financial/008.webp",
+    "/projects/office-buildout-jks-financial/009.webp"
+  ],
+  "date": "October 2020",
+  "location": "Pittsburgh, PA",
+  "description": "Commercial office buildout for JKS Financial, delivering a polished, modern workspace for a financial services firm. The project featured frameless glass-walled offices and conference rooms, custom wood casework and doors, accent-color feature walls, suspended ceilings, and full electrical and lighting work.",
+  "challenge": "Creating an upscale, client-facing financial office with an open, transparent feel required precise installation of frameless glass partitions and custom millwork while coordinating finishes, lighting, and ceiling work to a high standard of detail.",
+  "solution": "Kletz Contracting executed the buildout with an emphasis on clean, professional finishes — installing frameless glass office and conference room fronts, custom wood cabinetry and doors, and accent feature walls, paired with updated ceilings and lighting to deliver a bright, modern workspace.",
+  "features": [
+    "Frameless glass office and conference room walls",
+    "Custom wood casework and built-in cabinetry",
+    "Solid-core wood doors and hardware",
+    "Accent feature walls and professional paint finish",
+    "Suspended acoustic ceilings",
+    "Updated lighting and electrical work",
+    "Reception and client-facing areas",
+    "Interior partition framing and finishing"
+  ],
+  "featured": true
 }
   ]
 }
