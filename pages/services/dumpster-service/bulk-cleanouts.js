@@ -2,81 +2,10 @@ import Layout from "@/components/layout/Layout"
 import PageHead from "@/components/layout/PageHead"
 import LocalBusinessSchema from "@/components/LocalBusinessSchema"
 import Brand3 from "@/components/sections/Brand3"
+import DumpsterBookingCTA, { KD_BOOK } from "@/components/sections/DumpsterBookingCTA"
 import Link from "next/link"
-import { useState } from "react"
 
 export default function BulkCleanouts() {
-    // State for form data and submission status
-    const [formData, setFormData] = useState({
-        name: '',
-        email: '',
-        phone: '',
-        dumpster_size: '',
-        address: '',
-        city: '',
-        state: 'PA',
-        zip: '',
-        service_date: '',
-        cleanout_type: 'bulk'
-    });
-    const [isSubmitting, setIsSubmitting] = useState(false);
-    const [submitStatus, setSubmitStatus] = useState({
-        success: false,
-        error: null
-    });
-
-    // Handle input changes
-    const handleChange = (e) => {
-        const { name, value } = e.target;
-        setFormData(prevData => ({
-            ...prevData,
-            [name]: value
-        }));
-    };
-
-    // Handle form submission
-    const handleSubmit = async (e) => {
-        e.preventDefault();
-        setIsSubmitting(true);
-        setSubmitStatus({ success: false, error: null });
-        
-        try {
-            const response = await fetch('/api/dumpster-service/book', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json',
-                },
-                body: JSON.stringify(formData),
-            });
-            
-            const data = await response.json();
-            
-            if (!response.ok) {
-                throw new Error(data.error || 'Failed to submit booking');
-            }
-            
-            // Success
-            setSubmitStatus({ success: true, error: null });
-            // Reset form
-            setFormData({
-                name: '',
-                email: '',
-                phone: '',
-                dumpster_size: '',
-                address: '',
-                city: '',
-                state: 'PA',
-                zip: '',
-                service_date: '',
-                cleanout_type: 'bulk'
-            });
-        } catch (error) {
-            setSubmitStatus({ success: false, error: error.message });
-        } finally {
-            setIsSubmitting(false);
-        }
-    };
-
     return (
         <>
             <PageHead 
@@ -249,7 +178,7 @@ export default function BulkCleanouts() {
                                                                 <li className="mb-2"><i className="fas fa-check" style={{color: "#28a745"}}></i> Small apartment cleanout</li>
                                                                 <li className="mb-2"><i className="fas fa-check" style={{color: "#28a745"}}></i> Keep up to 7 days</li>
                                                             </ul>
-                                                            <a href="#booking-form" className="btn btn-danger btn-block">Reserve 12-Yard</a>
+                                                            <a href={KD_BOOK} target="_blank" rel="noopener noreferrer" className="btn btn-danger btn-block">Reserve 12-Yard</a>
                                                         </div>
                                                     </div>
                                                     <div className="col-md-6 mb-4">
@@ -265,7 +194,7 @@ export default function BulkCleanouts() {
                                                                 <li className="mb-2"><i className="fas fa-check" style={{color: "#28a745"}}></i> Major downsizing projects</li>
                                                                 <li className="mb-2"><i className="fas fa-check" style={{color: "#28a745"}}></i> Extended rental available</li>
                                                             </ul>
-                                                            <a href="#booking-form" className="btn btn-danger btn-block">Reserve 15-Yard</a>
+                                                            <a href={KD_BOOK} target="_blank" rel="noopener noreferrer" className="btn btn-danger btn-block">Reserve 15-Yard</a>
                                                         </div>
                                                     </div>
                                                 </div>
@@ -332,11 +261,11 @@ export default function BulkCleanouts() {
                                                         marginBottom: "20px"
                                                     }}>
                                                         <h2 style={{color: "white", margin: "0", fontSize: "32px"}}>
-                                                            (412) 200-2475
+                                                            (412) 219-7279
                                                         </h2>
                                                     </div>
                                                     <p className="mb-3" style={{fontSize: "16px", color:'white'}}>Compassionate service when you need it most</p>
-                                                    <a href="tel:4122002475" className="btn btn-light btn-lg w-100" style={{fontWeight: "bold"}}>
+                                                    <a href="tel:4122197279" className="btn btn-light btn-lg w-100" style={{fontWeight: "bold"}}>
                                                         <i className="fas fa-phone-alt"></i> Call for Free Consultation
                                                     </a>
                                                     <p className="mt-3 mb-0" style={{fontSize: "14px", color:'white'}}>
@@ -380,187 +309,10 @@ export default function BulkCleanouts() {
                         </div>
                     </section>
 
-                    <div className="cta-area text-center mt-60" id="booking-form">
-                        <h2 className="title mb-4">Let Us Help You Through This</h2>
-                        <p className="mb-4">Reserve your dumpster online or call us to discuss your specific needs. We're here to make this easier.</p>
-                        
-                        <div className="form-header" style={{
-                            width: '100%',
-                            borderRadius: '8px 8px 0 0',
-                            overflow: 'hidden',
-                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)'
-                        }}>
-                            <img 
-                                src="/assets/img/banner/dumpster_form_banner.png" 
-                                alt="Book Cleanout Dumpster" 
-                                style={{
-                                    width: '100%',
-                                    height: 'auto',
-                                    display: 'block'
-                                }}
-                            />
-                        </div>
-
-                        <div style={{
-                            background: 'white',
-                            padding: '30px',
-                            borderRadius: '0 0 8px 8px',
-                            boxShadow: '0 4px 15px rgba(0, 0, 0, 0.1)',
-                            border: '1px solid #eaeaea',
-                            borderTop: 'none'
-                        }}>
-                            {submitStatus.success && (
-                                <div className="alert alert-success" role="alert">
-                                    <h4>Thank You</h4>
-                                    <p>We've received your request and will contact you shortly to finalize details and answer any questions.</p>
-                                </div>
-                            )}
-                            
-                            {submitStatus.error && (
-                                <div className="alert alert-danger" role="alert">
-                                    <p>Error: {submitStatus.error}</p>
-                                </div>
-                            )}
-
-                            <form onSubmit={handleSubmit} className="booking-form">
-                                <div className="form-row">
-                                    <div className="col-md-6 mb-3">
-                                        <input 
-                                            type="text" 
-                                            name="name" 
-                                            value={formData.name}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            placeholder="Your Name" 
-                                            required 
-                                        />
-                                    </div>
-                                    <div className="col-md-6 mb-3">
-                                        <input 
-                                            type="email" 
-                                            name="email" 
-                                            value={formData.email}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            placeholder="Email Address" 
-                                            required 
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col-md-6 mb-3">
-                                        <input 
-                                            type="tel" 
-                                            name="phone" 
-                                            value={formData.phone}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            placeholder="Phone Number" 
-                                            required 
-                                        />
-                                    </div>
-                                    <div className="col-md-6 mb-3">
-                                        <select 
-                                            name="dumpster_size" 
-                                            value={formData.dumpster_size}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            required
-                                        >
-                                            <option value="">Select Dumpster Size</option>
-                                            <option value="12">12 Yard - $349 (1-2 rooms)</option>
-                                            <option value="15">15 Yard - $399 (whole house)</option>
-                                            <option value="unsure">Not Sure - Let's Discuss</option>
-                                        </select>
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col-md-12 mb-3">
-                                        <input 
-                                            type="text" 
-                                            name="address" 
-                                            value={formData.address}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            placeholder="Property Address" 
-                                            required 
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col-md-6 mb-3">
-                                        <input 
-                                            type="text" 
-                                            name="city" 
-                                            value={formData.city}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            placeholder="City" 
-                                            required 
-                                        />
-                                    </div>
-                                    <div className="col-md-3 mb-3">
-                                        <select 
-                                            name="state" 
-                                            value={formData.state}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            required
-                                        >
-                                            <option value="PA">PA</option>
-                                        </select>
-                                    </div>
-                                    <div className="col-md-3 mb-3">
-                                        <input 
-                                            type="text" 
-                                            name="zip" 
-                                            value={formData.zip}
-                                            onChange={handleChange}
-                                            pattern="[0-9]{5}(-[0-9]{4})?"
-                                            className="form-control"
-                                            placeholder="ZIP Code" 
-                                            required 
-                                        />
-                                    </div>
-                                </div>
-                                <div className="form-row">
-                                    <div className="col-md-12 mb-3">
-                                        <label>Preferred Delivery Date (flexible scheduling available)</label>
-                                        <input 
-                                            type="date" 
-                                            name="service_date" 
-                                            value={formData.service_date}
-                                            onChange={handleChange}
-                                            className="form-control"
-                                            required 
-                                        />
-                                    </div>
-                                </div>
-                                <button 
-                                    type="submit" 
-                                    className="btn btn-danger btn-lg"
-                                    disabled={isSubmitting}
-                                    style={{
-                                        background: 'linear-gradient(to right,#990000,rgb(99, 99, 99))',
-                                        border: 'none',
-                                        padding: '15px 40px'
-                                    }}
-                                >
-                                    {isSubmitting ? 
-                                        <span>
-                                            <i className="fas fa-circle-notch fa-spin" style={{marginRight: '10px'}}></i>
-                                            Processing...
-                                        </span> : 
-                                        <span>
-                                            <i className="fas fa-heart" style={{marginRight: '10px'}}></i>
-                                            Request Cleanout Service
-                                        </span>
-                                    }
-                                </button>
-                                <p className="mt-3 text-muted">Or call us at (412) 200-2475 to discuss your needs</p>
-                            </form>
-                        </div>
-                    </div>
+                    <DumpsterBookingCTA
+                        title="Let Us Help You Through This"
+                        description="Reserve your dumpster online through Kletz Dumpsters, our dedicated roll-off division. Pick your size, see your exact price, and choose a delivery date — we're here to make this easier."
+                    />
 
                     <Brand3 />
                 </div>
