@@ -262,4 +262,4 @@ Successful home renovations start with proper planning, and waste management is 
 
 At Kletz Contracting, we've supported Pittsburgh homeowners through thousands of renovation projects. Our 12 and 15-yard dumpsters are perfectly sized for residential projects, priced fairly at $349 and $399 all-inclusive. We deliver next day, place carefully, and pick up on schedule.
 
-Ready to start your renovation project? Call (412) 200-2475 to reserve your dumpster. Let our experience guide your project to successful, stress-free completion. Because when waste management is handled right, you can focus on creating the home of your dreams.
+Ready to start your renovation project? Call (412) 219-7279 to reserve your dumpster. Let our experience guide your project to successful, stress-free completion. Because when waste management is handled right, you can focus on creating the home of your dreams.

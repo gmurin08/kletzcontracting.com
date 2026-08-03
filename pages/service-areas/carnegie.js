@@ -185,8 +185,8 @@ export default function Carnegie() {
                                         <h4 className="sw-title">Get Your Free Carnegie Quote</h4>
                                         <div className="services-widget-contact">
                                             <p>Ready to protect your Carnegie home? Contact us today!</p>
-                                            <Link href="tel:412-200-2475" className="btn btn-primary w-100 mb-3">
-                                                <i className="fas fa-phone-alt mr-2"></i> Call (412) 200-2475
+                                            <Link href="tel:412-219-7279" className="btn btn-primary w-100 mb-3">
+                                                <i className="fas fa-phone-alt mr-2"></i> Call (412) 219-7279
                                             </Link>
                                             <Link href="/contact" className="btn btn-outline-primary w-100">
                                                 Request Free Estimate

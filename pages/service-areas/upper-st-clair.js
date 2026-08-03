@@ -186,8 +186,8 @@ export default function UpperStClair() {
                                         <h4 className="sw-title">Schedule Your Upper St. Clair Consultation</h4>
                                         <div className="services-widget-contact">
                                             <p>Ready to enhance your Upper St. Clair estate? Contact us for a private consultation.</p>
-                                            <Link href="tel:412-200-2475" className="btn btn-primary w-100 mb-3">
-                                                <i className="fas fa-phone-alt mr-2"></i> Call (412) 200-2475
+                                            <Link href="tel:412-219-7279" className="btn btn-primary w-100 mb-3">
+                                                <i className="fas fa-phone-alt mr-2"></i> Call (412) 219-7279
                                             </Link>
                                             <Link href="/contact" className="btn btn-outline-primary w-100">
                                                 Request Private Consultation

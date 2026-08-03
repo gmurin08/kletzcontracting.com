@@ -9,14 +9,14 @@ export default function Contact() {
         <>
             <Head>
                 <title>Contact Kletz Contracting | Pittsburgh Roofing & Remodeling | Free Estimates</title>
-                <meta name="description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 200-2475 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
+                <meta name="description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 219-7279 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
                 <meta property="og:title" content="Contact Kletz Contracting | Pittsburgh Roofing & Remodeling | Free Estimates" />
-                <meta property="og:description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 200-2475 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
+                <meta property="og:description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 219-7279 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
                 <meta property="og:type" content="website" />
                 <meta property="og:url" content="https://kletzcontracting.com/contact" />
                 <meta name="twitter:card" content="summary_large_image" />
                 <meta name="twitter:title" content="Contact Kletz Contracting | Pittsburgh Roofing & Remodeling | Free Estimates" />
-                <meta name="twitter:description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 200-2475 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
+                <meta name="twitter:description" content="Contact Kletz Contracting for professional roofing, siding, and remodeling services in Pittsburgh, PA. Call (412) 219-7279 for free estimates. Licensed contractors serving Allegheny County, Beaver County, and Washington County." />
             </Head>
             <Layout breadcrumbTitle="Contact Us">
                 <section className="contact-area pt-120 pb-120">
@@ -96,7 +96,7 @@ export default function Contact() {
                                             <div className="contact-info-item" >
                                                 <div className="icon"><i className="fas fa-phone-alt" /></div>
                                                 <div className="content">
-                                                <Link href="tel:4122002475">(412) 200-2475</Link>
+                                                <Link href="tel:4122197279">(412) 219-7279</Link>
                                                 </div>
                                             </div>
     

@@ -226,7 +226,7 @@ function generateCustomerConfirmationEmail({ booking, amount, logoUrl }) {
             </div>
           </div>
 
-          <p style="margin: 0 0 15px 0;">Questions? Contact us at <a href="tel:(412) 200-2475" style="color: #28a745;">(412) 200-2475</a> or reply to this email.</p>
+          <p style="margin: 0 0 15px 0;">Questions? Contact us at <a href="tel:(412) 219-7279" style="color: #28a745;">(412) 219-7279</a> or reply to this email.</p>
           <p style="margin: 0;">Thank you for choosing Kletz Contracting!</p>
         </div>
 

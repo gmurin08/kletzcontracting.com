@@ -74,9 +74,9 @@ export default function Rentals() {
                                             <h4 style={{ marginBottom: '15px' }}>Questions About Your Rental?</h4>
                                             <p style={{ marginBottom: '20px' }}>If you have any questions about the rental agreement or need assistance, our team is here to help.</p>
                                             <div style={{ display: 'flex', gap: '20px', flexWrap: 'wrap' }}>
-                                                <a href="tel:4122002475" className="btn">
+                                                <a href="tel:4122197279" className="btn">
                                                     <i className="fas fa-phone" style={{ marginRight: '8px' }}></i>
-                                                    Call (412) 200-2475
+                                                    Call (412) 219-7279
                                                 </a>
                                                 <Link href="/contact" className="btn btn-two">
                                                     Contact Us Online

@@ -181,13 +181,13 @@ export default function PaymentSuccess() {
                     Questions about your rental?
                   </p>
                   <p style={{ margin: '0 0 20px 0' }}>
-                    <a href="tel:+14122002475" style={{
+                    <a href="tel:+14122197279" style={{
                       color: '#28a745',
                       textDecoration: 'none',
                       fontWeight: '600',
                       fontSize: '18px'
                     }}>
-                      📞 (412) 200-2475
+                      📞 (412) 219-7279
                     </a>
                   </p>
                   <p style={{ margin: 0 }}>
@@ -204,7 +204,7 @@ export default function PaymentSuccess() {
             ) : (
               <div style={{ padding: '20px', color: '#666' }}>
                 <p>Unable to load booking details.</p>
-                <p>If you have questions, please contact us at (412) 200-2475</p>
+                <p>If you have questions, please contact us at (412) 219-7279</p>
               </div>
             )}
 

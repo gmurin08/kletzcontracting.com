@@ -387,7 +387,7 @@ function generateAcceptedEmail({ name, dumpsterSize, date, address, amount, cont
             </ul>
           </div>
           
-          <p>If you have any questions, please don't hesitate to contact us at (412) 200-2475.</p>
+          <p>If you have any questions, please don't hesitate to contact us at (412) 219-7279.</p>
           
           <div class="help-links">
             <a href="${baseUrl}faq">Frequently Asked Questions</a>

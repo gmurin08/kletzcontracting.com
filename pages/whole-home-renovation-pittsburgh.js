@@ -10,7 +10,7 @@ export default function WholeHomeRenovationPittsburgh() {
         <>
             <Head>
                 <title>Whole Home Renovation Pittsburgh | Complete Remodeling | Kletz Contracting</title>
-                <meta name="description" content="Complete whole home renovations in Pittsburgh. Kitchen, bathrooms, flooring, additions & more — all under one roof. Family-owned since 1985. Call (412) 200-2475 for a free estimate!" />
+                <meta name="description" content="Complete whole home renovations in Pittsburgh. Kitchen, bathrooms, flooring, additions & more — all under one roof. Family-owned since 1985. Call (412) 219-7279 for a free estimate!" />
                 <meta property="og:title" content="Whole Home Renovation Pittsburgh | Complete Remodeling | Kletz Contracting" />
                 <meta property="og:description" content="Complete whole home renovations in Pittsburgh. Kitchen, bathrooms, flooring, additions & more — all under one roof. Free estimates!" />
                 <meta property="og:type" content="website" />
@@ -27,9 +27,9 @@ export default function WholeHomeRenovationPittsburgh() {
                             <img src="/assets/img/logo/kletz-logo-rs.svg" alt="Kletz Contracting" style={{ maxWidth: '200px' }} />
                         </div>
                         <div className="col-6 text-end">
-                            <a href="tel:4122002475" style={{ color: '#ffc107', fontSize: '1.3rem', fontWeight: 'bold', textDecoration: 'none' }}>
+                            <a href="tel:4122197279" style={{ color: '#ffc107', fontSize: '1.3rem', fontWeight: 'bold', textDecoration: 'none' }}>
                                 <i className="fas fa-phone-alt" style={{ marginRight: '8px' }}></i>
-                                (412) 200-2475
+                                (412) 219-7279
                             </a>
                         </div>
                     </div>
@@ -71,8 +71,8 @@ export default function WholeHomeRenovationPittsburgh() {
                                 <a href="#contact-form" className="btn btn-two" style={{ fontSize: '1.1rem', padding: '14px 30px' }}>
                                     Get Your Free Estimate
                                 </a>
-                                <a href="tel:4122002475" className="btn" style={{ fontSize: '1.1rem', padding: '14px 30px' }}>
-                                    Call (412) 200-2475
+                                <a href="tel:4122197279" className="btn" style={{ fontSize: '1.1rem', padding: '14px 30px' }}>
+                                    Call (412) 219-7279
                                 </a>
                             </div>
                         </div>
@@ -293,7 +293,7 @@ export default function WholeHomeRenovationPittsburgh() {
                         &copy; {new Date().getFullYear()} Kletz Contracting LLC | 1468 Old Steubenville Pike, Suite D, Pittsburgh, PA 15205
                     </p>
                     <p style={{ marginBottom: 0 }}>
-                        <a href="tel:4122002475" style={{ color: '#ffc107', textDecoration: 'none', fontWeight: 'bold' }}>(412) 200-2475</a>
+                        <a href="tel:4122197279" style={{ color: '#ffc107', textDecoration: 'none', fontWeight: 'bold' }}>(412) 219-7279</a>
                         <span style={{ color: 'rgba(255,255,255,0.4)', margin: '0 15px' }}>|</span>
                         <a href="mailto:john@kletzcontracting.com" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>john@kletzcontracting.com</a>
                     </p>

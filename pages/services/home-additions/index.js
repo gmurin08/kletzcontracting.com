@@ -315,7 +315,7 @@ export default function ServiceDetails(props) {
                                                     </div>
                                                 </div>
                                                 <p className="mt-3"><i className="fas fa-map-marker-alt"></i> 1468 Old Steubenville Pike, suite d, Pittsburgh, PA 15205</p>
-                                                <p><i className="fas fa-phone"></i> (412) 200-2475</p>
+                                                <p><i className="fas fa-phone"></i> (412) 219-7279</p>
                                             </div>
                                         </div>
                                     </aside>

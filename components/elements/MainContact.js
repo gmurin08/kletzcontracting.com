@@ -372,7 +372,7 @@ const ContactForm = () => {
     }}>
       If you have any questions before then, don't hesitate to reach out at{' '}
       <strong>john@kletzcontracting.com</strong> or call{' '}<br/>
-      <strong>(412) 200-2475</strong>.
+      <strong>(412) 219-7279</strong>.
     </p>
   </div>
 ) : (

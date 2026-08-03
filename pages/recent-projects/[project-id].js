@@ -116,7 +116,7 @@ export default function ProjectDetails({ project, relatedProjects }) {
                                             <h4 className="widget-title">Need Your Help?</h4>
                                             <div className="project-contact">
                                                 <ul className="list-wrap">
-                                                    <li><i className="fas fa-phone-alt" />(412) 200-2475</li>
+                                                    <li><i className="fas fa-phone-alt" />(412) 219-7279</li>
                                                     <li><i className="fas fa-envelope" />john@kletzcontracting.com</li>
                                                     <li><i className="fas fa-map-marker-alt" />1468 Steubenville Pike Suite D<br />Pittsburgh, PA 15205</li>
                                                 </ul>

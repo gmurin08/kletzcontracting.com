@@ -53,7 +53,7 @@ export default function ThankYou() {
         }}>
           If you have any questions before then, don't hesitate to reach out at{' '}
           <strong>john@kletzcontracting.com</strong> or call{' '}<br/>
-          <strong>(412) 200-2475</strong>.
+          <strong>(412) 219-7279</strong>.
         </p>
                                     
                                 </div>
@@ -68,7 +68,7 @@ export default function ThankYou() {
                                             <div className="contact-info-item" >
                                                 <div className="icon"><i className="fas fa-phone-alt" /></div>
                                                 <div className="content">
-                                                <Link href="tel:4122002475">(412) 200-2475</Link>
+                                                <Link href="tel:4122197279">(412) 219-7279</Link>
                                                 </div>
                                             </div>
     

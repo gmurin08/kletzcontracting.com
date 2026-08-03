@@ -15,7 +15,7 @@ export default function LocalBusinessSchema() {
       "height": 60
     },
     "url": "https://kletzcontracting.com",
-    "telephone": "+1-412-200-2475",
+    "telephone": "+1-412-219-7279",
     "email": "john@kletzcontracting.com",
     "address": {
       "@type": "PostalAddress",

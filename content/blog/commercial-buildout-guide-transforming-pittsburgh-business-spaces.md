@@ -282,4 +282,4 @@ At Kletz Contracting, we bring extensive experience in commercial remodeling to 
 
 From initial planning through final inspection, we manage every aspect of your commercial buildout with professionalism and attention to detail. Our commitment to clear communication and quality craftsmanship ensures your business space meets your exact needs.
 
-Contact us at (412) 200-2475 to discuss your commercial buildout project. Let's create a space that supports your business goals and impresses your customers.
+Contact us at (412) 219-7279 to discuss your commercial buildout project. Let's create a space that supports your business goals and impresses your customers.

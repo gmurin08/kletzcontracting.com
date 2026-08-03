@@ -246,6 +246,6 @@ Well-intentioned homeowner attempts often:
 
 At Kletz Contracting, our 24/7 emergency response team stands ready when Pittsburgh weather strikes. With nearly 30 years of experience, we've handled every conceivable roofing emergency. Our rapid response protocol ensures we're on-site within 2-4 hours, equipped to protect your home and minimize damage.
 
-Don't wait until emergency strikes. Save our emergency hotline: (412) 200-2475. When roof problems can't wait, neither should you. Our expert teams provide immediate protection, insurance documentation support, and seamless transition to permanent repairs once weather permits.
+Don't wait until emergency strikes. Save our emergency hotline: (412) 219-7279. When roof problems can't wait, neither should you. Our expert teams provide immediate protection, insurance documentation support, and seamless transition to permanent repairs once weather permits.
 
 Remember: In roofing emergencies, professional response time directly correlates to damage limitation and repair costs. Trust the experts who've protected Pittsburgh homes through countless storms. We're here when you need us most.

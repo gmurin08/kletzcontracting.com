@@ -91,12 +91,12 @@ export default function Footer1() {
                                     <div className="col-xl-4 col-lg-4 col-md-6">
                                         <div className="footer-contact">
                                             <div className="icon">
-                                                <Link href="tel:4122002475">
+                                                <Link href="tel:4122197279">
                                                     <i className="fas fa-phone-alt" />
                                                 </Link>
                                             </div>
                                             <div className="content">
-                                                <Link href="tel:4122002475">(412) 200-2475</Link>
+                                                <Link href="tel:4122197279">(412) 219-7279</Link>
                                             </div>
                                         </div>
                                     </div>

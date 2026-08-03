@@ -60,7 +60,7 @@ export default function Header({ headerCls, headerTop }) {
                                 <div className="header-top-left">
                                     <ul className="list-wrap">
                                         <li>Welcome to Kletz Contracting</li>
-                                        <li><i className="fas fa-phone-alt" /><Link href="tel:4122002475">(412) 200-2475</Link></li>
+                                        <li><i className="fas fa-phone-alt" /><Link href="tel:4122197279">(412) 219-7279</Link></li>
                                         <li><i className="fas fa-envelope" /><Link href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</Link></li>
                                     </ul>
                                 </div>

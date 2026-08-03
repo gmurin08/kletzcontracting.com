@@ -360,7 +360,7 @@ export default function ServiceDetails(props) {
                                             <h4 className="widget-title">Need Help Now?</h4>
                                             <div className="emergency-info">
                                                 <div className="text-center mb-3">
-                                                    <h3 style={{color: "#E74C3C"}}><i className="fas fa-phone-alt"></i> (412) 200-2475</h3>
+                                                    <h3 style={{color: "#E74C3C"}}><i className="fas fa-phone-alt"></i> (412) 219-7279</h3>
                                                     <p className="mb-2"><strong>24/7 Emergency Service</strong></p>
                                                 </div>
                                                 <div className="quick-response-times p-3" style={{backgroundColor: "#f8f9fa", borderRadius: "8px"}}>

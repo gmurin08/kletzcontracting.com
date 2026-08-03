@@ -44,7 +44,7 @@ export default function EmergencyLeakRepair(props) {
                                                 </h3>
                                                 <div className="text-center">
                                                     <h2 style={{color: "#E74C3C", marginBottom: "10px"}}>
-                                                        <i className="fas fa-phone-alt"></i> (412) 200-2475
+                                                        <i className="fas fa-phone-alt"></i> (412) 219-7279
                                                     </h2>
                                                     <p className="mb-2"><strong>Average Response Time: 2-4 Hours</strong></p>
                                                     <p>Don't let water damage get worse. Call now for immediate help!</p>
@@ -255,11 +255,11 @@ export default function EmergencyLeakRepair(props) {
                                                         marginBottom: "20px"
                                                     }}>
                                                         <h2 style={{color: "white", margin: "0", fontSize: "32px"}}>
-                                                            <i className="fas fa-phone-alt"></i> (412) 200-2475
+                                                            <i className="fas fa-phone-alt"></i> (412) 219-7279
                                                         </h2>
                                                     </div>
                                                     <p className="mb-3" style={{fontSize: "18px", fontWeight: "500", color:'white'}}>Don't let damage get worse!</p>
-                                                    <a href="tel:4122002475" className="btn btn-light btn-lg w-100" style={{fontWeight: "bold"}}>
+                                                    <a href="tel:4122197279" className="btn btn-light btn-lg w-100" style={{fontWeight: "bold"}}>
                                                         <i className="fas fa-phone-alt"></i> Call Now for Help
                                                     </a>
                                                     <p className="mt-3 mb-0" style={{fontSize: "16px", color:'white'}}>
@@ -307,7 +307,7 @@ export default function EmergencyLeakRepair(props) {
                     
                     <div className="cta-area mt-60" style={{display:"flex", flexDirection:'column'}} >
                         <h2 className="title text-center">Need Emergency Roof Repair? We're Ready to Help!</h2>
-                        <p className="text-center" style={{paddingBottom:"20px"}}><strong>For immediate assistance, call (412) 200-2475</strong></p>
+                        <p className="text-center" style={{paddingBottom:"20px"}}><strong>For immediate assistance, call (412) 219-7279</strong></p>
                         <p className="text-center mb-4">For non-emergency repairs or to schedule a roof inspection, complete the form below:</p>
                         <div id="contact-form">
                             <MainContact/>
@@ -325,7 +325,7 @@ export async function getStaticProps() {
     return {
         props: {
             metaTitle: "24/7 Emergency Roof Leak Repair Pittsburgh | Kletz Contracting",
-            metaDescription: "Roof leaking? Get emergency repair in 2-4 hours. Available 24/7 for urgent roof leaks, storm damage, and water intrusion. Call (412) 200-2475 now!",
+            metaDescription: "Roof leaking? Get emergency repair in 2-4 hours. Available 24/7 for urgent roof leaks, storm damage, and water intrusion. Call (412) 219-7279 now!",
             canonicalUrl: "https://www.kletzcontracting.com/services/roofing/emergency-leak-repair",
             serviceSchema: {
                 "@context": "https://schema.org",
@@ -336,7 +336,7 @@ export async function getStaticProps() {
                     "@type": "RoofingContractor",
                     "name": "Kletz Contracting",
                     "url": "https://kletzcontracting.com",
-                    "telephone": "+14122002475",
+                    "telephone": "+14122197279",
                     "priceRange": "$$"
                 },
                 "areaServed": [

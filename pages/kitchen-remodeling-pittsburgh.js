@@ -48,7 +48,7 @@ function QuickForm() {
             </button>
             {error && <p style={{ color: '#E74C3C', marginTop: '8px', fontSize: '0.85rem' }}>{error}</p>}
             <p style={{ color: '#999', fontSize: '0.75rem', marginTop: '8px', marginBottom: 0, textAlign: 'center' }}>
-                Or call now: <a href="tel:4122002475" style={{ color: '#E74C3C', fontWeight: 700 }}>(412) 200-2475</a>
+                Or call now: <a href="tel:4122197279" style={{ color: '#E74C3C', fontWeight: 700 }}>(412) 219-7279</a>
             </p>
         </form>
     )
@@ -60,7 +60,7 @@ export default function KitchenRemodelingPittsburgh() {
         <>
             <Head>
                 <title>Kitchen Remodeling Pittsburgh | Free Estimates | Kletz Contracting</title>
-                <meta name="description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1996. Call (412) 200-2475 for a free estimate!" />
+                <meta name="description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1996. Call (412) 219-7279 for a free estimate!" />
                 <meta property="og:title" content="Kitchen Remodeling Pittsburgh | Free Estimates | Kletz Contracting" />
                 <meta property="og:description" content="Transform your kitchen with Pittsburgh's trusted remodeling experts. Custom cabinetry, countertops, flooring & more. Family-owned since 1996. Free estimates!" />
                 <meta property="og:type" content="website" />
@@ -78,9 +78,9 @@ export default function KitchenRemodelingPittsburgh() {
                             <img src="/assets/img/logo/kletz-logo-rs.svg" alt="Kletz Contracting" style={{ maxWidth: '200px' }} />
                         </div>
                         <div className="col-6 text-end">
-                            <a href="tel:4122002475" style={{ color: '#ffc107', fontSize: '1.3rem', fontWeight: 'bold', textDecoration: 'none' }}>
+                            <a href="tel:4122197279" style={{ color: '#ffc107', fontSize: '1.3rem', fontWeight: 'bold', textDecoration: 'none' }}>
                                 <i className="fas fa-phone-alt" style={{ marginRight: '8px' }}></i>
-                                (412) 200-2475
+                                (412) 219-7279
                             </a>
                         </div>
                     </div>
@@ -116,9 +116,9 @@ export default function KitchenRemodelingPittsburgh() {
                                 </span>
                             </div>
                             <div className="d-none d-lg-flex" style={{ gap: '12px' }}>
-                                <a href="tel:4122002475" className="btn" style={{ fontSize: '1.1rem', padding: '12px 28px', backgroundColor: '#ffc107', color: '#131944', fontWeight: 700 }}>
+                                <a href="tel:4122197279" className="btn" style={{ fontSize: '1.1rem', padding: '12px 28px', backgroundColor: '#ffc107', color: '#131944', fontWeight: 700 }}>
                                     <i className="fas fa-phone-alt" style={{ marginRight: '8px' }}></i>
-                                    Call (412) 200-2475
+                                    Call (412) 219-7279
                                 </a>
                             </div>
                         </div>
@@ -343,7 +343,7 @@ export default function KitchenRemodelingPittsburgh() {
                         &copy; {new Date().getFullYear()} Kletz Contracting LLC | 1468 Old Steubenville Pike, Suite D, Pittsburgh, PA 15205
                     </p>
                     <p style={{ marginBottom: 0 }}>
-                        <a href="tel:4122002475" style={{ color: '#ffc107', textDecoration: 'none', fontWeight: 'bold' }}>(412) 200-2475</a>
+                        <a href="tel:4122197279" style={{ color: '#ffc107', textDecoration: 'none', fontWeight: 'bold' }}>(412) 219-7279</a>
                         <span style={{ color: 'rgba(255,255,255,0.4)', margin: '0 15px' }}>|</span>
                         <a href="mailto:john@kletzcontracting.com" style={{ color: 'rgba(255,255,255,0.6)', textDecoration: 'none' }}>john@kletzcontracting.com</a>
                     </p>

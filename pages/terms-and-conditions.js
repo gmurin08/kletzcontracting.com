@@ -71,7 +71,7 @@ export default function TermsAndConditions() {
                         1468 Old Steubenville Pike, Suite D<br />
                         Pittsburgh, PA 15205<br />
                         Email: <a href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</a><br />
-                        Phone: <a href="tel:4122002475">(412) 200-2475</a><br />
+                        Phone: <a href="tel:4122197279">(412) 219-7279</a><br />
                         <br />
                         <em>Effective Date: January 1, 2024</em>
                     </address>

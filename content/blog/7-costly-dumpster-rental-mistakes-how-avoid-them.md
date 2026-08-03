@@ -243,6 +243,6 @@ Experienced rental companies help avoid these mistakes through:
 
 Armed with this knowledge, your next dumpster rental should be smooth, predictable, and budget-friendly. At Kletz Contracting, our flat-rate pricing and expert guidance eliminate surprises. We've helped thousands of Pittsburgh homeowners complete projects without the common pitfalls.
 
-Our commitment: No hidden fees, honest recommendations, and local expertise that keeps your project on track and on budget. Call (412) 200-2475 to discuss your project. We'll help you avoid every mistake in this guide and ensure your rental experience is refreshingly simple.
+Our commitment: No hidden fees, honest recommendations, and local expertise that keeps your project on track and on budget. Call (412) 219-7279 to discuss your project. We'll help you avoid every mistake in this guide and ensure your rental experience is refreshingly simple.
 
 Because the only mistake worse than these seven is not calling experienced professionals who help you avoid them all.
