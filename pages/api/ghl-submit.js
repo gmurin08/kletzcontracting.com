@@ -1,19 +1,17 @@
-
 // /pages/api/ghl-submit.js (for Pages Router)
+import { buildContactCustomFields, ghlHeaders } from '../../lib/ghl';
+
 export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
     const { name, email, phone, url, notes, zip } = req.body;
-  
+
     try {
+      const customFields = await buildContactCustomFields(notes);
+
       const response = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.GHL_API_KEY}`,
-          'Content-Type': 'application/json',
-          Version: '2021-07-28',
-          Accept: 'application/json'
-        },
+        headers: ghlHeaders(),
         body: JSON.stringify({
             "name": `${name}`,
             "email": `${email}`,
@@ -24,24 +22,18 @@ export default async function handler(req, res) {
             "tags": [
               "website_lead"
             ],
-            "customFields": [
-              {
-                "id": `${process.env.GHL_NOTES_FIELD}`,
-                "key": "notes",
-                "field_value": `${notes}`
-              }
-            ],
+            "customFields": customFields,
             "source": `Website Contact Form - ${url}`,
             "country": "US"
           }),
       });
-  
+
       if (!response.ok) {
         const error = await response.text();
         console.log(error)
         return res.status(500).json({ error });
       }
-  
+
       const data = await response.json();
       res.status(200).json({ success: true, data });
     } catch (err) {
@@ -49,4 +41,3 @@ export default async function handler(req, res) {
       res.status(500).json({ error: err.message });
     }
   }
-  

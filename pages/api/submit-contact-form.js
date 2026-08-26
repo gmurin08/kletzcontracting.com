@@ -1,6 +1,7 @@
 // /pages/api/submit-contact-form.js
 import nodemailer from 'nodemailer';
 import crypto from 'crypto';
+import { buildContactCustomFields, ghlHeaders } from '../../lib/ghl';
 
 // Parse cookies from request
 function parseCookies(cookieHeader) {
@@ -21,7 +22,7 @@ export default async function handler(req, res) {
   
     // Extract form data as before
     const { firstName, lastName, email, phone, address, city, state, country, postalCode, notes } = req.body;
-    const name = `${firstName} ${lastName}`;
+    const name = `${firstName} ${lastName}`.trim();
     const url = req.headers.referer || 'Direct Form';
     
     // Parse cookies
@@ -34,15 +35,12 @@ export default async function handler(req, res) {
     const eventId = crypto.randomUUID();
   
     try {
+      const customFields = await buildContactCustomFields(notes);
+
       // Create/update contact
       const contactResponse = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.GHL_API_KEY}`,
-          'Content-Type': 'application/json',
-          Version: '2021-07-28',
-          Accept: 'application/json'
-        },
+        headers: ghlHeaders(),
         body: JSON.stringify({
           "name": name,
           "email": email,
@@ -55,11 +53,7 @@ export default async function handler(req, res) {
           "postalCode": postalCode,
           "timezone": "America/New_York",
           "tags": ["website_lead", "contact_form"],
-          "customFields": [{
-            "id": `${process.env.GHL_NOTES_FIELD}`,
-            "key": "notes",
-            "field_value": notes
-          }],
+          "customFields": customFields,
           "source": `Website Contact Form - ${url}`
         }),
       });
@@ -83,12 +77,7 @@ export default async function handler(req, res) {
       // Create opportunity with initial status
       const opportunityResponse = await fetch('https://services.leadconnectorhq.com/opportunities/upsert', {
         method: 'POST',
-        headers: {
-          Authorization: `Bearer ${process.env.GHL_API_KEY}`,
-          'Content-Type': 'application/json',
-          Version: '2021-07-28',
-          Accept: 'application/json'
-        },
+        headers: ghlHeaders(),
         body: JSON.stringify(opportunityBody),
       });
       
