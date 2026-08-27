@@ -85,6 +85,21 @@ export default function PrivacyPolicy() {
                     <h4 style={styles.subheading}>Children Under 13</h4>
                     <p style={styles.paragraph}>We do not knowingly collect personal information from children under the age of 13. If you are under 13, please ask a parent or guardian before using this site.</p>
 
+                    <h4 style={styles.subheading}>SMS/Text Messaging &amp; Mobile Information</h4>
+                    <p style={styles.paragraph}>When you provide your mobile phone number and opt in, we may use it to send SMS or MMS messages related to your inquiry, estimate, scheduled appointments, project updates, customer support, or other operational communications. If you separately opt in to marketing messages, we may also send promotional SMS or MMS messages, such as seasonal service reminders and special offers, at a frequency of no more than 2 messages per month.</p>
+                    <p style={styles.paragraph}><strong>No mobile information will be shared with third parties or affiliates for marketing or promotional purposes.</strong> Information sharing with subcontractors that provide support services, such as customer service and message delivery, is permitted. All other use case categories exclude text messaging originator opt-in data and consent; this information will not be shared with any third parties.</p>
+                    <ul style={styles.list}>
+                        <li>Your mobile number will only be used for the purposes described at the time of opt-in</li>
+                        <li>We may share limited information with service providers (such as telecommunications carriers or messaging platforms) solely to deliver messages and maintain compliance with applicable laws</li>
+                        <li>You may opt out of SMS communications at any time by replying STOP to any message</li>
+                        <li>For help, reply HELP or contact us at <a href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</a> or <a href="tel:4122197279">(412) 219-7279</a></li>
+                        <li>Message and data rates may apply depending on your mobile carrier and plan</li>
+                        <li>Message frequency varies based on your interaction with our services</li>
+                        <li>Consent to receive SMS messages is not a condition of purchase</li>
+                        <li>You must be 18 years of age or older to use this SMS service</li>
+                        <li>Carriers are not liable for delayed or undelivered messages</li>
+                    </ul>
+
                     <h4 style={styles.subheading}>Email Communication</h4>
                     <p style={styles.paragraph}>We may occasionally contact you via email for promotions, updates, or surveys. You may opt out of these communications at any time.</p>
 
@@ -100,7 +115,7 @@ export default function PrivacyPolicy() {
                         Email: <a href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</a><br />
                         Phone: <a href="tel:4122197279">(412) 219-7279</a><br />
                         <br />
-                        <em>Effective Date: January 1, 2024</em>
+                        <em>Effective Date: January 1, 2024<br />Last Updated: August 27, 2026</em>
                     </address>
                 </div>
             </section>
@@ -114,4 +129,4 @@ export async function getStaticProps() {
       props: {}, // you can pass props here if needed
     };
   }
-  
+  

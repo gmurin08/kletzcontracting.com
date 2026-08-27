@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react';
 import { useRouter } from 'next/navigation';
+import SmsConsent, { consentFields, emptyConsent } from './SmsConsent';
 
 const ContactForm = () => {
   const router = useRouter();
@@ -195,7 +196,7 @@ const ContactForm = () => {
     country: 'United States',
     postalCode: '',
     notes: '',
-    agreeToTerms: false
+    ...emptyConsent
   });
 
   const [formErrors, setFormErrors] = useState({});
@@ -216,7 +217,6 @@ const ContactForm = () => {
     
     if (!formData.phone) errors.phone = 'Phone number is required';
     if (!formData.email) errors.email = 'Email is required';
-    // if (!formData.agreeToTerms) errors.agreeToTerms = 'You must agree to the terms';
     
     setFormErrors(errors);
     return Object.keys(errors).length === 0;
@@ -272,6 +272,7 @@ const ContactForm = () => {
         },
         body: JSON.stringify({
           ...formData,
+          ...consentFields(formData),
           ga_client_id,
           ga_session_id
         })
@@ -291,7 +292,7 @@ const ContactForm = () => {
         country: 'United States',
         postalCode: '',
         notes: '',
-        agreeToTerms: false
+        ...emptyConsent
       });
     } catch (error) {
       setSubmitError(error.message);
@@ -523,8 +524,12 @@ const ContactForm = () => {
               ></textarea>
             </div>
             
-            
-            {formErrors.agreeToTerms && <div style={styles.errorMessage}>{formErrors.agreeToTerms}</div>}
+
+            <SmsConsent
+              smsOptIn={formData.smsOptIn}
+              smsMarketingOptIn={formData.smsMarketingOptIn}
+              onChange={handleChange}
+            />
             
             {submitError && <div style={styles.errorBanner}>{submitError}</div>}
             <div style={{display:'flex',justifyContent:"center"}}>
@@ -551,4 +556,4 @@ const ContactForm = () => {
   );
 };
 
-export default ContactForm;
+export default ContactForm;

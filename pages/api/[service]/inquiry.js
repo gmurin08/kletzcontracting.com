@@ -12,6 +12,7 @@ const CORE_FIELDS = new Set([
   'name', 'firstName', 'lastName', 'email', 'phone', 'address',
   'city', 'state', 'country', 'postalCode', 'zip', 'message', 'notes',
   'ga_client_id', 'ga_session_id', 'agreeToTerms',
+  'smsOptIn', 'smsMarketingOptIn', 'consentLanguage', 'consentPageUrl',
 ]);
 
 function labelFor(key) {
@@ -52,6 +53,11 @@ export default async function handler(req, res) {
     notes: formatProjectDescription(body.message || body.notes, details),
     ga_client_id: body.ga_client_id,
     ga_session_id: body.ga_session_id,
+    // Consent travels as structured flags, never as a project-description line.
+    smsOptIn: body.smsOptIn,
+    smsMarketingOptIn: body.smsMarketingOptIn,
+    consentLanguage: body.consentLanguage,
+    consentPageUrl: body.consentPageUrl,
   };
 
   return contactFormHandler(req, res);

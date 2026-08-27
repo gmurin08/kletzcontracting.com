@@ -58,6 +58,19 @@ export default function TermsAndConditions() {
                     <h4 style={styles.subheading}>Third-Party Links</h4>
                     <p style={styles.paragraph}>Our Site may contain links to third-party websites. We are not responsible for the content or privacy practices of these other sites.</p>
 
+                    <h4 style={styles.subheading}>SMS/Text Messaging</h4>
+                    <p style={styles.paragraph}>By providing your mobile phone number and opting in, you consent to receive SMS and/or MMS messages from Kletz Contracting (Kletz Contracting LLC) related to your inquiry, estimates, appointment confirmations, project and scheduling updates, customer support, and other operational communications. If you separately opt in to marketing messages, you also consent to receive promotional SMS and/or MMS messages, such as seasonal service reminders and special offers.</p>
+                    <ul style={styles.list}>
+                        <li>Message frequency varies based on your interaction with our services. Recipients of promotional messages will receive no more than 2 messages per month</li>
+                        <li>You may opt out at any time by replying STOP to any message. You may receive a confirmation message confirming your opt-out</li>
+                        <li>For assistance, reply HELP or contact us at <a href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</a> or <a href="tel:4122197279">(412) 219-7279</a></li>
+                        <li>Message and data rates may apply</li>
+                        <li>Consent to receive SMS messages is not a condition of purchase</li>
+                        <li>We do not sell or share your mobile number with third parties for their marketing purposes</li>
+                        <li>You must be 18 years of age or older to use this SMS service</li>
+                        <li>Carriers are not liable for delayed or undelivered messages</li>
+                    </ul>
+
                     <h4 style={styles.subheading}>Changes to This Agreement</h4>
                     <p style={styles.paragraph}>We reserve the right to modify these Terms and Conditions at any time. Any changes will be posted on this page with an updated effective date. Your continued use of the Site signifies your acceptance of any modifications.</p>
 
@@ -73,7 +86,7 @@ export default function TermsAndConditions() {
                         Email: <a href="mailto:john@kletzcontracting.com">john@kletzcontracting.com</a><br />
                         Phone: <a href="tel:4122197279">(412) 219-7279</a><br />
                         <br />
-                        <em>Effective Date: January 1, 2024</em>
+                        <em>Effective Date: January 1, 2024<br />Last Updated: August 27, 2026</em>
                     </address>
                 </div>
             </section>
@@ -87,4 +100,4 @@ export async function getStaticProps() {
       props: {}, // you can pass props here if needed
     };
   }
-  
+  

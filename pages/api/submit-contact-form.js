@@ -21,7 +21,8 @@ export default async function handler(req, res) {
     if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
   
     // Extract form data as before
-    const { firstName, lastName, email, phone, address, city, state, country, postalCode, notes } = req.body;
+    const { firstName, lastName, email, phone, address, city, state, country, postalCode, notes,
+            smsOptIn, smsMarketingOptIn, source, consentLanguage, consentPageUrl } = req.body;
     const name = `${firstName} ${lastName}`.trim();
     const url = req.headers.referer || 'Direct Form';
     
@@ -35,7 +36,32 @@ export default async function handler(req, res) {
     const eventId = crypto.randomUUID();
   
     try {
-      const customFields = await buildContactCustomFields(notes);
+      // A2P/10DLC: record what was consented to, when, and from where, so the
+      // opt-in can be evidenced if a carrier or the recipient ever challenges it.
+      // Forms that don't collect consent send neither flag and are unaffected.
+      const consentedAt = new Date().toISOString();
+      const consentLines = [];
+      if (smsOptIn || smsMarketingOptIn) {
+        consentLines.push('--- SMS Consent ---');
+        consentLines.push(`Informational SMS: ${smsOptIn ? 'Yes' : 'No'}`);
+        consentLines.push(`Marketing SMS: ${smsMarketingOptIn ? 'Yes' : 'No'}`);
+        consentLines.push(`Captured: ${consentedAt}`);
+        consentLines.push(`Page: ${consentPageUrl || url}`);
+        consentLines.push(`IP: ${clientIp}`);
+        if (consentLanguage?.informational) consentLines.push(`Informational consent text: "${consentLanguage.informational}"`);
+        if (consentLanguage?.marketing) consentLines.push(`Marketing consent text: "${consentLanguage.marketing}"`);
+      }
+
+      const notesWithConsent = [notes, consentLines.join('\n')]
+        .filter((part) => (part || '').trim())
+        .join('\n\n');
+
+      const tags = ["website_lead", "contact_form"];
+      if (source) tags.push(source);
+      if (smsOptIn) tags.push("sms-opt-in");
+      if (smsMarketingOptIn) tags.push("sms-marketing-opt-in");
+
+      const customFields = await buildContactCustomFields(notesWithConsent);
 
       // Create/update contact
       const contactResponse = await fetch('https://services.leadconnectorhq.com/contacts/upsert', {
@@ -52,7 +78,7 @@ export default async function handler(req, res) {
           "country": country || "US",
           "postalCode": postalCode,
           "timezone": "America/New_York",
-          "tags": ["website_lead", "contact_form"],
+          "tags": tags,
           "customFields": customFields,
           "source": `Website Contact Form - ${url}`
         }),
@@ -452,4 +478,4 @@ async function trackGoogleAnalytics(data) {
   
   // GA4 MP returns 204 No Content on success
   return { success: true };
-}
+}
